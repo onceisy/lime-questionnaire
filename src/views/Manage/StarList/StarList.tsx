@@ -1,10 +1,11 @@
+import QuestionList from '@/components/QuestionList/QuestionList';
 import React, { FC } from 'react';
 
 const StarList: FC = () => {
   return (
-    <div>
-      <h1>StarList</h1>
-    </div>
+    <>
+      <QuestionList title="标星问卷"></QuestionList>
+    </>
   );
 };
 

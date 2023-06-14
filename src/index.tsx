@@ -4,7 +4,7 @@ import MyApp from './App';
 import { App } from 'antd';
 import reportWebVitals from './reportWebVitals';
 import { ConfigProvider } from 'antd';
-import './index.css';
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

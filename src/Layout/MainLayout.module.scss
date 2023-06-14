@@ -1,0 +1,14 @@
+.main-container {
+  background-image: url('../assets/images/background.jpg');
+  background-size: cover;
+  :global {
+    .ant-layout {
+      background-color: rgba($color: #ffffff, $alpha: 0.9);
+    }
+  }
+  :global {
+    .ant-layout-content {
+      min-height: calc(100vh - 64px - 70px);
+    }
+  }
+}

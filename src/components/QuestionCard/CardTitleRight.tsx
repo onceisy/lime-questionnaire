@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
-import styles from './CardTitleRight.module.scss';
 import { Space, Tag } from 'antd';
-import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, ClockCircleOutlined, StarFilled } from '@ant-design/icons';
 import type Question from './Question';
 
 const CardTitleRight: FC<Question> = (props: Question) => {
-  const { _id, isPublished, isStar, answerCount, createdAt } = props;
+  const { isPublished, isStar, answerCount, createdAt } = props;
   return (
-    <div className={styles['card-title-right']}>
-      <Space>
-        <span>id: {_id}</span>
+    <div>
+      <Space align="center">
+        {isStar && (
+          <StarFilled style={{ color: '#FB9A57', fontSize: '18px', verticalAlign: 'center' }} />
+        )}
         {isPublished ? (
           <Tag icon={<CheckCircleOutlined />} color="success">
             已发布
