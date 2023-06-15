@@ -8,23 +8,26 @@ import {
   PlusOutlined,
   StarOutlined,
 } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Sider, Content } = Layout;
 
 const ManageLayout: FC = () => {
+  const { t } = useTranslation();
+
   const items: MenuProps['items'] = [
     {
-      label: '我的问卷',
+      label: t('manage.myQuestionnaire'),
       key: ROUTE_MANAGE_LIST,
       icon: <UnorderedListOutlined />,
     },
     {
-      label: '星标问卷',
+      label: t('manage.starQuestionnaire'),
       key: ROUTE_MANAGE_STAR,
       icon: <StarOutlined />,
     },
     {
-      label: '回 收 站',
+      label: t('public.trash'),
       key: ROUTE_MANAGE_TRASH,
       icon: <DeleteOutlined />,
     },
@@ -38,7 +41,6 @@ const ManageLayout: FC = () => {
   const location = useLocation();
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   useEffect(() => {
-    console.log(location);
     setSelectedKeys([location.pathname]);
   }, [location]);
   return (
@@ -47,7 +49,7 @@ const ManageLayout: FC = () => {
         <Sider theme="light" className="rounded-l-lg">
           <div className="h-full px-3 py-10 text-center">
             <Button type="primary" icon={<PlusOutlined />} className="mb-10">
-              创建问卷
+              {t('manage.createQuestionnaire')}
             </Button>
             <Menu
               style={{ border: 'none' }}

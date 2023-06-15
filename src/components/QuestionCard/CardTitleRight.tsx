@@ -2,9 +2,12 @@ import React, { FC } from 'react';
 import { Space, Tag } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, StarFilled } from '@ant-design/icons';
 import type Question from './Question';
+import { useTranslation } from 'react-i18next';
 
 const CardTitleRight: FC<Question> = (props: Question) => {
   const { isPublished, isStar, answerCount, createdAt } = props;
+  const { t } = useTranslation();
+
   return (
     <div>
       <Space align="center">
@@ -13,15 +16,19 @@ const CardTitleRight: FC<Question> = (props: Question) => {
         )}
         {isPublished ? (
           <Tag icon={<CheckCircleOutlined />} color="success">
-            已发布
+            {t('manage.published')}
           </Tag>
         ) : (
           <Tag icon={<ClockCircleOutlined />} color="default">
-            待发布
+            {t('manage.unpublished')}
           </Tag>
         )}
-        <span>答卷: {answerCount}</span>
-        <span>创建时间: {createdAt}</span>
+        <span>
+          {t('manage.answerCount')}: {answerCount}
+        </span>
+        <span>
+          {t('public.createdTime')}: {createdAt}
+        </span>
       </Space>
     </div>
   );

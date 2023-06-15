@@ -3,6 +3,12 @@
     "source.fixAll.eslint": true
   },
   "cSpell.words": [
-    "antd"
+    "antd",
+    "commitlint",
+    "reduxjs",
+    "tailwindcss"
+  ],
+  "i18n-ally.localesPaths": [
+    "src/locales"
   ]
 }

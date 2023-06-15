@@ -5,6 +5,7 @@ import { Space, Empty, Input } from 'antd';
 import Loading from '@/components/Loading/Loading';
 import { produce } from 'immer';
 import QuestionListProps from './QuestionListProps';
+import { useTranslation } from 'react-i18next';
 const { Search } = Input;
 
 const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
@@ -12,6 +13,8 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
 
   const [listLoading, setLoading] = useState(true);
   const [questionList, setQuestionList] = useState<Question[]>([]);
+  const { t } = useTranslation();
+
   useEffect(() => {
     setTimeout(() => {
       setQuestionList([
@@ -41,7 +44,6 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
         },
       ]);
       setLoading(false);
-      console.log(listLoading);
     }, 500);
   }, []);
 
@@ -82,7 +84,11 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
         <h3 title={title} className="my-0">
           {title}
         </h3>
-        <Search placeholder="请输入关键字" className="w-52" enterButton />
+        <Search
+          placeholder={t('manage.searchPlaceholder') as string}
+          className="w-52"
+          enterButton
+        />
       </div>
       {listLoading ? (
         <Loading className="mt-16"></Loading>

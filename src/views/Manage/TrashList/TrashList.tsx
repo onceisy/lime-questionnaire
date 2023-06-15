@@ -9,46 +9,13 @@ import {
 } from '@ant-design/icons';
 import Loading from '@/components/Loading/Loading';
 import { cloneDeep } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 const { Search } = Input;
 
-const columns = [
-  {
-    title: '标题',
-    dataIndex: 'title',
-    render: (text: string) => <a>{text}</a>,
-  },
-  {
-    title: '答卷数量',
-    dataIndex: 'answerCount',
-  },
-  {
-    title: '是否发布',
-    dataIndex: 'isPublished',
-    render: (isPublished: boolean) => {
-      return isPublished ? (
-        <Tag icon={<CheckCircleOutlined />} color="success">
-          已发布
-        </Tag>
-      ) : (
-        <Tag icon={<ClockCircleOutlined />} color="default">
-          未发布
-        </Tag>
-      );
-    },
-  },
-  {
-    title: '是否标星',
-    dataIndex: 'isStar',
-    render: (isStar: boolean) => (isStar ? '是' : '否'),
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createdAt',
-  },
-];
-
 const TrashList: FC = () => {
+  const { t } = useTranslation();
+
   const [listLoading, setLoading] = useState(true);
   const [questionList, setQuestionList] = useState<Question[]>([]);
   useEffect(() => {
@@ -80,9 +47,44 @@ const TrashList: FC = () => {
         },
       ]);
       setLoading(false);
-      console.log(listLoading);
     }, 1000);
   }, []);
+
+  const columns = [
+    {
+      title: () => t('public.title'),
+      dataIndex: 'title',
+      render: (text: string) => <a>{text}</a>,
+    },
+    {
+      title: () => t('public.answerCount'),
+      dataIndex: 'answerCount',
+    },
+    {
+      title: () => t('manage.isPublished'),
+      dataIndex: 'isPublished',
+      render: (isPublished: boolean) => {
+        return isPublished ? (
+          <Tag icon={<CheckCircleOutlined />} color="success">
+            {t('manage.published')}
+          </Tag>
+        ) : (
+          <Tag icon={<ClockCircleOutlined />} color="default">
+            {t('manage.unpublished')}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: () => t('manage.isStar'),
+      dataIndex: 'isStar',
+      render: (isStar: boolean) => (isStar ? t('public.yes') : t('public.no')),
+    },
+    {
+      title: () => t('public.createdTime'),
+      dataIndex: 'createdAt',
+    },
+  ];
 
   const [dataColumns] = useState(columns);
 
@@ -94,10 +96,9 @@ const TrashList: FC = () => {
    * @return {void}
    */
   function deleteQuestions() {
-    console.log(selectedKeys);
     modal.confirm({
-      title: '是否彻底删除？',
-      content: '警告：彻底删除后将无法恢复！',
+      title: t('manage.isDeleteCompletely'),
+      content: t('manage.deleteCompletelyWarn'),
       onOk: () => {
         const list = cloneDeep(questionList);
         selectedKeys.forEach(key => {
@@ -111,13 +112,13 @@ const TrashList: FC = () => {
   return (
     <>
       <div className="flex items-center justify-between mb-3">
-        <h3 title="我的问卷" className="my-0">
-          标星问卷
+        <h3 title={t('public.trash') as string} className="my-0">
+          {t('public.trash')}
         </h3>
         {questionList.length && selectedKeys.length ? (
           <Space>
             <Button type="primary" shape="round" icon={<RedoOutlined />} size="middle">
-              恢复
+              {t('public.restore')}
             </Button>
             <Button
               danger
@@ -126,11 +127,15 @@ const TrashList: FC = () => {
               size="middle"
               onClick={deleteQuestions}
             >
-              彻底删除
+              {t('public.deleteCompletely')}
             </Button>
           </Space>
         ) : (
-          <Search placeholder="请输入关键字" className="w-52" enterButton />
+          <Search
+            placeholder={t('manage.searchPlaceholder') as string}
+            className="w-52"
+            enterButton
+          />
         )}
       </div>
       {listLoading ? (
@@ -140,7 +145,6 @@ const TrashList: FC = () => {
           rowSelection={{
             type: 'checkbox',
             onChange: keys => {
-              console.log(keys);
               setSelectedKeys(keys as string[]);
             },
           }}

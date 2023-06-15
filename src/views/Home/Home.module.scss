@@ -6,7 +6,7 @@
     padding: 0 50px 0 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     .title {
       color: #16254E;
@@ -19,6 +19,7 @@
       }
     }
     .content {
+      text-align-last: left;
       color: #5D71A8;
       margin: 20px 0 30px;
     }

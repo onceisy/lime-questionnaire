@@ -16,7 +16,9 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "no-debugger": "off"
+  },
   "settings": {
     "react": {
       "version": "detect"

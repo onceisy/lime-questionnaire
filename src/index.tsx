@@ -1,25 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import MyApp from './App';
-import { App } from 'antd';
 import reportWebVitals from './reportWebVitals';
-import { ConfigProvider } from 'antd';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import './locales';
 import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#00b96b',
-        },
-      }}
-    >
-      <App>
-        <MyApp />
-      </App>
-    </ConfigProvider>
+    <Provider store={store}>
+      <MyApp />
+    </Provider>
   </React.StrictMode>
 );
 

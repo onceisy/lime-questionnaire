@@ -12,6 +12,7 @@ import {
   StarOutlined,
 } from '@ant-design/icons';
 import styles from './QuestionCard.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
   const { title, isPublished, isStar, setStar, onCopy, onDelete } = props;
@@ -20,10 +21,11 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
 
   function deleteQuestion() {
     modal.confirm({
-      title: '是否删除问卷？',
+      title: t('manage.deleteConfirm'),
       onOk: onDelete,
     });
   }
+  const { t } = useTranslation();
   return (
     <div className={styles['question-card']}>
       <Card type="inner" hoverable title={title} extra={<CardTitleRight {...props} />}>
@@ -33,20 +35,20 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
               {isPublished && (
                 <>
                   <Button type="primary" shape="round" icon={<ShareAltOutlined />} size="middle">
-                    分享问卷
+                    {t('manage.shareQuestionnaire')}
                   </Button>
                   <Button type="primary" shape="round" icon={<LineChartOutlined />} size="middle">
-                    问卷统计
+                    {t('manage.questionnaireStatistics')}
                   </Button>
                 </>
               )}
               {!isPublished && (
                 <>
                   <Button type="primary" shape="round" icon={<FormOutlined />} size="middle">
-                    编辑
+                    {t('public.edit')}
                   </Button>
                   <Button type="primary" shape="round" icon={<SendOutlined />} size="middle">
-                    发布
+                    {t('manage.publish')}
                   </Button>
                 </>
               )}
@@ -55,11 +57,15 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
           <div>
             <Space>
               <Button shape="round" icon={<StarOutlined />} size="middle" onClick={setStar}>
-                {isStar ? '取消标星' : '标星'}
+                {isStar ? t('manage.unStar') : t('manage.star')}
               </Button>
-              <Popconfirm title="复制问卷" description="是否确认复制问卷？" onConfirm={onCopy}>
+              <Popconfirm
+                title={t('public.copy')}
+                description={t('manage.copyConfirm')}
+                onConfirm={onCopy}
+              >
                 <Button shape="round" icon={<CopyOutlined />} size="middle">
-                  复制
+                  {t('public.copy')}
                 </Button>
               </Popconfirm>
               <Button
@@ -69,7 +75,7 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
                 size="middle"
                 onClick={deleteQuestion}
               >
-                删除
+                {t('public.delete')}
               </Button>
             </Space>
           </div>
