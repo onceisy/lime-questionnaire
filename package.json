@@ -57,6 +57,7 @@
     "@commitlint/config-conventional": "^17.6.1",
     "@craco/craco": "^7.1.0",
     "@craco/types": "^7.1.0",
+    "@iconify/react": "^4.1.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "babel-plugin-named-exports-order": "^0.0.2",

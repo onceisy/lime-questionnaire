@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import localeReducer from './useLocale';
+import themeReducer from './useTheme';
 
 export const store = configureStore({
   reducer: {
     locale: localeReducer,
+    theme: themeReducer,
   },
 });
 
