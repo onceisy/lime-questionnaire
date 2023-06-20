@@ -3,11 +3,14 @@ module.exports = {
     './public/**/*.html',
     './src/**/*.{js,jsx,ts,tsx,vue}',
   ],
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       animation: {
         'bounce-5': 'bounce 8s infinite',
+      },
+      minHeight: {
+        'content': 'calc(100vh - 64px - 70px)'
       }
     },
   },

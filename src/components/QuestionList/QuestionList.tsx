@@ -1,19 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import QuestionCard from '@/components/QuestionCard/QuestionCard';
 import type Question from '@/components/QuestionCard/Question';
-import { Space, Empty, Input } from 'antd';
+import { Space, Empty } from 'antd';
 import Loading from '@/components/Loading/Loading';
 import { produce } from 'immer';
 import QuestionListProps from './QuestionListProps';
-import { useTranslation } from 'react-i18next';
-const { Search } = Input;
+import QuestionListSearch from '../QuestionListSearch/QuestionListSearch';
 
 const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
   const { title } = props;
 
   const [listLoading, setLoading] = useState(true);
   const [questionList, setQuestionList] = useState<Question[]>([]);
-  const { t } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => {
@@ -84,11 +82,7 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
         <h3 title={title} className="my-0">
           {title}
         </h3>
-        <Search
-          placeholder={t('manage.searchPlaceholder') as string}
-          className="w-52"
-          enterButton
-        />
+        <QuestionListSearch />
       </div>
       {listLoading ? (
         <Loading className="mt-16"></Loading>

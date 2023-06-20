@@ -10,6 +10,11 @@ let theme: themeType = 'light';
 const localLanguage = localStorage.getItem('theme') || '';
 if (['light', 'dark'].includes(localLanguage)) {
   theme = localLanguage as themeType;
+  if (theme === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
 }
 
 const initialState: themeState = {
@@ -22,8 +27,14 @@ export const themeSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     setTheme: (state, action: PayloadAction<themeType>) => {
-      state.theme = action.payload;
-      localStorage.setItem('theme', action.payload);
+      const { payload } = action;
+      state.theme = payload;
+      localStorage.setItem('theme', payload);
+      if (payload === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
     },
   },
 });

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import type Question from '@/components/QuestionCard/Question';
-import { Empty, Input, Table, Tag, Button, Space, App } from 'antd';
+import { Empty, Table, Tag, Button, Space, App } from 'antd';
 import {
   CheckCircleOutlined,
   ClockCircleOutlined,
@@ -10,8 +10,36 @@ import {
 import Loading from '@/components/Loading/Loading';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import QuestionListSearch from '@/components/QuestionListSearch/QuestionListSearch';
+import { useSearchParams } from 'react-router-dom';
+import { QUESTION_LIST_SEARCH_PARAM } from '@/constant';
 
-const { Search } = Input;
+const initList: Question[] = [
+  {
+    _id: '1111111',
+    title: '大学生消费情况调查问卷',
+    isPublished: false,
+    isStar: true,
+    answerCount: 20,
+    createdAt: '2023-06-07 22:00',
+  },
+  {
+    _id: '2222222',
+    title: '大学生恋爱观调查问卷',
+    isPublished: true,
+    isStar: true,
+    answerCount: 24,
+    createdAt: '2023-06-07 22:10',
+  },
+  {
+    _id: '33333333',
+    title: '大学生就业情况调查问卷',
+    isPublished: true,
+    isStar: true,
+    answerCount: 25,
+    createdAt: '2023-06-07 22:11',
+  },
+];
 
 const TrashList: FC = () => {
   const { t } = useTranslation();
@@ -20,32 +48,7 @@ const TrashList: FC = () => {
   const [questionList, setQuestionList] = useState<Question[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      setQuestionList([
-        {
-          _id: '1111111',
-          title: '大学生消费情况调查问卷',
-          isPublished: false,
-          isStar: true,
-          answerCount: 20,
-          createdAt: '2023-06-07 22:00',
-        },
-        {
-          _id: '2222222',
-          title: '大学生恋爱观调查问卷',
-          isPublished: true,
-          isStar: true,
-          answerCount: 24,
-          createdAt: '2023-06-07 22:10',
-        },
-        {
-          _id: '33333333',
-          title: '大学生就业情况调查问卷',
-          isPublished: true,
-          isStar: true,
-          answerCount: 25,
-          createdAt: '2023-06-07 22:11',
-        },
-      ]);
+      setQuestionList(initList);
       setLoading(false);
     }, 1000);
   }, []);
@@ -109,6 +112,16 @@ const TrashList: FC = () => {
       },
     });
   }
+
+  /**
+   * @description: 搜索
+   * @return {*}
+   */
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get(QUESTION_LIST_SEARCH_PARAM) || '';
+  useEffect(() => {
+    setQuestionList(initList.filter(i => i.title.includes(keyword)));
+  }, [keyword]);
   return (
     <>
       <div className="flex items-center justify-between mb-3">
@@ -131,11 +144,7 @@ const TrashList: FC = () => {
             </Button>
           </Space>
         ) : (
-          <Search
-            placeholder={t('manage.searchPlaceholder') as string}
-            className="w-52"
-            enterButton
-          />
+          <QuestionListSearch />
         )}
       </div>
       {listLoading ? (
