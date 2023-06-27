@@ -1,12 +1,6 @@
-interface Question {
-  _id: string;
-  title: string;
-  isPublished: boolean;
-  isStar: boolean;
-  answerCount?: number;
-  createdAt: string;
-  setStar?: function;
-  onCopy?: function;
-  onDelete?: function;
+import Question from './Question';
+
+interface QuestionProps extends Question {
+  refresh?: function;
 }
-export default Question;
+export default QuestionProps;

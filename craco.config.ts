@@ -11,4 +11,9 @@ module.exports = {
       '@hooks': path.resolve(__dirname, 'src/hooks/'),
     },
   },
+  devServer: {
+    proxy: {
+      '/api': 'http://localhost:3001/'
+    }
+  }
 }

@@ -1,17 +1,20 @@
 import React, { FC } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import Loading from '@/components/Loading/Loading';
+import useQueryQuestion from '@/hooks/useQueryQuestion';
 
 const QuestionEdit: FC = () => {
-  // 获取动态路由参数
-  const { id } = useParams();
-  // 获取url查询参数
-  const [searchParams] = useSearchParams();
-  const key = searchParams.get('key');
+  const { loading, data } = useQueryQuestion();
   return (
     <div>
       <h1>QuestionEdit</h1>
-      <p>id: {id}</p>
-      <p>key: {key}</p>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <p>id: {data?.data._id}</p>
+          <p>{JSON.stringify(data?.data)}</p>
+        </>
+      )}
     </div>
   );
 };

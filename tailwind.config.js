@@ -10,8 +10,15 @@ module.exports = {
         'bounce-5': 'bounce 8s infinite',
       },
       minHeight: {
-        'content': 'calc(100vh - 64px - 70px)'
-      }
+        'content': 'calc(100vh - 64px - 70px)',
+      },
+      maxHeight: {
+        'content': 'calc(100vh - 64px - 70px)',
+        'content-list': 'calc(100vh - 64px - 70px - 100px)',
+      },
+      width: {
+        '1200': '1200px',
+      },
     },
   },
   variants: {

@@ -1,11 +1,13 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Carousel, Form, Input, Button, Checkbox, App } from 'antd';
-import { ROUTE_SIGN_UP } from '@/router/path';
+import { ROUTE_MANAGE_LIST, ROUTE_SIGN_UP } from '@/router/path';
 import { useTranslation } from 'react-i18next';
 import bg1 from '@/assets/images/login-banner.png';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { login } from '@/service/user';
+import { useNavigate } from 'react-router-dom';
 
-interface AccountProp {
+export interface AccountProp {
   username: string;
   password: string;
   time?: number;
@@ -13,16 +15,29 @@ interface AccountProp {
 
 const SignIn: FC = () => {
   const { message } = App.useApp();
+  const nav = useNavigate();
+  const { t } = useTranslation();
 
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState<boolean>(false);
 
+  /**
+   * @description: 登陆
+   * @param {any} values
+   * @return {*}
+   */
   // eslint-disable-next-line
-  function onFinish(values: any) {
-    console.log(values);
-    console.log('sign up');
+  async function onFinish(values: any) {
     const { username, password, remember } = values;
-    // 正式环境，接口调用成功再保存
-    setUserToLocal(username, password, remember);
+    try {
+      setLoading(true);
+      await login({ username, password });
+      setUserToLocal(username, password, remember);
+      message.success(t('user.loginSuccess'));
+      nav(ROUTE_MANAGE_LIST);
+    } catch (error) {
+      setLoading(false);
+    }
   }
 
   /**
@@ -79,7 +94,6 @@ const SignIn: FC = () => {
   // eslint-disable-next-line
   function onFieldsChange(changed: any) {
     if (changed.length && changed[0].name[0] === 'username') {
-      console.log(changed);
       const accounts = getUserFromLocal();
       if (accounts.length) {
         const account = accounts.find(i => i.username === changed[0].value);
@@ -98,10 +112,9 @@ const SignIn: FC = () => {
   function onFinishFailed() {
     console.log('fail');
   }
-  const { t } = useTranslation();
   return (
     <div className={'mx-auto flex'}>
-      <div className="w-2/3">
+      <div className="w-3/5">
         <Carousel>
           <div>
             <div
@@ -111,8 +124,8 @@ const SignIn: FC = () => {
           </div>
         </Carousel>
       </div>
-      <div className="w-1/3 flex items-center">
-        <div className="h-2/5 bg-white dark:bg-neutral-950 w-2/3 p-10 rounded-lg flex items-center">
+      <div className="w-2/5 flex items-center">
+        <div className="bg-white dark:bg-neutral-950 w-2/3 px-10 py-5 rounded-lg flex items-center">
           <div className="w-full">
             <h3 className="text-center my-5">{t('public.signIn')}</h3>
             <Form
@@ -162,23 +175,28 @@ const SignIn: FC = () => {
 
               <Form.Item noStyle>
                 <div className="flex justify-between px-1">
-                  <Button type="primary" htmlType="submit">
-                    {t('public.signIn')}
-                  </Button>
                   <Button
-                    type="link"
-                    href={'#'}
-                    onClick={e => {
-                      e.preventDefault();
-                      message.warning(t('public.developing'));
-                    }}
+                    type="primary"
+                    htmlType="submit"
+                    disabled={loading}
+                    style={{ width: '100%' }}
                   >
-                    {t('user.forgetPWD')}
+                    {t('public.signIn')}
                   </Button>
                 </div>
               </Form.Item>
             </Form>
-            <div className="my-4">
+            <div className="my-4 flex justify-between">
+              <Button
+                type="link"
+                href={'#'}
+                onClick={e => {
+                  e.preventDefault();
+                  message.warning(t('public.developing'));
+                }}
+              >
+                {t('user.forgetPWD')}
+              </Button>
               <Button type="link" href={ROUTE_SIGN_UP}>
                 {t('user.accountToSignUp')}
               </Button>

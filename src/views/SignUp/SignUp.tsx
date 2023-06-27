@@ -1,15 +1,32 @@
-import React, { FC } from 'react';
-import { Carousel, Form, Input, Button } from 'antd';
+import React, { FC, useState } from 'react';
+import { Carousel, Form, Input, Button, App } from 'antd';
 import { ROUTE_SIGN_IN } from '@/router/path';
 import { useTranslation } from 'react-i18next';
 import bg1 from '@/assets/images/login-banner.png';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { register } from '@/service/user';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp: FC = () => {
+  const nav = useNavigate();
+  const { message } = App.useApp();
+  const [loading, setLoading] = useState<boolean>(false);
+
   // eslint-disable-next-line
-  function onFinish(values: any) {
-    console.log(values);
-    console.log('sign up');
+  async function onFinish(values: any) {
+    const { username, password, rePassword } = values;
+    if (password === rePassword) {
+      setLoading(true);
+      try {
+        await register({ username, password });
+        message.success(t('user.registerSuccess'));
+        setTimeout(() => {
+          nav(ROUTE_SIGN_IN);
+        }, 1500);
+      } catch (error) {
+        setLoading(false);
+      }
+    }
   }
   function onFinishFailed() {
     console.log('fail');
@@ -17,7 +34,7 @@ const SignUp: FC = () => {
   const { t } = useTranslation();
   return (
     <div className={'mx-auto flex'}>
-      <div className="w-2/3">
+      <div className="w-3/5">
         <Carousel>
           <div>
             <div
@@ -27,8 +44,8 @@ const SignUp: FC = () => {
           </div>
         </Carousel>
       </div>
-      <div className="w-1/3 flex items-center">
-        <div className="text-center h-2/5 bg-white dark:bg-neutral-950 w-2/3 p-10 rounded-lg flex items-center">
+      <div className="w-2/5 flex items-center">
+        <div className="text-center bg-white dark:bg-neutral-950 w-2/3 px-10 py-5 rounded-lg flex items-center">
           <div className="w-full">
             <h3 className="text-center my-5">{t('public.signUp')}</h3>
             <Form onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
@@ -90,7 +107,7 @@ const SignUp: FC = () => {
 
               <Form.Item noStyle>
                 <div className="flex justify-between px-1">
-                  <Button type="primary" htmlType="submit" className="w-full">
+                  <Button type="primary" htmlType="submit" className="w-full" disabled={loading}>
                     {t('public.signUp')}
                   </Button>
                 </div>

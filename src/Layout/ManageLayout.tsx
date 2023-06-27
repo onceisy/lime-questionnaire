@@ -1,19 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Layout, Menu, MenuProps, Button } from 'antd';
+import { Layout, Menu, MenuProps } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_MANAGE_LIST, ROUTE_MANAGE_STAR, ROUTE_MANAGE_TRASH } from '@/router/path';
-import {
-  UnorderedListOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  StarOutlined,
-} from '@ant-design/icons';
+import { UnorderedListOutlined, DeleteOutlined, StarOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import CreateQuestion from '@/components/CreateQuestion/CreateQuestion';
 
 const { Sider, Content } = Layout;
 
 const ManageLayout: FC = () => {
   const { t } = useTranslation();
+  const nav = useNavigate();
 
   const items: MenuProps['items'] = [
     {
@@ -33,7 +30,6 @@ const ManageLayout: FC = () => {
     },
   ];
 
-  const nav = useNavigate();
   const clickMenu: MenuProps['onClick'] = e => {
     nav(e.key);
   };
@@ -44,13 +40,11 @@ const ManageLayout: FC = () => {
     setSelectedKeys([location.pathname]);
   }, [location]);
   return (
-    <div className="w-8/12 px-6 mx-auto">
+    <div className="px-6 mx-auto w-1200">
       <Layout className="rounded-lg">
         <Sider theme="light" className="rounded-l-lg">
           <div className="h-full px-3 py-10 text-center">
-            <Button type="primary" icon={<PlusOutlined />} className="mb-10">
-              {t('manage.createQuestionnaire')}
-            </Button>
+            <CreateQuestion />
             <Menu
               style={{ border: 'none' }}
               items={items}

@@ -7,7 +7,7 @@ const MyQuestionList: FC = () => {
 
   return (
     <>
-      <QuestionList title={t('manage.myQuestionnaire')}></QuestionList>
+      <QuestionList title={t('manage.myQuestionnaire')} isDeleted={false}></QuestionList>
     </>
   );
 };

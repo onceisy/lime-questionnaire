@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
-import type Question from '@/components/QuestionCard/Question';
+import React, { FC, useState } from 'react';
 import { Empty, Table, Tag, Button, Space, App } from 'antd';
 import {
   CheckCircleOutlined,
@@ -8,51 +7,22 @@ import {
   RedoOutlined,
 } from '@ant-design/icons';
 import Loading from '@/components/Loading/Loading';
-import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import QuestionListSearch from '@/components/QuestionListSearch/QuestionListSearch';
-import { useSearchParams } from 'react-router-dom';
-import { QUESTION_LIST_SEARCH_PARAM } from '@/constant';
-
-const initList: Question[] = [
-  {
-    _id: '1111111',
-    title: '大学生消费情况调查问卷',
-    isPublished: false,
-    isStar: true,
-    answerCount: 20,
-    createdAt: '2023-06-07 22:00',
-  },
-  {
-    _id: '2222222',
-    title: '大学生恋爱观调查问卷',
-    isPublished: true,
-    isStar: true,
-    answerCount: 24,
-    createdAt: '2023-06-07 22:10',
-  },
-  {
-    _id: '33333333',
-    title: '大学生就业情况调查问卷',
-    isPublished: true,
-    isStar: true,
-    answerCount: 25,
-    createdAt: '2023-06-07 22:11',
-  },
-];
+import useQueryQuestionList from '@/hooks/useQueryQuestionList';
+import { useRequest } from 'ahooks';
+import { deleteQuestionBatch, editQuestionBatch } from '@/service/question';
+import QuestionListPagination from '@/components/QuestionListSearch/QuestionListPagination';
 
 const TrashList: FC = () => {
   const { t } = useTranslation();
+  const { modal, message } = App.useApp();
 
-  const [listLoading, setLoading] = useState(true);
-  const [questionList, setQuestionList] = useState<Question[]>([]);
-  useEffect(() => {
-    setTimeout(() => {
-      setQuestionList(initList);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // 查询问卷列表
+  const { loading, data, refresh } = useQueryQuestionList({ isDeleted: true, pageSize: 10 });
+  const { list: questionList, count } = data?.data || { list: [], count: 0 };
 
+  // 表格列配置
   const columns = [
     {
       title: () => t('public.title'),
@@ -92,7 +62,19 @@ const TrashList: FC = () => {
   const [dataColumns] = useState(columns);
 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const { modal } = App.useApp();
+
+  /**
+   * @description: 彻底删除问卷请求
+   * @return {*}
+   */
+  const { loading: deleteLoading, run: handleDelete } = useRequest(deleteQuestionBatch, {
+    manual: true,
+    onSuccess: result => {
+      message.success(t('manage.deleteCountSuccess', { total: result.data.modifiedCount }));
+      setSelectedKeys([]);
+      refresh();
+    },
+  });
 
   /**
    * @description: 删除已选中的问卷
@@ -100,28 +82,41 @@ const TrashList: FC = () => {
    */
   function deleteQuestions() {
     modal.confirm({
-      title: t('manage.isDeleteCompletely'),
+      title: t('manage.isDeleteAll', { total: selectedKeys.length }),
       content: t('manage.deleteCompletelyWarn'),
-      onOk: () => {
-        const list = cloneDeep(questionList);
-        selectedKeys.forEach(key => {
-          const index = list.findIndex(i => i._id === key);
-          list.splice(index, 1);
-        });
-        setQuestionList(list);
-      },
+      onOk: () => handleDelete({ ids: selectedKeys }),
     });
   }
 
   /**
-   * @description: 搜索
+   * @description: 恢复问卷请求
    * @return {*}
    */
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get(QUESTION_LIST_SEARCH_PARAM) || '';
-  useEffect(() => {
-    setQuestionList(initList.filter(i => i.title.includes(keyword)));
-  }, [keyword]);
+  const { loading: restoreLoading, run: handleRestore } = useRequest(editQuestionBatch, {
+    manual: true,
+    onSuccess: result => {
+      message.success(t('manage.restoreSuccess', { total: result.data.modifiedCount }));
+      setSelectedKeys([]);
+      refresh();
+    },
+  });
+
+  /**
+   * @description: 恢复问卷
+   * @return {*}
+   */
+  function restoreQuestions() {
+    modal.confirm({
+      title: t('manage.isRestoreAll', { total: selectedKeys.length }),
+      onOk: () => {
+        handleRestore({
+          ids: selectedKeys,
+          isDeleted: false,
+        });
+      },
+    });
+  }
+
   return (
     <>
       <div className="flex items-center justify-between mb-3">
@@ -130,7 +125,14 @@ const TrashList: FC = () => {
         </h3>
         {questionList.length && selectedKeys.length ? (
           <Space>
-            <Button type="primary" shape="round" icon={<RedoOutlined />} size="middle">
+            <Button
+              type="primary"
+              shape="round"
+              icon={<RedoOutlined />}
+              size="middle"
+              disabled={restoreLoading}
+              onClick={restoreQuestions}
+            >
               {t('public.restore')}
             </Button>
             <Button
@@ -138,6 +140,7 @@ const TrashList: FC = () => {
               shape="round"
               icon={<DeleteOutlined />}
               size="middle"
+              disabled={deleteLoading}
               onClick={deleteQuestions}
             >
               {t('public.deleteCompletely')}
@@ -147,7 +150,7 @@ const TrashList: FC = () => {
           <QuestionListSearch />
         )}
       </div>
-      {listLoading ? (
+      {loading ? (
         <Loading className="mt-16"></Loading>
       ) : questionList.length ? (
         <Table
@@ -160,10 +163,14 @@ const TrashList: FC = () => {
           dataSource={questionList}
           columns={dataColumns}
           rowKey="_id"
+          pagination={false}
+          // header高度 footer高度 搜索框高度 分页器高度 表头高度
+          scroll={{ y: 'calc(100vh - 64px - 70px - 100px - 55px)' }}
         ></Table>
       ) : (
         <Empty />
       )}
+      <QuestionListPagination position="right" total={count} pageSize={10} />
     </>
   );
 };

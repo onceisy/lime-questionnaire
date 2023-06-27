@@ -3,7 +3,10 @@ interface Question {
   title: string;
   isPublished: boolean;
   isStar: boolean;
-  answerCount?: number;
-  createdAt: string;
+  isDeleted: boolean;
+  answerCount: number;
+  createdAt?: number;
+  updatedAt?: number;
+  createUser?: string;
 }
 export default Question;

@@ -7,7 +7,7 @@ const StarList: FC = () => {
 
   return (
     <>
-      <QuestionList title={t('manage.starQuestionnaire')}></QuestionList>
+      <QuestionList title={t('manage.starQuestionnaire')} isStar isDeleted={false}></QuestionList>
     </>
   );
 };

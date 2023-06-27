@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { QUESTION_LIST_SEARCH_PARAM } from '@/constant';
+import { QUESTION_LIST_SEARCH_KEY } from '@/constant';
 
 const { Search } = Input;
 
@@ -11,19 +11,19 @@ const QuestionListSearch: FC = () => {
 
   const [keyword, setKeyword] = useState<string>('');
 
+  const [searchParams] = useSearchParams();
   const nav = useNavigate();
   const location = useLocation();
   function handleSearch() {
     nav({
       pathname: location.pathname,
-      search: `${QUESTION_LIST_SEARCH_PARAM}=${keyword}`,
+      search: `${QUESTION_LIST_SEARCH_KEY}=${keyword}`,
     });
   }
 
   // 页面刷新搜索框回显
-  const [searchParams] = useSearchParams();
-  const path = searchParams.get(QUESTION_LIST_SEARCH_PARAM) || '';
   useEffect(() => {
+    const path = searchParams.get(QUESTION_LIST_SEARCH_KEY) || '';
     setKeyword(path);
   }, []);
   return (
