@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import styles from './MainLayout.module.scss';
 import PageHeader from '@/components/PageHeader/PageHeader';
 import { useAppSelector } from '@/store/hooks';
-import { selectTheme } from '@/store/useTheme';
+import { selectTheme } from '@/store/themeSlice';
 
 const { Footer, Content } = Layout;
 

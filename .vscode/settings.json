@@ -1,9 +1,11 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.prettier": true
   },
   "cSpell.words": [
     "antd",
+    "anticon",
     "commitlint",
     "reduxjs",
     "tailwindcss"

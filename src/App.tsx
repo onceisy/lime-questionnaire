@@ -3,8 +3,8 @@ import { RouterProvider } from 'react-router-dom';
 import { App, ConfigProvider, theme } from 'antd';
 import router from './router';
 import { useAppSelector } from './store/hooks';
-import { selectLocale } from './store/useLocale';
-import { selectTheme } from './store/useTheme';
+import { selectLocale } from './store/localeSlice';
+import { selectTheme } from './store/themeSlice';
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 

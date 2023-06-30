@@ -13,13 +13,13 @@ import {
 } from 'antd';
 import logoImage from '@/assets/images/logo.png';
 import { DownOutlined, GithubOutlined } from '@ant-design/icons';
-import type { LocaleType } from '@/store/useLocale';
-import { selectLanguage, setLocale } from '@/store/useLocale';
+import type { LocaleType } from '@/store/localeSlice';
+import { selectLanguage, setLocale } from '@/store/localeSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { useAppSelector } from '@/store/hooks';
 import { t } from 'i18next';
 import { Icon } from '@iconify/react';
-import { selectTheme, setTheme } from '@/store/useTheme';
+import { selectTheme, setTheme } from '@/store/themeSlice';
 import { Link } from 'react-router-dom';
 import { ROUTE_HOME } from '@/router/path';
 

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import localeReducer from './useLocale';
-import themeReducer from './useTheme';
+import localeReducer from './localeSlice';
+import themeReducer from './themeSlice';
 
 export const store = configureStore({
   reducer: {

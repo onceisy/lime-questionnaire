@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enUS from './enUS';
 import zhCN from './zhCN';
-import { LocaleType } from '@/store/useLocale';
+import { LocaleType } from '@/store/localeSlice';
 
 export const resources = {
   enUS: {
