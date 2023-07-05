@@ -1,12 +1,12 @@
 import { AccountProp } from '@/views/SignIn/SignIn';
-import ajax from './ajax';
+import ajax, { ResponseType } from './ajax';
 
 /**
  * @description: 登录
  * @param {AccountProp} params
  * @return {*}
  */
-export function register(params: AccountProp) {
+export function register(params: AccountProp): Promise<ResponseType> {
   return ajax.post('/user/register', params);
 }
 
@@ -15,6 +15,6 @@ export function register(params: AccountProp) {
  * @param {AccountProp} params
  * @return {*}
  */
-export function login(params: AccountProp) {
+export function login(params: AccountProp): Promise<ResponseType> {
   return ajax.post('/user/login', params);
 }

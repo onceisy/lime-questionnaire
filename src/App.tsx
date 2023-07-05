@@ -11,6 +11,7 @@ const { defaultAlgorithm, darkAlgorithm } = theme;
 function MyApp() {
   const locale = useAppSelector(selectLocale);
   const localTheme = useAppSelector(selectTheme);
+
   return (
     <ConfigProvider
       theme={{

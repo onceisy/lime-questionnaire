@@ -17,19 +17,26 @@ import type { LocaleType } from '@/store/localeSlice';
 import { selectLanguage, setLocale } from '@/store/localeSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { useAppSelector } from '@/store/hooks';
-import { t } from 'i18next';
 import { Icon } from '@iconify/react';
 import { selectTheme, setTheme } from '@/store/themeSlice';
-import { Link } from 'react-router-dom';
-import { ROUTE_HOME } from '@/router/path';
+import { Link, useLocation } from 'react-router-dom';
+import { ROUTE_HOME, ROUTE_MANAGE_LIST } from '@/router/path';
+import { clearUser, isUserLogin, selectUserInfo } from '@/store/userSlice';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 const { Header } = Layout;
 
 const PageHeader: FC = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const isLogin = useAppSelector(isUserLogin);
+  const { nickname, avatar } = useAppSelector(selectUserInfo);
+  const { pathname } = useLocation();
+  const language = useAppSelector(selectLanguage);
+  const theme = useAppSelector(selectTheme);
 
-  const items: MenuProps['items'] = [
+  const localeItems: MenuProps['items'] = [
     {
       key: 'zhCN',
       label: '简体中文',
@@ -39,9 +46,24 @@ const PageHeader: FC = () => {
       label: 'English',
     },
   ];
-  const language = useAppSelector(selectLanguage);
 
-  const theme = useAppSelector(selectTheme);
+  const userItems: MenuProps['items'] = [
+    {
+      key: 'logout',
+      label: t('public.logout'),
+      danger: true,
+    },
+  ];
+
+  function handleUserCLick(key: string) {
+    switch (key) {
+      case 'logout':
+        dispatch(clearUser());
+        break;
+      default:
+        break;
+    }
+  }
 
   function goGithub() {
     window.open('https://github.com/onceisy/lime-questionnaire');
@@ -51,7 +73,9 @@ const PageHeader: FC = () => {
     <Header className="bg-transparent">
       <Row justify="space-around">
         <Col span={8} className="flex items-center justify-start">
-          <Link to={ROUTE_HOME}>
+          <Link
+            to={!isLogin || (isLogin && pathname !== ROUTE_HOME) ? ROUTE_HOME : ROUTE_MANAGE_LIST}
+          >
             <div className="flex justify-start items-center">
               <Image width={40} preview={false} src={logoImage} />
               <h2 className="text-3xl font-bold ml-2 primary-text-gradient my-0">SurveyMe</h2>
@@ -61,17 +85,32 @@ const PageHeader: FC = () => {
         <Col span={8}>
           <div className="flex justify-end items-center">
             <Space size={['middle', 'middle']}>
-              <div className="flex items-center">
-                <Image
-                  width={40}
-                  preview={false}
-                  src="//file.lizhi334.cn/image/default_avatar.png"
-                />
-                <Text strong className="ml-3 mt-0 mb-0">
-                  超级管理员
-                </Text>
-              </div>
-              <Dropdown menu={{ items, onClick: e => dispatch(setLocale(e.key as LocaleType)) }}>
+              <Dropdown
+                disabled={!isLogin}
+                menu={{
+                  items: isLogin ? userItems : [],
+                  onClick: e => handleUserCLick(e.key),
+                }}
+              >
+                <div className="flex items-center cursor-pointer">
+                  <Image
+                    width={40}
+                    height={40}
+                    preview={false}
+                    src={avatar}
+                    rootClassName="rounded-full flex overflow-hidden"
+                  />
+                  <Text strong className="ml-3 mt-0 mb-0">
+                    {isLogin ? nickname : t('public.notLogin')}
+                  </Text>
+                </div>
+              </Dropdown>
+              <Dropdown
+                menu={{
+                  items: localeItems,
+                  onClick: e => dispatch(setLocale(e.key as LocaleType)),
+                }}
+              >
                 <Button>
                   <Space>
                     {t(`public.${language}`)}

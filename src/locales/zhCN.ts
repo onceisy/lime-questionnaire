@@ -19,6 +19,8 @@ export default {
     username: '用户名',
     password: '密码',
     developing: '开发中...',
+    notLogin: '未登录',
+    logout: '退出',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',

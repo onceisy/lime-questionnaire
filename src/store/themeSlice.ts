@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 
-export type themeType = 'light' | 'dark';
-export interface themeState {
-  theme: themeType;
+export type ThemeType = 'light' | 'dark';
+export interface ThemeState {
+  theme: ThemeType;
 }
 
-let theme: themeType = 'light';
+let theme: ThemeType = 'light';
 const localLanguage = localStorage.getItem('theme') || '';
 if (['light', 'dark'].includes(localLanguage)) {
-  theme = localLanguage as themeType;
+  theme = localLanguage as ThemeType;
   if (theme === 'light') {
     document.documentElement.classList.remove('dark');
   } else {
@@ -17,7 +17,7 @@ if (['light', 'dark'].includes(localLanguage)) {
   }
 }
 
-const initialState: themeState = {
+const initialState: ThemeState = {
   theme: theme,
 };
 
@@ -26,7 +26,7 @@ export const themeSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    setTheme: (state, action: PayloadAction<themeType>) => {
+    setTheme: (state: ThemeState, action: PayloadAction<ThemeType>) => {
       const { payload } = action;
       state.theme = payload;
       localStorage.setItem('theme', payload);

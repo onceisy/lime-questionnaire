@@ -6,6 +6,8 @@ import bg1 from '@/assets/images/login-banner.png';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { login } from '@/service/user';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/store/userSlice';
 
 export interface AccountProp {
   username: string;
@@ -17,6 +19,7 @@ const SignIn: FC = () => {
   const { message } = App.useApp();
   const nav = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [form] = Form.useForm();
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,11 +34,16 @@ const SignIn: FC = () => {
     const { username, password, remember } = values;
     try {
       setLoading(true);
-      await login({ username, password });
-      setUserToLocal(username, password, remember);
-      message.success(t('user.loginSuccess'));
+      const res = await login({ username, password });
+      if (res.success) {
+        message.success(t('user.loginSuccess'));
+        setUserToLocal(username, password, remember);
+        dispatch(setUser(res.data));
+      }
       nav(ROUTE_MANAGE_LIST);
     } catch (error) {
+      // 1
+    } finally {
       setLoading(false);
     }
   }

@@ -14,7 +14,7 @@ export interface PatchListParams extends Question {
  * @param {Question} params
  * @return {*}
  */
-export function createQuestion(params: Question | object) {
+export function createQuestion(params: Question | object): Promise<ResponseType> {
   return ajax.post('/question', params) as Promise<ResponseType>;
 }
 
@@ -23,7 +23,7 @@ export function createQuestion(params: Question | object) {
  * @param {string} id
  * @return {*}
  */
-export function queryQuestion(id: string) {
+export function queryQuestion(id: string): Promise<ResponseType> {
   return ajax.get(`/question/detail/${id}`) as Promise<ResponseType>;
 }
 
@@ -32,7 +32,7 @@ export function queryQuestion(id: string) {
  * @param {Question} params
  * @return {*}
  */
-export function editQuestion(id: string, params: Partial<Question>) {
+export function editQuestion(id: string, params: Partial<Question>): Promise<ResponseType> {
   return ajax.patch(`/question/${id}`, params) as Promise<ResponseType>;
 }
 
@@ -41,7 +41,7 @@ export function editQuestion(id: string, params: Partial<Question>) {
  * @param {Question} params
  * @return {*}
  */
-export function editQuestionBatch(params: Partial<PatchListParams>) {
+export function editQuestionBatch(params: Partial<PatchListParams>): Promise<ResponseType> {
   return ajax.patch(`/question/list`, params) as Promise<ResponseType>;
 }
 
@@ -50,7 +50,7 @@ export function editQuestionBatch(params: Partial<PatchListParams>) {
  * @param {Question} params
  * @return {*}
  */
-export function deleteQuestionBatch(params: Partial<PatchListParams>) {
+export function deleteQuestionBatch(params: Partial<PatchListParams>): Promise<ResponseType> {
   return ajax.delete(`/question/list`, { data: params }) as Promise<ResponseType>;
 }
 
@@ -59,7 +59,7 @@ export function deleteQuestionBatch(params: Partial<PatchListParams>) {
  * @param {Question} params
  * @return {*}
  */
-export function copyQuestion(id: string) {
+export function copyQuestion(id: string): Promise<ResponseType> {
   return ajax.post(`/question/copy`, { id }) as Promise<ResponseType>;
 }
 
@@ -68,6 +68,6 @@ export function copyQuestion(id: string) {
  * @param {ListParams} params
  * @return {*}
  */
-export function queryQuestionList(params: Partial<ListParams>) {
+export function queryQuestionList(params: Partial<ListParams>): Promise<ResponseType> {
   return ajax.post('/question/list', params) as Promise<ResponseType>;
 }

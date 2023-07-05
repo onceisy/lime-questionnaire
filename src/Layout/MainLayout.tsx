@@ -5,12 +5,14 @@ import styles from './MainLayout.module.scss';
 import PageHeader from '@/components/PageHeader/PageHeader';
 import { useAppSelector } from '@/store/hooks';
 import { selectTheme } from '@/store/themeSlice';
+import useNavPage from '@/hooks/useNavPage';
 
 const { Footer, Content } = Layout;
 
 const MainLayout: FC = () => {
   const theme = useAppSelector(selectTheme);
   const location = useLocation();
+  useNavPage();
   return (
     <div
       className={
