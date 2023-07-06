@@ -7,6 +7,7 @@
     "antd",
     "anticon",
     "commitlint",
+    "persistor",
     "reduxjs",
     "tailwindcss"
   ],

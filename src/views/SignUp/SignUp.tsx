@@ -28,9 +28,6 @@ const SignUp: FC = () => {
       }
     }
   }
-  function onFinishFailed() {
-    console.log('fail');
-  }
   const { t } = useTranslation();
   return (
     <div className={'mx-auto flex'}>
@@ -48,7 +45,7 @@ const SignUp: FC = () => {
         <div className="text-center bg-white dark:bg-neutral-950 w-2/3 px-10 py-5 rounded-lg flex items-center">
           <div className="w-full">
             <h3 className="text-center my-5">{t('public.signUp')}</h3>
-            <Form onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+            <Form onFinish={onFinish} autoComplete="off">
               <Form.Item
                 required={false}
                 label={t('user.usernameSpace')}

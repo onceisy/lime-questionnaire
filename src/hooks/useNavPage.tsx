@@ -16,7 +16,6 @@ const useNavPage = () => {
   const isLogin = useAppSelector(isUserLogin);
 
   useEffect(() => {
-    console.log(pathname);
     if (NO_PERMISSION_PAGE.includes(pathname)) return;
 
     const shouldRedirectTo = isLogin ? ROUTE_MANAGE_LIST : ROUTE_SIGN_IN;

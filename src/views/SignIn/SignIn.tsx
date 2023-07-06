@@ -101,7 +101,7 @@ const SignIn: FC = () => {
    */
   // eslint-disable-next-line
   function onFieldsChange(changed: any) {
-    if (changed.length && changed[0].name[0] === 'username') {
+    if (changed.length === 1 && changed[0].name[0] === 'username') {
       const accounts = getUserFromLocal();
       if (accounts.length) {
         const account = accounts.find(i => i.username === changed[0].value);
@@ -117,9 +117,6 @@ const SignIn: FC = () => {
       form.setFieldsValue(accounts[accounts.length - 1]);
     }
   }, []);
-  function onFinishFailed() {
-    console.log('fail');
-  }
   return (
     <div className={'mx-auto flex'}>
       <div className="w-3/5">
@@ -138,7 +135,6 @@ const SignIn: FC = () => {
             <h3 className="text-center my-5">{t('public.signIn')}</h3>
             <Form
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               onFieldsChange={onFieldsChange}
               autoComplete="off"
               form={form}

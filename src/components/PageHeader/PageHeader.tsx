@@ -23,6 +23,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ROUTE_HOME, ROUTE_MANAGE_LIST } from '@/router/path';
 import { clearUser, isUserLogin, selectUserInfo } from '@/store/userSlice';
 import { useTranslation } from 'react-i18next';
+import { persistor } from '@/store';
 
 const { Text } = Typography;
 const { Header } = Layout;
@@ -55,9 +56,10 @@ const PageHeader: FC = () => {
     },
   ];
 
-  function handleUserCLick(key: string) {
+  async function handleUserCLick(key: string) {
     switch (key) {
       case 'logout':
+        await persistor.purge();
         dispatch(clearUser());
         break;
       default:

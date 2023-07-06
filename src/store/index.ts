@@ -2,14 +2,27 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import localeReducer from './localeSlice';
 import themeReducer from './themeSlice';
 import userSlice from './userSlice';
+import { persistStore, persistCombineReducers } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['locale'],
+};
+
+const reducer = persistCombineReducers(persistConfig, {
+  locale: localeReducer,
+  theme: themeReducer,
+  user: userSlice,
+});
 
 export const store = configureStore({
-  reducer: {
-    locale: localeReducer,
-    theme: themeReducer,
-    user: userSlice,
-  },
+  reducer,
+  middleware: [thunk],
 });
+export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

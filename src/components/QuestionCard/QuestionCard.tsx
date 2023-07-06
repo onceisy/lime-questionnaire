@@ -16,9 +16,12 @@ import { useTranslation } from 'react-i18next';
 import useEditQuestion from '@/hooks/useEditQuestion';
 import { useRequest } from 'ahooks';
 import { copyQuestion } from '@/service/question';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_QUESTION_EDIT } from '@/router/path';
 
 const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
   const { t } = useTranslation();
+  const nav = useNavigate();
   const { modal } = App.useApp();
 
   const { _id, title, isPublished, isStar, refresh } = props;
@@ -70,7 +73,13 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
               )}
               {!isPublished && (
                 <>
-                  <Button type="primary" shape="round" icon={<FormOutlined />} size="middle">
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<FormOutlined />}
+                    size="middle"
+                    onClick={() => nav(`${ROUTE_QUESTION_EDIT}/${_id}`)}
+                  >
                     {t('public.edit')}
                   </Button>
                   <Button type="primary" shape="round" icon={<SendOutlined />} size="middle">

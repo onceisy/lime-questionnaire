@@ -22,7 +22,7 @@ const locales = {
 
 let language: LocaleType = 'enUS';
 const localLanguage = localStorage.getItem('language') || '';
-if (['enUS', 'zhCN'].includes(localLanguage)) {
+if (localLanguage && ['enUS', 'zhCN'].includes(localLanguage)) {
   language = localLanguage as LocaleType;
 }
 
