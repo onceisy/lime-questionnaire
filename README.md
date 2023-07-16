@@ -44,3 +44,26 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## 图标库
+
+### 在线图标库地址
+
+地址：https://icones.js.org/
+
+### 在jsx中使用
+
+```javascript
+import React, { FC } from 'react';
+import { Icon } from '@iconify/react';
+
+const IconTest: FC = () => {
+  return (
+    <>
+      <Icon icon="material-symbols:light-mode-outline" />
+    </>
+  );
+};
+
+export default IconTest;
+```

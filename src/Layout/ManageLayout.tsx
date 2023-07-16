@@ -1,8 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Layout, Menu, MenuProps } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { ROUTE_MANAGE_LIST, ROUTE_MANAGE_STAR, ROUTE_MANAGE_TRASH } from '@/router/path';
-import { UnorderedListOutlined, DeleteOutlined, StarOutlined } from '@ant-design/icons';
+import {
+  ROUTE_CONFIG,
+  ROUTE_MANAGE_LIST,
+  ROUTE_MANAGE_STAR,
+  ROUTE_MANAGE_TRASH,
+} from '@/router/path';
+import {
+  UnorderedListOutlined,
+  DeleteOutlined,
+  StarOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import CreateQuestion from '@/components/CreateQuestion/CreateQuestion';
 
@@ -28,15 +38,27 @@ const ManageLayout: FC = () => {
       key: ROUTE_MANAGE_TRASH,
       icon: <DeleteOutlined />,
     },
+    {
+      label: t('public.systemConfig'),
+      key: ROUTE_CONFIG,
+      icon: <SettingOutlined />,
+    },
   ];
 
   const clickMenu: MenuProps['onClick'] = e => {
-    nav(e.key);
+    if (e.key !== selectedKeys[0]) {
+      nav(e.key);
+    }
   };
 
   const location = useLocation();
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   useEffect(() => {
+    // 如果是在设置页面，不需要重新选中
+    if (location.pathname.includes(ROUTE_CONFIG) && location.pathname !== ROUTE_CONFIG) {
+      setSelectedKeys([ROUTE_CONFIG]);
+      return;
+    }
     setSelectedKeys([location.pathname]);
   }, [location]);
   return (
@@ -53,10 +75,7 @@ const ManageLayout: FC = () => {
             />
           </div>
         </Sider>
-        <Content
-          style={{ padding: '16px 16px 0 16px', overflow: 'initial' }}
-          className="rounded-lg"
-        >
+        <Content style={{ overflow: 'initial' }} className="rounded-lg">
           <Outlet />
         </Content>
       </Layout>

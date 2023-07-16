@@ -118,7 +118,7 @@ const TrashList: FC = () => {
   }
 
   return (
-    <>
+    <div className="pl-4">
       <div className="flex items-center justify-between mb-3">
         <h3 title={t('public.trash') as string} className="my-0">
           {t('public.trash')}
@@ -171,7 +171,7 @@ const TrashList: FC = () => {
         <Empty />
       )}
       <QuestionListPagination position="right" total={count} pageSize={10} />
-    </>
+    </div>
   );
 };
 

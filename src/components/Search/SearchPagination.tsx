@@ -9,7 +9,7 @@ export interface PaginationProps {
   position?: 'left' | 'right';
 }
 
-const QuestionListPagination: FC<PaginationProps> = (props: PaginationProps) => {
+const SearchPagination: FC<PaginationProps> = (props: PaginationProps) => {
   const { total, position = 'left', pageSize: pageSizeProp } = props;
 
   const location = useLocation();
@@ -34,7 +34,7 @@ const QuestionListPagination: FC<PaginationProps> = (props: PaginationProps) => 
     setPageSize(Number(pageSize));
   }, [searchParams]);
   return (
-    <div className={`${position === 'right' ? 'text-right' : ''} mt-2`}>
+    <div className={`${position === 'right' ? 'text-right' : ''}`}>
       <Pagination
         current={currentPage}
         pageSize={pageSize}
@@ -47,4 +47,4 @@ const QuestionListPagination: FC<PaginationProps> = (props: PaginationProps) => 
   );
 };
 
-export default QuestionListPagination;
+export default SearchPagination;

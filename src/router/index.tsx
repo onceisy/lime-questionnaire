@@ -12,6 +12,9 @@ import QuestionEdit from '@/views/Question/QuestionEdit';
 import QuestionStatistics from '@/views/Question/QuestionStatistics';
 import QuestionLayout from '@/Layout/QuestionLayout';
 import ManageLayout from '@/Layout/ManageLayout';
+import ConfigIndex from '@/views/Config';
+import OptionsConfig from '@/views/Config/OptionsConfig';
+import UserConfig from '@/views/Config/UserConfig/UserConfig';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,26 @@ const router = createBrowserRouter([
           {
             path: 'trash',
             element: <TrashList />,
+          },
+        ],
+      },
+      {
+        path: 'config',
+        element: <ManageLayout />,
+        children: [
+          {
+            path: '',
+            element: <ConfigIndex />,
+            children: [
+              {
+                path: 'options',
+                element: <OptionsConfig />,
+              },
+              {
+                path: 'user',
+                element: <UserConfig />,
+              },
+            ],
           },
         ],
       },

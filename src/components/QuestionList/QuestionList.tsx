@@ -17,7 +17,7 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
   return (
     <>
       <div className="flex items-center justify-between mb-3">
-        <h3 title={title} className="my-0">
+        <h3 title={title} className="my-0 px-5">
           {title}
         </h3>
         <QuestionListSearch />
@@ -25,7 +25,7 @@ const QuestionList: FC<QuestionListProps> = (props: QuestionListProps) => {
       {loading ? (
         <Loading className="mt-16"></Loading>
       ) : questionList && questionList.length ? (
-        <div className="max-h-content-list overflow-y-scroll pr-1">
+        <div className="max-h-content-list overflow-y-scroll pr-1 pl-4">
           <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
             {questionList.map((q: Question) => {
               return <QuestionCard key={q._id} {...q} refresh={refresh}></QuestionCard>;

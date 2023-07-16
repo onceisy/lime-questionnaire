@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 const QuestionLayout: FC = () => {
   useNavPage();
   return (
-    <div>
+    <div className="h-screen">
       <Outlet />
     </div>
   );

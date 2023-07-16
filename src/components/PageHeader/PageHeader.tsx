@@ -134,7 +134,7 @@ const PageHeader: FC = () => {
                 defaultChecked={theme === 'light'}
                 onChange={checked => dispatch(setTheme(checked ? 'light' : 'dark'))}
               />
-              <GithubOutlined className="text-xl cursor-pointer" onClick={goGithub} />
+              <GithubOutlined className="text-xl cursor-pointer align-middle" onClick={goGithub} />
             </Space>
           </div>
         </Col>
