@@ -1,8 +1,7 @@
 import { Typography } from 'antd';
 import React, { FC } from 'react';
-import QuestionTitlePropsType from './QuestionTitlePropsType';
+import QuestionTitlePropsType from './interface';
 import { useTranslation } from 'react-i18next';
-import { COMPONENT_COMMON_CLASS } from '@/constant/TailwindClassNames';
 
 const { Title, Text } = Typography;
 
@@ -19,9 +18,8 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
     return `${34 - level * 4}px`;
   }
   return (
-    <div className={`${COMPONENT_COMMON_CLASS}`}>
+    <div>
       <Title
-        editable
         title={text}
         level={level}
         style={{
@@ -33,7 +31,7 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
       >
         {text}
       </Title>
-      <Text editable>{description}</Text>
+      <Text>{description}</Text>
     </div>
   );
 };

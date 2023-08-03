@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import Loading from '@/components/Loading/Loading';
 import useQueryQuestion from '@/hooks/useQueryQuestion';
 import Header from './Header/Header';
-import QuestionTitle from './Components/QuestionTitle/QuestionTitle';
-import QuestionInput from './Components/QuestionInput/QuestionInput';
-import { Form } from 'antd';
+import LeftPanel from './LeftPanel';
+import MiddleView from './MiddleView';
+import RightPanel from './RightPanel';
 
 const QuestionEdit: FC = () => {
   const { loading, data } = useQueryQuestion();
   const question = data?.data || {};
+
   return (
     <>
       {loading ? (
@@ -17,14 +18,15 @@ const QuestionEdit: FC = () => {
         <div className="h-full flex flex-col">
           <Header {...question}></Header>
           <div className="flex-auto flex">
-            <div className="w-72 bg-amber-50">1</div>
-            <div className="bg-slate-50 flex-auto px-5">
-              <QuestionTitle text={question.title}></QuestionTitle>
-              <Form layout="vertical">
-                <QuestionInput _id="test" label="输入框标题" required></QuestionInput>
-              </Form>
+            <div className="w-72">
+              <LeftPanel></LeftPanel>
             </div>
-            <div className="bg-lime-50 w-72">3</div>
+            <div className="bg-slate-50 flex-auto px-5">
+              <MiddleView></MiddleView>
+            </div>
+            <div className="w-72">
+              <RightPanel></RightPanel>
+            </div>
           </div>
         </div>
       )}

@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { createQuestion } from '@/service/question';
 import { ROUTE_QUESTION_EDIT } from '@/router/path';
 import { useRequest } from 'ahooks';
+import { nanoid } from 'nanoid';
+import QuestionTitlePropsType from '@/views/Question/QuestionEdit/Components/QuestionTitle/interface';
+import { ComponentInfoType } from '@/store/components';
 
 const CreateQuestion: FC = () => {
   const { t } = useTranslation();
@@ -26,8 +29,22 @@ const CreateQuestion: FC = () => {
     form
       .validateFields()
       .then(values => {
+        const initialQuestionTitle: QuestionTitlePropsType = {
+          text: values.title,
+          level: 3,
+          isCenter: false,
+          description: t('question.defaultDescription'),
+        };
+        const componentList: ComponentInfoType[] = [
+          {
+            _id: nanoid(),
+            type: 'QuestionTitle',
+            props: initialQuestionTitle,
+          },
+        ];
         const params = {
           ...values,
+          componentList,
           createUser: '649324ef690b8b3224ea5029',
         };
         handleCreate(params);

@@ -84,9 +84,24 @@ export default {
   },
   question: {
     placeholder: {
+      placeholder: '输入提示',
       input: '请输入',
     },
     defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
+    componentGroup: {
+      input: '填空',
+    },
+    componentType: {
+      input: '单行文本',
+    },
+    componentLibrary: '组件库',
+    props: '属性',
+    questionTitle: '问卷标题',
+    titleLevel: '标题大小',
+    isCenter: '标题是否居中',
+    questionDesc: '问卷描述',
+    selectComponent: '请选择组件',
+    isRequired: '是否必填',
   },
   config: {
     options: '字典设置',
