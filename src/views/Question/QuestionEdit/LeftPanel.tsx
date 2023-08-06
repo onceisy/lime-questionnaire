@@ -7,8 +7,8 @@ const LeftPanel: FC = () => {
   const { t } = useTranslation();
   const items = [
     {
-      label: '',
-      key: t('question.componentLibrary'),
+      label: t('question.componentLibrary'),
+      key: 'componentLibrary',
       children: <ComponentLibrary></ComponentLibrary>,
     },
     {
@@ -19,7 +19,7 @@ const LeftPanel: FC = () => {
   ];
   return (
     <div className="px-5">
-      <Tabs defaultActiveKey="2" items={items} />
+      <Tabs defaultActiveKey="componentLibrary" items={items} />
     </div>
   );
 };

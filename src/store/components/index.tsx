@@ -1,6 +1,8 @@
 import { ComponentPropsType } from '@/views/Question/QuestionEdit/Components';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
+import { nanoid } from 'nanoid';
+import { cloneDeep } from 'lodash';
 
 // 组件的类型
 export type ComponentTypesType = 'QuestionTitle' | 'QuestionInput';
@@ -20,11 +22,13 @@ export interface ComponentsStateType {
   cover?: string;
   componentList: ComponentInfoType[];
   selectedId: string;
+  copiedComponent: ComponentInfoType | undefined;
 }
 
 const initialState: ComponentsStateType = {
   componentList: [],
   selectedId: '',
+  copiedComponent: undefined,
 };
 
 const componentsSlice = createSlice({
@@ -35,10 +39,12 @@ const componentsSlice = createSlice({
     resetComponents(state: ComponentsStateType, action: PayloadAction<ComponentsStateType>) {
       return action.payload;
     },
+
     // 设置组件选中状态
     setSelectedId(state: ComponentsStateType, action: PayloadAction<string>) {
       state.selectedId = action.payload;
     },
+
     // 添加组件
     addComponentToList(state: ComponentsStateType, action: PayloadAction<ComponentInfoType>) {
       if (!state.selectedId) {
@@ -48,6 +54,7 @@ const componentsSlice = createSlice({
         state.componentList.splice(index + 1, 0, action.payload);
       }
     },
+
     // 更新组件的props信息
     updateComponentPropsById(
       state: ComponentsStateType,
@@ -64,6 +71,82 @@ const componentsSlice = createSlice({
         }
       }
     },
+
+    /**
+     * @description: 删除组件
+     * @param {ComponentsStateType} state
+     * @param {PayloadAction} action 组件_id
+     * @return {*}
+     */
+    deleteComponentById(state: ComponentsStateType, action: PayloadAction<string>) {
+      const index = state.componentList.findIndex(c => c._id === action.payload);
+
+      // 判断是不是最后一个
+      const nextId =
+        index + 1 === state.componentList.length
+          ? state.componentList[index - 1]?._id || ''
+          : state.componentList[index + 1]._id;
+      // 删除
+      if (index >= 0) {
+        state.componentList.splice(index, 1);
+        state.selectedId = state.componentList.length ? nextId : '';
+      }
+    },
+
+    /**
+     * @description:
+     * @param {ComponentsStateType} state
+     * @param {PayloadAction} action 被复制组件的_id
+     * @return {*}
+     */
+    copyComponentById(state: ComponentsStateType, action: PayloadAction<string>) {
+      const item = state.componentList.find(c => c._id === action.payload);
+      if (item) {
+        const copyComponent = cloneDeep(item);
+        state.copiedComponent = copyComponent;
+      }
+    },
+
+    /**
+     * @description: 粘贴组件
+     * @param {ComponentsStateType} state
+     * @param {PayloadAction} action 粘贴位置 index
+     * @return {*}
+     */
+    pasteComponentByIndex(state: ComponentsStateType, action: PayloadAction<number>) {
+      if (!state.copiedComponent) {
+        return;
+      }
+      const index = action.payload;
+      const copiedComponent = cloneDeep(state.copiedComponent);
+      copiedComponent._id = nanoid();
+      state.componentList.splice(index, 0, copiedComponent);
+      state.selectedId = copiedComponent._id;
+    },
+
+    // 选中上一个组件
+    selectPreviousComponent(state: ComponentsStateType) {
+      const { selectedId, componentList } = state;
+      if (!selectedId || componentList.length <= 1) {
+        return;
+      }
+      const index = componentList.findIndex(c => c._id === selectedId);
+      if (index > 0) {
+        state.selectedId = componentList[index - 1]._id;
+      }
+    },
+
+    // 选中上一个组件
+    selectNextComponent(state: ComponentsStateType) {
+      const { selectedId, componentList } = state;
+      if (!selectedId || componentList.length <= 1) {
+        return;
+      }
+      const index = componentList.findIndex(c => c._id === selectedId);
+      if (index >= 0 && index !== componentList.length - 1) {
+        state.selectedId = componentList[index + 1]._id;
+      }
+    },
   },
 });
 
@@ -72,7 +155,16 @@ export const selectComponentList = (state: RootState) => state.components.compon
 export const selectQuestionTitle = (state: RootState) =>
   state.components.componentList.find(i => i.type === 'QuestionTitle');
 
-export const { resetComponents, setSelectedId, addComponentToList, updateComponentPropsById } =
-  componentsSlice.actions;
+export const {
+  resetComponents,
+  setSelectedId,
+  addComponentToList,
+  updateComponentPropsById,
+  deleteComponentById,
+  copyComponentById,
+  pasteComponentByIndex,
+  selectPreviousComponent,
+  selectNextComponent,
+} = componentsSlice.actions;
 
 export default componentsSlice.reducer;

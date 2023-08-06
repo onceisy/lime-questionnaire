@@ -26,6 +26,7 @@ export default {
     operate: '操作',
     save: '保存',
     cancel: '取消',
+    shortcutKeys: '快捷键',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -63,6 +64,7 @@ export default {
     deleteCountSuccess: '成功删除{{total}}个问卷',
     questionTitle: '问卷标题',
     inputQuestionTitle: '请输入问卷标题',
+    noComponent: '请至少添加一个组件',
   },
   user: {
     usernameSpace: '用 户 名',

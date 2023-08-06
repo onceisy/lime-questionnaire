@@ -14,8 +14,13 @@ const QuestionInput: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
   return (
     <div>
       <div className="pointer-events-none">
-        <Form.Item label={label} name={_id} rules={[{ required: required, message: placeholder }]}>
-          <Input placeholder={placeholder} />
+        <Form.Item
+          label={label}
+          name={_id}
+          rules={[{ required: required, message: placeholder }]}
+          required={required}
+        >
+          <Input placeholder={placeholder} disabled />
         </Form.Item>
       </div>
     </div>

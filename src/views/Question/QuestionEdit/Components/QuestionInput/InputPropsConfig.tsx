@@ -24,7 +24,7 @@ const InputPropsConfig: FC = (props: QuestionInputPropsType) => {
       >
         {/* 标题 */}
         <Form.Item label={t('public.title')} name="label">
-          <Input placeholder={t('public.title')} />
+          <Input maxLength={25} placeholder={t('public.title')} />
         </Form.Item>
         {/* 是否必填 */}
         <Form.Item>
@@ -37,7 +37,7 @@ const InputPropsConfig: FC = (props: QuestionInputPropsType) => {
         </Form.Item>
         {/* 输入提示 */}
         <Form.Item label={t('question.placeholder.placeholder')} name="placeholder">
-          <Input placeholder={t('question.placeholder.input')} />
+          <Input maxLength={25} placeholder={t('question.placeholder.input')} />
         </Form.Item>
       </Form>
     </div>
