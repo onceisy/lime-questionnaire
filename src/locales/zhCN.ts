@@ -7,6 +7,7 @@ export default {
     zhCN: '简体中文',
     trash: '回收站',
     copy: '复制',
+    paste: '粘贴',
     edit: '编辑',
     delete: '删除',
     restore: '恢复',
@@ -65,6 +66,8 @@ export default {
     questionTitle: '问卷标题',
     inputQuestionTitle: '请输入问卷标题',
     noComponent: '请至少添加一个组件',
+    cursorMoveDown: '光标向下移动',
+    cursorMoveUp: '光标向上移动',
   },
   user: {
     usernameSpace: '用 户 名',

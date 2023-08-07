@@ -1,33 +1,34 @@
 import React, { FC } from 'react';
-import { Descriptions } from 'antd';
 import { nanoid } from 'nanoid';
+import { useTranslation } from 'react-i18next';
 
 const ShortcutKeyTips: FC = () => {
+  const { t } = useTranslation();
   const items = [
     {
       key: nanoid(),
       label: 'ctrl + c',
-      content: '复制',
+      content: t('public.copy'),
     },
     {
       key: nanoid(),
       label: 'ctrl + v',
-      content: '粘贴',
+      content: t('public.paste'),
     },
     {
       key: nanoid(),
       label: 'backspace/delete',
-      content: '删除',
+      content: t('public.delete'),
     },
     {
       key: nanoid(),
       label: '↑',
-      content: '光标向上移动',
+      content: t('manage.cursorMoveUp'),
     },
     {
       key: nanoid(),
       label: '↓',
-      content: '光标向下移动',
+      content: t('manage.cursorMoveDown'),
     },
   ];
   return (
