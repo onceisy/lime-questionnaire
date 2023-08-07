@@ -28,6 +28,9 @@ export default {
     save: '保存',
     cancel: '取消',
     shortcutKeys: '快捷键',
+    textColor: '文字颜色',
+    fontSize: '字体大小',
+    pixel: '{{level}} 像素',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -95,6 +98,7 @@ export default {
     defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
     componentGroup: {
       input: '填空',
+      paragraph: '段落',
     },
     componentType: {
       input: '单行文本',
@@ -102,11 +106,19 @@ export default {
     componentLibrary: '组件库',
     props: '属性',
     questionTitle: '问卷标题',
+    questionParagraph: '问卷段落',
+    paragraphContent: '段落内容',
     titleLevel: '标题大小',
-    isCenter: '标题是否居中',
+    isTitleCenter: '标题是否居中',
+    isCenter: '是否居中',
+    isStrong: '是否加粗',
+    isItalic: '是否斜体',
+    copyable: '是否可复制',
+    isCode: '显示为代码',
     questionDesc: '问卷描述',
     selectComponent: '请选择组件',
     isRequired: '是否必填',
+    noEmptyContent: '内容不可为空！',
   },
   config: {
     options: '字典设置',

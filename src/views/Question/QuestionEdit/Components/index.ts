@@ -1,12 +1,16 @@
 import { FC } from 'react';
 import QuestionInputPropsType from './QuestionInput/interface';
 import QuestionTitlePropsType from './QuestionTitle/interface';
+import QuestionParagraphPropsType from './QuestionParagraph/interface';
 import QuestionTitleConf from './QuestionTitle';
 import QuestionInputConf from './QuestionInput';
+import QuestionParagraphConf from './QuestionParagraph';
 import { nanoid } from 'nanoid';
 import i18n from '@/locales';
 
-export type ComponentPropsType = QuestionTitlePropsType & QuestionInputPropsType;
+export type ComponentPropsType = QuestionTitlePropsType &
+  QuestionInputPropsType &
+  QuestionParagraphPropsType;
 
 // 统一组件的配置 type
 export type ComponentConfType = {
@@ -19,7 +23,11 @@ export type ComponentConfType = {
 };
 
 // 全部的组件配置的列表
-const componentConfList: ComponentConfType[] = [QuestionTitleConf, QuestionInputConf];
+const componentConfList: ComponentConfType[] = [
+  QuestionTitleConf,
+  QuestionInputConf,
+  QuestionParagraphConf,
+];
 
 // 分组后的组件列表
 export const componentConfGroupList = [
@@ -27,7 +35,7 @@ export const componentConfGroupList = [
     _id: nanoid(),
     label: i18n.t('public.title'),
     type: 'title',
-    components: [QuestionTitleConf],
+    components: [QuestionTitleConf, QuestionParagraphConf],
   },
   {
     _id: nanoid(),

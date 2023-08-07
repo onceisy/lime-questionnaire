@@ -11,6 +11,7 @@ export default {
   _id: nanoid(),
   name: i18n.t('question.componentGroup.input'),
   type: 'QuestionInput',
+  // 组件库渲染时前面的图标
   icon: 'radix-icons:font-roman',
   Component: QuestionInput,
   PropsConfComponent: InputPropsConfig,

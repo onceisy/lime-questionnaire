@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ComponentConfType, componentConfGroupList, getComponentConfByType } from './Components';
-import { Form, Popover } from 'antd';
+import { Form, Popover, Space } from 'antd';
 import { Icon } from '@iconify/react';
 import { ComponentInfoType, ComponentTypesType, addComponentToList } from '@/store/components';
 import { nanoid } from 'nanoid';
@@ -32,9 +32,9 @@ const ComponentLibrary: FC = () => {
       {componentConfGroupList.map(component => {
         const { _id, label, components } = component;
         return (
-          <div key={_id}>
+          <div key={_id} className="mt-4 first:mt-0">
             <h4 className="mt-0">{label}</h4>
-            <ul className="flex">
+            <Space>
               {components.map(item => {
                 return (
                   <Popover
@@ -47,7 +47,7 @@ const ComponentLibrary: FC = () => {
                       </Form>
                     }
                   >
-                    <li
+                    <div
                       className="cursor-pointer flex items-center bg-gray-100 px-3 py-1 rounded hover:bg-gray-200"
                       onClick={() => handleAddComponent(item)}
                     >
@@ -55,11 +55,11 @@ const ComponentLibrary: FC = () => {
                         <Icon icon={item.icon} />
                       </div>
                       <span>{item.name}</span>
-                    </li>
+                    </div>
                   </Popover>
                 );
               })}
-            </ul>
+            </Space>
           </div>
         );
       })}

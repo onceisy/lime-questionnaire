@@ -1,10 +1,12 @@
 import React, { FC, useEffect } from 'react';
-import { Form, Input, Select, Switch } from 'antd';
+import { App, Form, Input, Select, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 import QuestionTitlePropsType from './interface';
 
 const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
+  const { message } = App.useApp();
   const { t } = useTranslation();
+
   const { text, level, isCenter, description, onChange } = props;
   const levels = [1, 2, 3, 4, 5];
   const [form] = Form.useForm();
@@ -12,7 +14,16 @@ const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
     form.setFieldsValue({ text, level, isCenter, description });
   }, [props]);
 
+  let lastTitle = text;
+
   function handleValuesChange() {
+    const title = form.getFieldValue('text');
+    if (!title) {
+      message.error(t('question.noEmptyContent'));
+      form.setFieldValue('text', lastTitle);
+      return;
+    }
+    lastTitle = title;
     onChange && onChange(form.getFieldsValue());
   }
   return (
@@ -24,7 +35,7 @@ const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
         onValuesChange={handleValuesChange}
       >
         {/* 问卷标题 */}
-        <Form.Item label={t('question.questionTitle')} name="text">
+        <Form.Item label={t('question.questionTitle')} name="text" required>
           <Input placeholder={t('question.questionTitle')} />
         </Form.Item>
         {/* 标题大小 */}
@@ -42,7 +53,7 @@ const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
         {/* 是否居中 */}
         <Form.Item>
           <div className="flex items-center">
-            <span className="mr-4">{t('question.isCenter')}</span>
+            <span className="mr-4">{t('question.isTitleCenter')}</span>
             <Form.Item name="isCenter" valuePropName="checked" style={{ margin: 0 }}>
               <Switch />
             </Form.Item>

@@ -11,6 +11,7 @@ export default {
   _id: nanoid(),
   name: i18n.t('public.title'),
   type: 'QuestionTitle',
+  // 组件库渲染时前面的图标
   icon: 'radix-icons:heading',
   // 组件显示
   Component: QuestionTitle,
