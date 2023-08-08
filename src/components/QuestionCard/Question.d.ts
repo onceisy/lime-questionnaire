@@ -1,3 +1,5 @@
+import { ComponentInfoType } from '@/store/components';
+
 interface Question {
   _id: string;
   title: string;
@@ -8,5 +10,6 @@ interface Question {
   createdAt?: number;
   updatedAt?: number;
   createUser?: string;
+  componentList?: ComponentInfoType[];
 }
 export default Question;

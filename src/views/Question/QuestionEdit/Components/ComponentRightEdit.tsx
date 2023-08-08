@@ -17,8 +17,9 @@ const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { className = '', _id } = props;
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const { componentList } = useGetComponentsState();
+
   /**
    * @description: 删除组件
    * @param {MouseEvent} e
@@ -30,6 +31,10 @@ const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
       title: t('manage.deleteConfirm'),
       okButtonProps: { danger: true },
       onOk: () => {
+        if (componentList.length === 1) {
+          message.error(t('manage.atLeastOneComponent'));
+          return;
+        }
         dispatch(deleteComponentById(_id));
       },
     });

@@ -18,17 +18,20 @@ export interface ComponentInfoType {
 
 // 整个问卷详情的数据结构
 export interface ComponentsStateType {
-  _id?: string;
+  _id: string;
   cover?: string;
   componentList: ComponentInfoType[];
   selectedId: string;
   copiedComponent: ComponentInfoType | undefined;
+  title: string;
 }
 
 const initialState: ComponentsStateType = {
+  _id: '',
   componentList: [],
   selectedId: '',
   copiedComponent: undefined,
+  title: '',
 };
 
 const componentsSlice = createSlice({
@@ -147,6 +150,10 @@ const componentsSlice = createSlice({
         state.selectedId = componentList[index + 1]._id;
       }
     },
+
+    setQuestionTitle(state: ComponentsStateType, action: PayloadAction<string>) {
+      state.title = action.payload;
+    },
   },
 });
 
@@ -165,6 +172,7 @@ export const {
   pasteComponentByIndex,
   selectPreviousComponent,
   selectNextComponent,
+  setQuestionTitle,
 } = componentsSlice.actions;
 
 export default componentsSlice.reducer;

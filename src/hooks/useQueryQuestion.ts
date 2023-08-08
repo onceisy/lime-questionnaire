@@ -11,7 +11,15 @@ function useQueryQuestion() {
   const { loading, data } = useRequest(() => queryQuestion(id), {
     onSuccess: res => {
       const componentList = res.data.componentList || [];
-      dispatch(resetComponents({ componentList, selectedId: '', copiedComponent: undefined }));
+      dispatch(
+        resetComponents({
+          _id: res.data._id,
+          componentList,
+          selectedId: '',
+          copiedComponent: undefined,
+          title: res.data.title,
+        })
+      );
     },
   });
 

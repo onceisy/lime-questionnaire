@@ -3,11 +3,17 @@ import { useRequest } from 'ahooks';
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @description: 修改组件接口调用
+ * @param {function} refresh 请求成功回调函数
+ * @return {loading} loading状态
+ * @return {run} 参数1为_id: 问卷的_id, 参数2为任意问卷的属性，如: { isStar: true }
+ */
 function useEditQuestion(refresh?: () => void) {
   const { message } = App.useApp();
   const { t } = useTranslation();
 
-  const { loading, run } = useRequest(editQuestion, {
+  const { loading, run, runAsync } = useRequest(editQuestion, {
     manual: true,
     onSuccess: (result, params) => {
       const data = params[1];
@@ -30,6 +36,7 @@ function useEditQuestion(refresh?: () => void) {
   return {
     loading,
     run,
+    runAsync,
   };
 }
 

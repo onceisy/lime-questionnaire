@@ -3,7 +3,7 @@ import { useAppSelector } from '@/store/hooks';
 
 export function useGetComponentsState() {
   const componentsState = useAppSelector(selectComponent);
-  const { selectedId, componentList } = componentsState;
+  const { selectedId, componentList, title, _id } = componentsState;
 
   const selectedComponent = componentList.find(i => i._id === selectedId);
 
@@ -11,5 +11,8 @@ export function useGetComponentsState() {
     selectedId,
     componentList,
     selectedComponent,
+    componentsState,
+    title,
+    _id,
   };
 }

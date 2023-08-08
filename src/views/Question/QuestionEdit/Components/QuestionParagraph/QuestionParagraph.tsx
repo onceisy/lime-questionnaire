@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import QuestionParagraphPropsType from './interface';
 import { Typography } from 'antd';
 import classNames from 'classnames';
@@ -13,11 +13,8 @@ const QuestionParagraph: FC<QuestionParagraphPropsType> = (props: QuestionParagr
   const className = classNames({
     ['mt-0']: true,
     ['text-center']: isCenter,
+    ['whitespace-pre']: true,
   });
-  const [textArr, setTextArr] = useState<string[]>([]);
-  useEffect(() => {
-    setTextArr(text?.split('\n') || []);
-  }, [text]);
   return (
     <div>
       <Typography.Paragraph
@@ -27,14 +24,7 @@ const QuestionParagraph: FC<QuestionParagraphPropsType> = (props: QuestionParagr
         style={style}
         className={className}
       >
-        {textArr.map(text => {
-          return (
-            <span key={text}>
-              {text}
-              {textArr.length > 1 ? <br /> : ''}
-            </span>
-          );
-        })}
+        {text}
       </Typography.Paragraph>
     </div>
   );

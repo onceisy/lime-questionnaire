@@ -23,7 +23,7 @@ function isInvalidElement() {
 export function useBindComponentListEvents() {
   const { selectedId, componentList } = useGetComponentsState();
   const dispatch = useDispatch();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const { t } = useTranslation();
 
   const option: Options = {
@@ -90,6 +90,10 @@ export function useBindComponentListEvents() {
       title: t('manage.deleteConfirm'),
       okButtonProps: { danger: true },
       onOk: () => {
+        if (componentList.length === 1) {
+          message.error(t('manage.atLeastOneComponent'));
+          return;
+        }
         dispatch(deleteComponentById(selectedId));
       },
     });

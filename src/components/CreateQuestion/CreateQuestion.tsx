@@ -9,6 +9,7 @@ import { useRequest } from 'ahooks';
 import { nanoid } from 'nanoid';
 import QuestionTitlePropsType from '@/views/Question/QuestionEdit/Components/QuestionTitle/interface';
 import { ComponentInfoType } from '@/store/components';
+import { QUESTION_TITLE_MAX_LENGTH } from '@/constant';
 
 const CreateQuestion: FC = () => {
   const { t } = useTranslation();
@@ -84,7 +85,7 @@ const CreateQuestion: FC = () => {
               name="title"
               rules={[{ required: true, message: t('manage.inputQuestionTitle') }]}
             >
-              <Input allowClear />
+              <Input allowClear showCount maxLength={QUESTION_TITLE_MAX_LENGTH} />
             </Form.Item>
           </Form>
         </div>

@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import Loading from '@/components/Loading/Loading';
 import useQueryQuestion from '@/hooks/useQueryQuestion';
-import Header from './Header/Header';
+import EditHeader from './EditHeader/EditHeader';
 import LeftPanel from './LeftPanel';
 import MiddleView from './MiddleView';
 import RightPanel from './RightPanel';
 
 const QuestionEdit: FC = () => {
-  const { loading, data } = useQueryQuestion();
-  const question = data?.data || {};
+  const { loading } = useQueryQuestion();
 
   return (
     <>
@@ -16,7 +15,7 @@ const QuestionEdit: FC = () => {
         <Loading top={60}></Loading>
       ) : (
         <div className="h-full flex flex-col">
-          <Header {...question}></Header>
+          <EditHeader></EditHeader>
           <div className="flex-auto flex">
             <div className="w-72">
               <LeftPanel></LeftPanel>
