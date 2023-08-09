@@ -5,12 +5,14 @@ import router from './router';
 import { useAppSelector } from './store/hooks';
 import { selectLocale } from './store/localeSlice';
 import { selectTheme } from './store/themeSlice';
+import { useQueryAllOptions } from './hooks/useQueryAllOptions';
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
 function MyApp() {
   const locale = useAppSelector(selectLocale);
   const localTheme = useAppSelector(selectTheme);
+  useQueryAllOptions();
 
   return (
     <ConfigProvider

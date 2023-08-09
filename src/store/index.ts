@@ -6,6 +6,7 @@ import componentsReducer from './components';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
+import optionSlice from './optionSlice';
 
 const persistConfig = {
   key: 'root',
@@ -18,6 +19,7 @@ const reducer = persistCombineReducers(persistConfig, {
   theme: themeReducer,
   user: userSlice,
   components: componentsReducer,
+  options: optionSlice,
 });
 
 export const store = configureStore({
