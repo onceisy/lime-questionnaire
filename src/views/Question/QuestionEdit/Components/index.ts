@@ -7,6 +7,7 @@ import QuestionInputConf from './QuestionInput';
 import QuestionParagraphConf from './QuestionParagraph';
 import { nanoid } from 'nanoid';
 import i18n from '@/locales';
+import QuestionTextAreaConf from './QuestionTextArea';
 
 export type ComponentPropsType = QuestionTitlePropsType &
   QuestionInputPropsType &
@@ -14,9 +15,10 @@ export type ComponentPropsType = QuestionTitlePropsType &
 
 // 统一组件的配置 type
 export type ComponentConfType = {
+  _id?: string;
   name: string;
   type: string;
-  icon?: string;
+  icon: string;
   Component: FC<ComponentPropsType>;
   PropsConfComponent: FC<ComponentPropsType>;
   defaultProps: ComponentPropsType;
@@ -27,6 +29,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionTitleConf,
   QuestionInputConf,
   QuestionParagraphConf,
+  QuestionTextAreaConf,
 ];
 
 // 分组后的组件列表
@@ -41,7 +44,7 @@ export const componentConfGroupList = [
     _id: nanoid(),
     label: i18n.t('question.componentGroup.input'),
     type: 'input',
-    components: [QuestionInputConf],
+    components: [QuestionInputConf, QuestionTextAreaConf],
   },
 ];
 

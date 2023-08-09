@@ -3,8 +3,9 @@ import i18n from '@/locales';
 import QuestionParagraph from './QuestionParagraph';
 import ParagraphPropsConfig from './ParagraphPropsConfig';
 import { QuestionParagraphDefaultProps } from './interface';
+import { ComponentConfType } from '..';
 
-export default {
+const QuestionParagraphConf: ComponentConfType = {
   _id: nanoid(),
   name: i18n.t('question.componentGroup.paragraph'),
   type: 'QuestionParagraph',
@@ -16,3 +17,5 @@ export default {
   PropsConfComponent: ParagraphPropsConfig,
   defaultProps: QuestionParagraphDefaultProps,
 };
+
+export default QuestionParagraphConf;

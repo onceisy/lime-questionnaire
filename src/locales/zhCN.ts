@@ -98,15 +98,18 @@ export default {
     placeholder: {
       placeholder: '输入提示',
       input: '请输入',
+      maxLength: '最长输入字数',
+      rows: '输入框行数',
     },
-    defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
     componentGroup: {
       input: '填空',
       paragraph: '段落',
     },
     componentType: {
       input: '单行文本',
+      textarea: '多行文本',
     },
+    defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
     componentLibrary: '组件库',
     props: '属性',
     questionTitle: '问卷标题',

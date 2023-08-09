@@ -1,15 +1,18 @@
 import React, { FC } from 'react';
 import { Form, Input } from 'antd';
-import QuestionInputPropsType from './interface';
 import { useTranslation } from 'react-i18next';
+import { QuestionTextAreaPropsType } from './interface';
 
-const QuestionInput: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
+const QuestionTextArea: FC<QuestionTextAreaPropsType> = (props: QuestionTextAreaPropsType) => {
   const { t } = useTranslation();
   const {
     _id,
     label = t('question.placeholder.input'),
     required = false,
     placeholder = t('question.placeholder.input'),
+    maxLength,
+    showCount,
+    rows,
   } = props;
   return (
     <div>
@@ -20,11 +23,16 @@ const QuestionInput: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
           rules={[{ required: required, message: placeholder }]}
           required={required}
         >
-          <Input placeholder={placeholder} />
+          <Input.TextArea
+            placeholder={placeholder}
+            maxLength={maxLength}
+            showCount={showCount}
+            rows={rows}
+          />
         </Form.Item>
       </div>
     </div>
   );
 };
 
-export default QuestionInput;
+export default QuestionTextArea;

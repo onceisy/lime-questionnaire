@@ -1,25 +1,26 @@
 import React, { FC, useEffect } from 'react';
-import { Form, Input, Switch } from 'antd';
+import { Form, Input, Switch, InputNumber } from 'antd';
 import { useTranslation } from 'react-i18next';
-import QuestionInputPropsType from './interface';
+import { QuestionTextAreaPropsType } from './interface';
 
-const InputPropsConfig: FC = (props: QuestionInputPropsType) => {
+const TextAreaPropsConfig: FC<QuestionTextAreaPropsType> = (props: QuestionTextAreaPropsType) => {
   const { t } = useTranslation();
-  const { label, required, placeholder, onChange } = props;
+  const { label, required, placeholder, maxLength, showCount, rows, onChange } = props;
   const [form] = Form.useForm();
   useEffect(() => {
-    form.setFieldsValue({ label, required, placeholder });
+    form.setFieldsValue({ label, required, placeholder, maxLength, showCount, rows });
   }, [props]);
 
   function handleValuesChange() {
     onChange && onChange(form.getFieldsValue());
   }
+
   return (
     <div>
       <Form
         layout="vertical"
         form={form}
-        initialValues={{ label, required, placeholder }}
+        initialValues={{ label, required, placeholder, maxLength, showCount, rows }}
         onValuesChange={handleValuesChange}
       >
         {/* 标题 */}
@@ -39,9 +40,28 @@ const InputPropsConfig: FC = (props: QuestionInputPropsType) => {
         <Form.Item label={t('question.placeholder.placeholder')} name="placeholder">
           <Input maxLength={25} placeholder={t('question.placeholder.input')} />
         </Form.Item>
+        {/* 最长字数 */}
+        <Form.Item label={t('question.placeholder.maxLength')} name="maxLength">
+          <InputNumber
+            min={1}
+            placeholder={t('question.placeholder.maxLength')}
+            style={{ width: '100%' }}
+            precision={0}
+          />
+        </Form.Item>
+        {/* 行数 */}
+        <Form.Item label={t('question.placeholder.rows')} name="rows">
+          <InputNumber
+            min={1}
+            max={20}
+            placeholder={t('question.placeholder.rows')}
+            style={{ width: '100%' }}
+            precision={0}
+          />
+        </Form.Item>
       </Form>
     </div>
   );
 };
 
-export default InputPropsConfig;
+export default TextAreaPropsConfig;

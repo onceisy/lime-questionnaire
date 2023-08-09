@@ -3,10 +3,11 @@ import QuestionTitle from './QuestionTitle';
 import { QuestionTitleDefaultProps } from './interface';
 import i18n from '@/locales';
 import TitlePropsConfig from './TitlePropsConfig';
+import { ComponentConfType } from '..';
 
 export * from './interface';
 
-export default {
+const QuestionTitleConf: ComponentConfType = {
   // 仅作为渲染页面给dom绑定的key使用
   _id: nanoid(),
   name: i18n.t('public.title'),
@@ -19,3 +20,5 @@ export default {
   PropsConfComponent: TitlePropsConfig,
   defaultProps: QuestionTitleDefaultProps,
 };
+
+export default QuestionTitleConf;
