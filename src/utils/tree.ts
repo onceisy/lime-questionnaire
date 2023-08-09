@@ -28,7 +28,7 @@ export function getTreeMaxLevel(data: OptionType) {
  * @return {*}
  */
 export function calculateLevel(tree: OptionType, targetId: string, level = 0): number {
-  if (tree._id === targetId) {
+  if (tree.key === targetId) {
     return level;
   }
   if (tree.children) {
@@ -54,7 +54,7 @@ export function getTreeNodeByLevel(tree: OptionType, level: number): OptionType 
     return {
       label: tree.label,
       children: [],
-      _id: tree._id,
+      key: tree.key,
     };
   } else {
     // 递归处理子节点
@@ -64,7 +64,7 @@ export function getTreeNodeByLevel(tree: OptionType, level: number): OptionType 
     // 返回当前节点和处理后的子节点数组
     return {
       label: tree.label,
-      _id: tree._id,
+      key: tree.key,
       children,
     };
   }

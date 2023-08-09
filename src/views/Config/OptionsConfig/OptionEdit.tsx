@@ -27,19 +27,19 @@ export interface OptionDicType {
 // 选项及子集类型
 export interface OptionType {
   label: string;
-  _id: string;
+  key: string;
   isSelected?: boolean;
   children?: OptionType[];
 }
 
 const initialOptions: OptionType = {
   label: '',
-  _id: '',
+  key: '',
   // 这里开始才是服务端储存的真实数据，相当于level要 -1
   children: [
     {
       label: '',
-      _id: nanoid(),
+      key: nanoid(),
       children: [],
     },
   ],
@@ -109,13 +109,13 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
   function handleAddCascade(id: string) {
     const newOption: OptionType = {
       label: '',
-      _id: nanoid(),
+      key: nanoid(),
       isSelected: false,
       children: [],
     };
     function addOptionsToTree(list: OptionType[]) {
       for (const item of list) {
-        if (item._id === id) {
+        if (item.key === id) {
           item.children?.push(newOption);
           break;
         }
@@ -144,8 +144,8 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
   function handleDeleteCascade(id: string) {
     function deleteOption(list: OptionType[]) {
       for (const item of list) {
-        if (item._id === id) {
-          const index = list.findIndex(i => i._id === id);
+        if (item.key === id) {
+          const index = list.findIndex(i => i.key === id);
           list.splice(index, 1);
           break;
         }
@@ -172,7 +172,7 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>, id: string) {
     function setOptionLabel(list: OptionType[], label: string) {
       for (const item of list) {
-        if (item._id === id) {
+        if (item.key === id) {
           item.label = label;
           break;
         }
@@ -199,7 +199,7 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
   function onInputFocus(e: React.ChangeEvent<HTMLInputElement>, id: string) {
     function setOptionSelected(list: OptionType[]) {
       for (const item of list) {
-        if (item._id === id) {
+        if (item.key === id) {
           list.forEach(i => (i.isSelected = false));
           item.isSelected = true;
           break;
@@ -264,7 +264,7 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
               option.children?.map(item => {
                 return (
                   <li
-                    key={item._id}
+                    key={item.key}
                     className={`px-1 flex items-center ${item.isSelected ? 'bg-slate-200' : ''}`}
                   >
                     <Space>
@@ -272,14 +272,14 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
                         placeholder={t('question.placeholder.input')}
                         bordered={false}
                         value={item.label}
-                        onChange={e => onInputChange(e, item._id)}
-                        onFocus={e => onInputFocus(e, item._id)}
+                        onChange={e => onInputChange(e, item.key)}
+                        onFocus={e => onInputFocus(e, item.key)}
                       ></Input>
                       <Button
                         type="text"
                         danger
                         size="middle"
-                        onClick={() => handleDeleteCascade(item._id)}
+                        onClick={() => handleDeleteCascade(item.key)}
                       >
                         {t('public.delete')}
                       </Button>
@@ -290,14 +290,14 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
             )}
           </ul>
           <div className="text-center py-3">
-            <Button type="primary" onClick={() => handleAddCascade(option._id)}>
+            <Button type="primary" onClick={() => handleAddCascade(option.key)}>
               添加
             </Button>
           </div>
         </div>
         {selectedOption &&
           selectedOption.children &&
-          calculateLevel(cascades, selectedOption._id) < formLevel &&
+          calculateLevel(cascades, selectedOption.key) < formLevel &&
           renderView(selectedOption)}
       </>
     );
