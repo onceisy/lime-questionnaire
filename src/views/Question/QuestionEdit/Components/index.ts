@@ -10,11 +10,14 @@ import i18n from '@/locales';
 import QuestionTextAreaConf from './QuestionTextArea';
 import { QuestionRadioPropsType } from './QuestionRadio/interface';
 import QuestionRadioConf from './QuestionRadio';
+import { QuestionCheckboxPropsType } from './QuestionCheckbox/interface';
+import QuestionCheckboxConf from './QuestionCheckbox';
 
 export type ComponentPropsType = QuestionTitlePropsType &
   QuestionInputPropsType &
   QuestionParagraphPropsType &
-  QuestionRadioPropsType;
+  QuestionRadioPropsType &
+  QuestionCheckboxPropsType;
 
 // 统一组件的配置 type
 export type ComponentConfType = {
@@ -34,6 +37,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionParagraphConf,
   QuestionTextAreaConf,
   QuestionRadioConf,
+  QuestionCheckboxConf,
 ];
 
 // 分组后的组件列表
@@ -53,7 +57,7 @@ export const componentConfGroupList = [
   {
     _id: nanoid(),
     label: i18n.t('public.select'),
-    components: [QuestionRadioConf],
+    components: [QuestionRadioConf, QuestionCheckboxConf],
   },
 ];
 

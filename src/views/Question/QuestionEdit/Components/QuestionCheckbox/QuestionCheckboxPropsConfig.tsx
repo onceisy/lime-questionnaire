@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { QuestionRadioPropsType } from './interface';
+import { QuestionCheckboxPropsType } from './interface';
 import { useTranslation } from 'react-i18next';
 import { Button, Form, Input, Radio, Select, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -8,7 +8,9 @@ import { DEFAULT_INPUT_MAX_LENGTH } from '@/constant';
 import { useGetOptions } from '@/hooks/useGetOptions';
 import { OptionType } from '@/views/Config/OptionsConfig/OptionEdit';
 
-const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) => {
+const QuestionCheckboxPropsConfig: FC<QuestionCheckboxPropsType> = (
+  props: QuestionCheckboxPropsType
+) => {
   const { t } = useTranslation();
   const {
     label,
@@ -17,7 +19,7 @@ const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRad
     options = [],
     isUseDic,
     dicId = '',
-    defaultValue = null,
+    defaultValue = [],
     onChange,
   } = props;
   const [form] = Form.useForm();
@@ -43,10 +45,13 @@ const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRad
   ];
 
   useEffect(() => {
+    console.log('set----', { label, required, rowCount, options, isUseDic, dicId, defaultValue });
+
     form.setFieldsValue({ label, required, rowCount, options, isUseDic, dicId, defaultValue });
   }, [props]);
 
   function handleValuesChange() {
+    console.log('get----', form.getFieldsValue());
     onChange && onChange(form.getFieldsValue());
   }
 
@@ -70,8 +75,13 @@ const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRad
   }, [options, dicId, isUseDic]);
 
   useEffect(() => {
-    const option = radioOptions.find(o => o.key === defaultValue);
-    form.setFieldValue('defaultValue', option ? option.key : null);
+    const newDefault: string[] = [];
+    radioOptions.forEach(o => {
+      if (defaultValue.includes(o.key)) {
+        newDefault.push(o.key);
+      }
+    });
+    form.setFieldValue('defaultValue', newDefault);
   }, [radioOptions]);
   return (
     <div>
@@ -179,6 +189,7 @@ const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRad
           <Select
             allowClear
             showSearch
+            mode="multiple"
             placeholder={t('question.defaultSelect')}
             options={radioOptions.map(i => ({ label: i.label, value: i.key }))}
             filterOption={(input, option) => {
@@ -191,4 +202,4 @@ const QuestionRadioPropsConfig: FC<QuestionRadioPropsType> = (props: QuestionRad
   );
 };
 
-export default QuestionRadioPropsConfig;
+export default QuestionCheckboxPropsConfig;

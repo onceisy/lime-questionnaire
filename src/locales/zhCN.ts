@@ -112,6 +112,7 @@ export default {
       input: '单行文本',
       textarea: '多行文本',
       radio: '单选',
+      checkbox: '多选',
     },
     defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
     componentLibrary: '组件库',
