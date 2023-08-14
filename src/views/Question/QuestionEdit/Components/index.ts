@@ -8,10 +8,13 @@ import QuestionParagraphConf from './QuestionParagraph';
 import { nanoid } from 'nanoid';
 import i18n from '@/locales';
 import QuestionTextAreaConf from './QuestionTextArea';
+import { QuestionRadioPropsType } from './QuestionRadio/interface';
+import QuestionRadioConf from './QuestionRadio';
 
 export type ComponentPropsType = QuestionTitlePropsType &
   QuestionInputPropsType &
-  QuestionParagraphPropsType;
+  QuestionParagraphPropsType &
+  QuestionRadioPropsType;
 
 // 统一组件的配置 type
 export type ComponentConfType = {
@@ -30,6 +33,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionInputConf,
   QuestionParagraphConf,
   QuestionTextAreaConf,
+  QuestionRadioConf,
 ];
 
 // 分组后的组件列表
@@ -45,6 +49,11 @@ export const componentConfGroupList = [
     label: i18n.t('question.componentGroup.input'),
     type: 'input',
     components: [QuestionInputConf, QuestionTextAreaConf],
+  },
+  {
+    _id: nanoid(),
+    label: i18n.t('public.select'),
+    components: [QuestionRadioConf],
   },
 ];
 

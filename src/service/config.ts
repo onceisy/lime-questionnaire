@@ -23,9 +23,9 @@ export function createOptions(params: OptionDicType): Promise<ResponseType> {
  * @return {*}
  */
 export function queryOptionsList(
-  params: AxiosRequestConfig<ListParamsType>
+  params?: AxiosRequestConfig<ListParamsType>
 ): Promise<ResponseType> {
-  return ajax.get('/config/options/list', { params: params });
+  return ajax.get('/config/options/list', { params: params || {} });
 }
 
 /**

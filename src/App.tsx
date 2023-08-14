@@ -5,15 +5,19 @@ import router from './router';
 import { useAppSelector } from './store/hooks';
 import { selectLocale } from './store/localeSlice';
 import { selectTheme } from './store/themeSlice';
-import { useQueryAllOptions } from './hooks/useQueryAllOptions';
+import { useGetOptions } from './hooks/useGetOptions';
+import { useMount } from 'ahooks';
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
 function MyApp() {
   const locale = useAppSelector(selectLocale);
   const localTheme = useAppSelector(selectTheme);
-  useQueryAllOptions();
+  const { updateDicFromService } = useGetOptions();
 
+  useMount(() => {
+    updateDicFromService();
+  });
   return (
     <ConfigProvider
       theme={{

@@ -15,7 +15,6 @@ import logoImage from '@/assets/images/logo.png';
 import { DownOutlined, GithubOutlined } from '@ant-design/icons';
 import type { LocaleType } from '@/store/localeSlice';
 import { selectLanguage, setLocale } from '@/store/localeSlice';
-import { useAppDispatch } from '@/store/hooks';
 import { useAppSelector } from '@/store/hooks';
 import { Icon } from '@iconify/react';
 import { selectTheme, setTheme } from '@/store/themeSlice';
@@ -24,13 +23,14 @@ import { ROUTE_HOME, ROUTE_MANAGE_LIST } from '@/router/path';
 import { clearUser, isUserLogin, selectUserInfo } from '@/store/userSlice';
 import { useTranslation } from 'react-i18next';
 import { persistor } from '@/store';
+import { useDispatch } from 'react-redux';
 
 const { Text } = Typography;
 const { Header } = Layout;
 
 const PageHeader: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const isLogin = useAppSelector(isUserLogin);
   const { nickname, avatar } = useAppSelector(selectUserInfo);
   const { pathname } = useLocation();

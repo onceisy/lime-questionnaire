@@ -10,3 +10,4 @@ export const SEARCH_PAGE_SIZE = 'pageSize';
 export const DEFAULT_LIST_SEARCH_KEY = 'name';
 // 问卷标题最长字符
 export const QUESTION_TITLE_MAX_LENGTH = 25;
+export const DEFAULT_INPUT_MAX_LENGTH = 25;

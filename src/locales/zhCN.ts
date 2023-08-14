@@ -32,6 +32,9 @@ export default {
     fontSize: '字体大小',
     pixel: '{{level}} 像素',
     preview: '预览',
+    optionIndex: '选项{{i}}',
+    select: '选择',
+    row: '{{i}}列',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -108,6 +111,7 @@ export default {
     componentType: {
       input: '单行文本',
       textarea: '多行文本',
+      radio: '单选',
     },
     defaultDescription: '感谢您能抽出几分钟时间来参加本次答题，现在我们就马上开始吧！',
     componentLibrary: '组件库',
@@ -126,6 +130,12 @@ export default {
     selectComponent: '请选择组件',
     isRequired: '是否必填',
     noEmptyContent: '内容不可为空！',
+    rowCount: '选项布局',
+    optionConfig: '选项配置',
+    addOption: '添加选项',
+    isUseDic: '是否使用字典',
+    selectDic: '选择字典',
+    defaultSelect: '默认选中',
   },
   config: {
     options: '字典设置',
