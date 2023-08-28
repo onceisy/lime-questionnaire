@@ -19,19 +19,21 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
   }
   return (
     <div>
-      <Title
-        title={text}
-        level={level}
-        style={{
-          textAlign: isCenter ? 'center' : 'left',
-          fontSize: getFontSizeByLevel(level),
-          margin: '0',
-          padding: '20px 0',
-        }}
-      >
-        {text}
-      </Title>
-      <Text className="whitespace-pre">{description}</Text>
+      {text && (
+        <Title
+          title={text}
+          level={level}
+          style={{
+            textAlign: isCenter ? 'center' : 'left',
+            fontSize: getFontSizeByLevel(level),
+            margin: '0',
+            padding: '20px 0',
+          }}
+        >
+          {text}
+        </Title>
+      )}
+      {description && <Text className="whitespace-pre">{description}</Text>}
     </div>
   );
 };

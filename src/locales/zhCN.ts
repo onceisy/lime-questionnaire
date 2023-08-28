@@ -151,6 +151,7 @@ export default {
     createDicSuccess: '字典创建成功！',
     updateDicSuccess: '字典更新成功！',
   },
+  // 服务端的返回的错误码对应的翻译
   message: {
     paramsError: '参数错误',
     userNotfound: '用户未注册',

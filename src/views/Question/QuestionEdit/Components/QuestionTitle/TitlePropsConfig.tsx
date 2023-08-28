@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
-import { App, Form, Input, Select, Switch } from 'antd';
+import { Form, Input, Select, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 import QuestionTitlePropsType from './interface';
 
 const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
-  const { message } = App.useApp();
+  // const { message } = App.useApp();
   const { t } = useTranslation();
 
   const { text, level, isCenter, description, onChange } = props;
@@ -14,16 +14,16 @@ const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
     form.setFieldsValue({ text, level, isCenter, description });
   }, [props]);
 
-  let lastTitle = text;
+  // let lastTitle = text;
 
   function handleValuesChange() {
-    const title = form.getFieldValue('text');
-    if (!title) {
-      message.error(t('question.noEmptyContent'));
-      form.setFieldValue('text', lastTitle);
-      return;
-    }
-    lastTitle = title;
+    // const title = form.getFieldValue('text');
+    // if (!title) {
+    //   message.error(t('question.noEmptyContent'));
+    //   form.setFieldValue('text', lastTitle);
+    //   return;
+    // }
+    // lastTitle = title;
     onChange && onChange(form.getFieldsValue());
   }
   return (
@@ -35,7 +35,7 @@ const TitlePropsConfig: FC = (props: QuestionTitlePropsType) => {
         onValuesChange={handleValuesChange}
       >
         {/* 问卷标题 */}
-        <Form.Item label={t('question.questionTitle')} name="text" required>
+        <Form.Item label={t('question.questionTitle')} name="text">
           <Input placeholder={t('question.questionTitle')} />
         </Form.Item>
         {/* 标题大小 */}

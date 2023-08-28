@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ComponentConfType, componentConfGroupList, getComponentConfByType } from './Components';
+import { ComponentConfType, componentConfGroupList, getComponentConfByType } from '../Components';
 import { Form, Popover, Space } from 'antd';
 import { Icon } from '@iconify/react';
 import { ComponentInfoType, ComponentTypesType, addComponentToList } from '@/store/components';
@@ -28,7 +28,7 @@ const ComponentLibrary: FC = () => {
     dispatch(addComponentToList(newComp));
   }
   return (
-    <div>
+    <div className="mt-3">
       {componentConfGroupList.map(component => {
         const { _id, label, components } = component;
         return (

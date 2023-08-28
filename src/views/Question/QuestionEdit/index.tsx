@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Loading from '@/components/Loading/Loading';
 import useQueryQuestion from '@/hooks/useQueryQuestion';
 import EditHeader from './EditHeader/EditHeader';
-import LeftPanel from './LeftPanel';
+import LeftPanel from './LeftPanel/LeftPanel';
 import MiddleView from './MiddleView';
 import RightPanel from './RightPanel';
 

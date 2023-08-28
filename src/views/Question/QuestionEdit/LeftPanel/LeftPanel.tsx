@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Tabs } from 'antd';
 import ComponentLibrary from './ComponentLibrary';
 import { useTranslation } from 'react-i18next';
+import ComponentList from './ComponentList';
 
 const LeftPanel: FC = () => {
   const { t } = useTranslation();
@@ -14,12 +15,12 @@ const LeftPanel: FC = () => {
     {
       label: '大纲',
       key: 'componentList',
-      children: '2222',
+      children: <ComponentList></ComponentList>,
     },
   ];
   return (
     <div className="px-5">
-      <Tabs defaultActiveKey="componentLibrary" items={items} />
+      <Tabs tabBarStyle={{ marginBottom: 0 }} defaultActiveKey="componentLibrary" items={items} />
     </div>
   );
 };
