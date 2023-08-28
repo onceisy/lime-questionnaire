@@ -7,6 +7,11 @@ const ShortcutKeyTips: FC = () => {
   const items = [
     {
       key: nanoid(),
+      label: 'ctrl + s',
+      content: t('public.save'),
+    },
+    {
+      key: nanoid(),
       label: 'ctrl + c',
       content: t('public.copy'),
     },

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_MANAGE_LIST } from '@/router/path';
@@ -11,6 +11,7 @@ import { QUESTION_TITLE_MAX_LENGTH } from '@/constant';
 import useEditQuestion from '@/hooks/useEditQuestion';
 import { useDispatch } from 'react-redux';
 import { setQuestionTitle } from '@/store/components';
+import { useDebounceFn, useKeyPress } from 'ahooks';
 
 const EditHeader: FC = () => {
   const { message } = App.useApp();
@@ -41,13 +42,34 @@ const EditHeader: FC = () => {
    * @description: 保存组件到服务端
    * @return {*}
    */
-  function handleSaveComponents() {
-    if (!componentList.length) {
-      message.error(t('manage.atLeastOneComponent'));
+  const { run: handleSaveComponents } = useDebounceFn(
+    () => {
+      if (!componentList.length) {
+        message.error(t('manage.atLeastOneComponent'));
+        return;
+      }
+      editQuestion(_id, { componentList });
+    },
+    {
+      wait: 500,
+    }
+  );
+
+  useKeyPress(['ctrl.s', 'meta.s'], (e: KeyboardEvent) => {
+    e.preventDefault();
+    handleSaveComponents();
+  });
+
+  // 自动保存问卷
+  let isEnableAutoSave = false;
+  useEffect(() => {
+    // 首次获取不自动保存
+    if (!isEnableAutoSave) {
+      isEnableAutoSave = !isEnableAutoSave;
       return;
     }
-    editQuestion(_id, { componentList });
-  }
+    isEnableAutoSave && handleSaveComponents();
+  }, [componentList]);
   return (
     <div className="h-14 flex px-6">
       {/* 顶部左侧 */}
