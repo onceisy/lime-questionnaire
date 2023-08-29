@@ -13,7 +13,10 @@ import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 function isInvalidElement() {
-  return document.activeElement !== document.body;
+  return (
+    document.activeElement !== document.body &&
+    document.activeElement?.matches('aria-roledescription[sortable]')
+  );
 }
 
 /**
@@ -60,7 +63,8 @@ export function useBindComponentListEvents() {
   // 选择上一个组件
   useKeyPress(
     'uparrow',
-    () => {
+    (e: KeyboardEvent) => {
+      e.preventDefault();
       if (isInvalidElement()) {
         return;
       }
@@ -72,7 +76,8 @@ export function useBindComponentListEvents() {
   // 选择下一个组件
   useKeyPress(
     ['downarrow'],
-    () => {
+    (e: KeyboardEvent) => {
+      e.preventDefault();
       if (isInvalidElement()) {
         return;
       }
@@ -82,19 +87,25 @@ export function useBindComponentListEvents() {
   );
 
   // 删除组件
+  let isDeleting = false;
   useKeyPress(['backspace', 'delete'], () => {
-    if (isInvalidElement() || !selectedId) {
+    if (isInvalidElement() || !selectedId || isDeleting) {
       return;
     }
+    if (componentList.length === 1) {
+      message.error(t('manage.atLeastOneComponent'));
+      return;
+    }
+    isDeleting = true;
     modal.confirm({
       title: t('manage.deleteConfirm'),
       okButtonProps: { danger: true },
       onOk: () => {
-        if (componentList.length === 1) {
-          message.error(t('manage.atLeastOneComponent'));
-          return;
-        }
         dispatch(deleteComponentById(selectedId));
+        isDeleting = false;
+      },
+      onCancel: () => {
+        isDeleting = false;
       },
     });
   });

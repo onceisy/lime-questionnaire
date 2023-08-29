@@ -45,13 +45,10 @@ const QuestionCheckboxPropsConfig: FC<QuestionCheckboxPropsType> = (
   ];
 
   useEffect(() => {
-    console.log('set----', { label, required, rowCount, options, isUseDic, dicId, defaultValue });
-
     form.setFieldsValue({ label, required, rowCount, options, isUseDic, dicId, defaultValue });
   }, [props]);
 
   function handleValuesChange() {
-    console.log('get----', form.getFieldsValue());
     onChange && onChange(form.getFieldsValue());
   }
 

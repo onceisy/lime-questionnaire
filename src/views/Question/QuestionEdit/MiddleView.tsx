@@ -48,7 +48,6 @@ const MiddleView: FC = () => {
     };
   });
   function onSortableEnd(oldIndex: number, newIndex: number) {
-    console.log(oldIndex, newIndex);
     dispatch(sortComponent({ oldIndex, newIndex }));
   }
   return sortableList.length ? (
