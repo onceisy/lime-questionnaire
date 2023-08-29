@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import { nanoid } from 'nanoid';
 import { cloneDeep } from 'lodash';
+import { arrayMove } from '@dnd-kit/sortable';
 
 // 组件的类型
 export type ComponentTypesType = 'QuestionTitle' | 'QuestionInput';
@@ -154,6 +155,15 @@ const componentsSlice = createSlice({
     setQuestionTitle(state: ComponentsStateType, action: PayloadAction<string>) {
       state.title = action.payload;
     },
+
+    // 组件排序
+    sortComponent(
+      state: ComponentsStateType,
+      action: PayloadAction<{ oldIndex: number; newIndex: number }>
+    ) {
+      const { oldIndex, newIndex } = action.payload;
+      state.componentList = arrayMove(state.componentList, oldIndex, newIndex);
+    },
   },
 });
 
@@ -173,6 +183,7 @@ export const {
   selectPreviousComponent,
   selectNextComponent,
   setQuestionTitle,
+  sortComponent,
 } = componentsSlice.actions;
 
 export default componentsSlice.reducer;

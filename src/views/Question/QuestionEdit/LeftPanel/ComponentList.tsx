@@ -1,8 +1,15 @@
 import React, { FC } from 'react';
 import { useGetComponentsState } from '@/hooks/useGetComponentsState';
-import { ComponentInfoType, setSelectedId, updateComponentPropsById } from '@/store/components';
-import { List, Typography } from 'antd';
+import {
+  ComponentInfoType,
+  setSelectedId,
+  sortComponent,
+  updateComponentPropsById,
+} from '@/store/components';
+import { Typography } from 'antd';
 import { useDispatch } from 'react-redux';
+import ListSortable from '@/components/ListSortable/ListSortable';
+import SortableItem from '@/components/ListSortable/SortableItem';
 // import { useTranslation } from 'react-i18next';
 
 const ComponentList: FC = () => {
@@ -27,12 +34,33 @@ const ComponentList: FC = () => {
     }
     dispatch(updateComponentPropsById({ id: _id, props: data }));
   }
+
+  // const [sortableList, setSortableList] = useState<SortableListType[]>([]);
+  // useEffect(() => {
+  //   setSortableList(
+  //     componentList.map(item => {
+  //       return {
+  //         ...item,
+  //         id: item._id,
+  //       };
+  //     })
+  //   );
+  // }, [componentList]);
+  const sortableList = componentList.map(item => {
+    return {
+      ...item,
+      id: item._id,
+    };
+  });
+  function onSortableEnd(oldIndex: number, newIndex: number) {
+    console.log(oldIndex, newIndex);
+    dispatch(sortComponent({ oldIndex, newIndex }));
+  }
   return (
-    <div>
-      <List
-        dataSource={componentList}
-        renderItem={item => (
-          <List.Item style={{ padding: 0 }}>
+    <ListSortable items={sortableList} onSortableEnd={onSortableEnd}>
+      {sortableList.map(item => {
+        return (
+          <SortableItem key={item._id} id={item._id}>
             <div
               className={`w-full px-2 py-2 my-1 rounded-md cursor-pointer flex items-center ${
                 selectedId === item._id ? 'bg-slate-100' : ''
@@ -56,10 +84,10 @@ const ComponentList: FC = () => {
                 {item.props?.label || item.props?.text}
               </Typography.Text>
             </div>
-          </List.Item>
-        )}
-      />
-    </div>
+          </SortableItem>
+        );
+      })}
+    </ListSortable>
   );
 };
 
