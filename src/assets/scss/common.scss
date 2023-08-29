@@ -1,0 +1,25 @@
+html {
+  box-sizing: border-box;
+}
+ol, ul {
+	list-style: none;
+  padding: 0;
+}
+
+.primary-text-gradient {
+  background-image: linear-gradient(60deg, #5B86F6, #16254E);
+  background-clip: text;
+  color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba($color: #000000, $alpha: .15);
+  border-radius: 2px;
+}

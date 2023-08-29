@@ -1,0 +1,16 @@
+.main-container {
+  &.home {
+    background-image: linear-gradient(to top, #65bd60 0%, #5ac1a8 25%, #3ec6ed 50%, #b7ddb7 75%, #fef381 100%);
+    :global(.ant-layout) {
+      background-color: var(--background-245-90);
+    }
+    &.dark {
+      :global(.ant-layout) {
+        background-color: var(--background-000-91);
+      }
+    }
+  }
+  :global(.ant-layout-content) {
+    min-height: calc(100vh - 64px - 70px);
+  }
+}

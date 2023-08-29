@@ -1,27 +1,40 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { App, ConfigProvider, theme } from 'antd';
+import router from './router';
+import { useAppSelector } from './store/hooks';
+import { selectLocale } from './store/localeSlice';
+import { selectTheme } from './store/themeSlice';
+import { useGetOptions } from './hooks/useGetOptions';
+import { useMount } from 'ahooks';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function App() {
+const { defaultAlgorithm, darkAlgorithm } = theme;
+
+function MyApp() {
+  const locale = useAppSelector(selectLocale);
+  const localTheme = useAppSelector(selectTheme);
+  const { updateDicFromService } = useGetOptions();
+
+  useMount(() => {
+    updateDicFromService();
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+    <ConfigProvider
+      theme={{
+        algorithm: localTheme === 'light' ? defaultAlgorithm : darkAlgorithm,
+        token: {
+          colorPrimary: '#00b96b',
+        },
+      }}
+      locale={locale}
+    >
+      <App>
+        <div className="App" id="App">
+          <RouterProvider router={router} />
+        </div>
+      </App>
+    </ConfigProvider>
+  );
 }
 
-export default App
+export default MyApp;
