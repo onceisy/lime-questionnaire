@@ -40,7 +40,10 @@ const QuestionCheckbox: FC<QuestionCheckboxPropsType> = (props: QuestionCheckbox
           required={required}
           className="mb-0"
         >
-          <Checkbox.Group value={defaultValue as string[]} style={{ width: '100%' }}>
+          <Checkbox.Group
+            value={defaultValue as string[]}
+            style={{ width: '100%', display: 'block' }}
+          >
             {chunkOptions.map((arr, i) => {
               return (
                 <Row key={i} gutter={16} className="mb-5 last:mb-0">
