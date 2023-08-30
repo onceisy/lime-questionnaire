@@ -10,6 +10,7 @@ import {
   Button,
   Switch,
   Typography,
+  Divider,
 } from 'antd';
 import logoImage from '@/assets/images/logo.png';
 import { DownOutlined, GithubOutlined } from '@ant-design/icons';
@@ -73,13 +74,13 @@ const PageHeader: FC = () => {
 
   return (
     <Header className="bg-transparent">
-      <Row justify="space-around">
+      <Row justify="space-around" style={{ height: '63px' }}>
         <Col span={8} className="flex items-center justify-start">
           <Link
             to={!isLogin || (isLogin && pathname !== ROUTE_HOME) ? ROUTE_HOME : ROUTE_MANAGE_LIST}
           >
             <div className="flex justify-start items-center">
-              <Image width={40} preview={false} src={logoImage} />
+              <Image width={36} preview={false} src={logoImage} />
               <h2 className="text-3xl font-bold ml-2 primary-text-gradient my-0">SurveyMe</h2>
             </div>
           </Link>
@@ -96,8 +97,8 @@ const PageHeader: FC = () => {
               >
                 <div className="flex items-center cursor-pointer">
                   <Image
-                    width={40}
-                    height={40}
+                    width={36}
+                    height={36}
                     preview={false}
                     src={avatar}
                     rootClassName="rounded-full flex overflow-hidden"
@@ -139,6 +140,7 @@ const PageHeader: FC = () => {
           </div>
         </Col>
       </Row>
+      <Divider className="my-0" />
     </Header>
   );
 };

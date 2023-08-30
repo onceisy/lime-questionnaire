@@ -118,8 +118,8 @@ const TrashList: FC = () => {
   }
 
   return (
-    <div className="pl-4">
-      <div className="flex items-center justify-between mb-3">
+    <div>
+      <div className="flex items-center justify-between my-3 px-3">
         <h3 title={t('public.trash') as string} className="my-0">
           {t('public.trash')}
         </h3>
@@ -154,6 +154,7 @@ const TrashList: FC = () => {
         <Loading className="mt-16"></Loading>
       ) : questionList.length ? (
         <Table
+          className="pl-4"
           rowSelection={{
             type: 'checkbox',
             onChange: keys => {

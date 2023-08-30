@@ -59,7 +59,7 @@ const OptionsConfig: FC = () => {
     setVisible(true);
   }
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-black">
       <div className="flex justify-between p-5">
         <div>
           <Button type="primary" onClick={() => handleEditOptions('')}>

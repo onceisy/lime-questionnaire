@@ -256,7 +256,7 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
 
     return (
       <>
-        <div className="border border-solid border-gray-100">
+        <div className="border border-solid border-gray-100 dark:border-gray-800">
           <ul className="w-60 h-80 overflow-y-scroll m-0">
             {initLoading ? (
               <Loading top={80}></Loading>
@@ -265,7 +265,9 @@ const AddOptions: FC<OptionEditPropsType> = (props: OptionEditPropsType) => {
                 return (
                   <li
                     key={item.key}
-                    className={`px-1 flex items-center ${item.isSelected ? 'bg-slate-200' : ''}`}
+                    className={`px-1 flex items-center ${
+                      item.isSelected ? 'bg-slate-200 dark:bg-black' : ''
+                    }`}
                   >
                     <Space>
                       <Input

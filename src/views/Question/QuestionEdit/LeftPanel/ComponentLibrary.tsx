@@ -48,7 +48,7 @@ const ComponentLibrary: FC = () => {
                     }
                   >
                     <div
-                      className="cursor-pointer flex items-center bg-gray-100 px-3 py-1 rounded hover:bg-gray-200"
+                      className="cursor-pointer flex items-center bg-gray-100 dark:bg-slate-900 px-3 py-1 rounded hover:bg-gray-200"
                       onClick={() => handleAddComponent(item)}
                     >
                       <div className="flex justify-center items-center mr-1">

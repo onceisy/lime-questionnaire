@@ -62,9 +62,12 @@ const ManageLayout: FC = () => {
     setSelectedKeys([location.pathname]);
   }, [location]);
   return (
-    <div className="px-6 mx-auto w-1200">
-      <Layout className="rounded-lg">
-        <Sider theme="light" className="rounded-l-lg">
+    <div className="mx-auto w-1368">
+      <Layout className="rounded-lg bg-white dark:bg-black">
+        <Sider
+          theme="light"
+          className="border border-solid border-gray-100 dark:border-0 border-t-0"
+        >
           <div className="h-full px-3 py-10 text-center">
             <CreateQuestion />
             <Menu

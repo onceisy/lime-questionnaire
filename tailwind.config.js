@@ -20,7 +20,7 @@ module.exports = {
         'content-list': 'calc(100vh - 64px - 70px - 100px)',
       },
       width: {
-        '1200': '1200px',
+        '1368': '1368px',
       },
     },
   },

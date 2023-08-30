@@ -62,7 +62,7 @@ const ComponentList: FC = () => {
           <SortableItem key={item._id} id={item._id}>
             <div
               className={`w-full px-2 py-2 my-1 rounded-md cursor-pointer flex items-center ${
-                selectedId === item._id ? 'bg-slate-100' : ''
+                selectedId === item._id ? 'bg-slate-100 dark:bg-slate-900' : ''
               }`}
               onClick={() => dispatch(setSelectedId(item._id))}
             >

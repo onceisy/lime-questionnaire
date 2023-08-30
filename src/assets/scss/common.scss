@@ -1,5 +1,9 @@
 html {
   box-sizing: border-box;
+  background-color: #fff;
+  &.dark {
+    background-color: #000;
+  }
 }
 ol, ul {
 	list-style: none;

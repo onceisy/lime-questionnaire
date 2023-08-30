@@ -56,7 +56,7 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
     });
   }
   return (
-    <div className={styles['question-card']}>
+    <div className={`${styles['question-card']} px-3`}>
       <Card type="inner" hoverable title={title} extra={<CardTitleRight {...props} />}>
         <div className={styles['card-content']}>
           <div>

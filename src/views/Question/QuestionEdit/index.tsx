@@ -21,7 +21,7 @@ const QuestionEdit: FC = () => {
               <LeftPanel></LeftPanel>
             </div>
             <div
-              className="bg-slate-50 flex-auto px-5 overflow-y-scroll"
+              className="bg-slate-50 dark:bg-gray-900 flex-auto px-5 overflow-y-scroll"
               style={{ height: 'calc(100vh - 56px)' }}
             >
               <MiddleView></MiddleView>

@@ -21,7 +21,7 @@ const MainLayout: FC = () => {
         ` ${location.pathname === '/' ? styles.home : ''}`
       }
     >
-      <Layout>
+      <Layout className="bg-white dark:bg-black">
         <PageHeader></PageHeader>
         <Content>
           <Outlet />
