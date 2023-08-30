@@ -10,6 +10,8 @@ import { Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import ListSortable from '@/components/ListSortable/ListSortable';
 import SortableItem from '@/components/ListSortable/SortableItem';
+import { EditOutlined } from '@ant-design/icons';
+
 // import { useTranslation } from 'react-i18next';
 
 const ComponentList: FC = () => {
@@ -69,6 +71,7 @@ const ComponentList: FC = () => {
               <Typography.Text
                 className={item._id}
                 editable={{
+                  icon: <EditOutlined className="text-slate-600 dark:text-gray-200" />,
                   onChange: text => onTitleChange(item, text),
                 }}
                 ellipsis

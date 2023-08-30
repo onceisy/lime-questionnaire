@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_MANAGE_LIST } from '@/router/path';
-import { App, Button, Space, Tooltip, Typography } from 'antd';
+import { App, Button, Divider, Space, Tooltip, Typography } from 'antd';
 import { QuestionCircleOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import ShortcutKeyTips from './ShortcutKeyTips';
@@ -10,8 +10,8 @@ import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 import { QUESTION_TITLE_MAX_LENGTH } from '@/constant';
 import useEditQuestion from '@/hooks/useEditQuestion';
 import { useDispatch } from 'react-redux';
-import { setQuestionTitle } from '@/store/components';
-import { useDebounceFn, useKeyPress } from 'ahooks';
+import { setQuestionTitle, updateAutoSaveStatus } from '@/store/components';
+import { useDebounceEffect, useDebounceFn, useKeyPress } from 'ahooks';
 
 const EditHeader: FC = () => {
   const { message } = App.useApp();
@@ -19,7 +19,7 @@ const EditHeader: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const { _id, title, componentList } = useGetComponentsState();
+  const { _id, title, componentList, isAutoSave } = useGetComponentsState();
   const { loading, runAsync: editQuestion } = useEditQuestion();
 
   /**
@@ -43,12 +43,12 @@ const EditHeader: FC = () => {
    * @return {*}
    */
   const { run: handleSaveComponents } = useDebounceFn(
-    () => {
+    async () => {
       if (!componentList.length) {
         message.error(t('manage.atLeastOneComponent'));
         return;
       }
-      editQuestion(_id, { componentList });
+      await editQuestion(_id, { componentList });
     },
     {
       wait: 500,
@@ -61,19 +61,46 @@ const EditHeader: FC = () => {
   });
 
   // 自动保存问卷
-  let isEnableAutoSave = false;
-  useEffect(() => {
+  const [autoSaveLoading, setAutoSaveLoading] = useState(false);
+  useDebounceEffect(() => {
     // 首次获取不自动保存
-    if (!isEnableAutoSave) {
-      isEnableAutoSave = !isEnableAutoSave;
+    if (!isAutoSave) {
       return;
     }
-    isEnableAutoSave && handleSaveComponents();
+    async function save() {
+      setAutoSaveLoading(true);
+      if (!componentList.length) {
+        message.error(t('manage.atLeastOneComponent'));
+        return;
+      }
+      await editQuestion(_id, { componentList, saveType: 'autoSave' });
+      setTimeout(() => {
+        setAutoSaveLoading(false);
+      }, 500);
+    }
+    save();
   }, [componentList]);
+
+  const { run: setAutoSaveStatus } = useDebounceFn(
+    async () => {
+      try {
+        const res = await editQuestion(_id, { isAutoSave: !isAutoSave });
+        if (res.code === 200) {
+          dispatch(updateAutoSaveStatus(!isAutoSave));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    {
+      wait: 1000,
+    }
+  );
   return (
     <div className="h-14 flex px-6">
       {/* 顶部左侧 */}
       <div className="flex-1 flex items-center">
+        {/* title */}
         <div className="flex items-center">
           <Icon
             icon="solar:home-smile-angle-bold"
@@ -87,7 +114,7 @@ const EditHeader: FC = () => {
               loading
                 ? false
                 : {
-                    icon: <EditOutlined />,
+                    icon: <EditOutlined className="text-slate-600 dark:text-gray-200" />,
                     maxLength: QUESTION_TITLE_MAX_LENGTH,
                     enterIcon: null,
                     onChange: onTitleChange,
@@ -97,7 +124,27 @@ const EditHeader: FC = () => {
           >
             {title}
           </Typography.Text>
-          {loading && <LoadingOutlined className="ml-1" />}
+        </div>
+        <Divider type="vertical" />
+        {/* auto save */}
+        <div className="flex items-center">
+          <div className="flex items-center p-2 cursor-pointer" onClick={setAutoSaveStatus}>
+            {isAutoSave ? (
+              <Icon className="text-primary" icon="ion:save"></Icon>
+            ) : (
+              <Icon className="text-gray-600 dark:text-gray-200" icon="ion:save-outline"></Icon>
+            )}
+          </div>
+          {autoSaveLoading ? (
+            <div className="flex items-center text-gray-600 dark:text-gray-200 text-xs">
+              <LoadingOutlined />
+              <p className="ml-2">{t('manage.inSaving')}</p>
+            </div>
+          ) : (
+            <p className="text-xs text-gray-600 dark:text-gray-200">
+              {isAutoSave ? t('manage.isAutoSaveEnable') : t('manage.isAutoSaveDisabled')}
+            </p>
+          )}
         </div>
       </div>
       {/* 顶部中间 */}

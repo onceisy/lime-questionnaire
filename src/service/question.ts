@@ -9,6 +9,10 @@ export interface PatchListParams extends Question {
   ids: string[];
 }
 
+interface EditQuestionParamsType extends Question {
+  saveType: string;
+}
+
 /**
  * @description: 创建问卷
  * @param {Question} params
@@ -32,7 +36,10 @@ export function queryQuestion(id: string): Promise<ResponseType> {
  * @param {Question} params
  * @return {*}
  */
-export function editQuestion(id: string, params: Partial<Question>): Promise<ResponseType> {
+export function editQuestion(
+  id: string,
+  params: Partial<EditQuestionParamsType>
+): Promise<ResponseType> {
   return ajax.patch(`/question/${id}`, params) as Promise<ResponseType>;
 }
 

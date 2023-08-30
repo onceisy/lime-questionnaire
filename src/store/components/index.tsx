@@ -25,6 +25,7 @@ export interface ComponentsStateType {
   selectedId: string;
   copiedComponent: ComponentInfoType | undefined;
   title: string;
+  isAutoSave: boolean;
 }
 
 const initialState: ComponentsStateType = {
@@ -33,6 +34,7 @@ const initialState: ComponentsStateType = {
   selectedId: '',
   copiedComponent: undefined,
   title: '',
+  isAutoSave: true,
 };
 
 const componentsSlice = createSlice({
@@ -164,6 +166,10 @@ const componentsSlice = createSlice({
       const { oldIndex, newIndex } = action.payload;
       state.componentList = arrayMove(state.componentList, oldIndex, newIndex);
     },
+
+    updateAutoSaveStatus(state: ComponentsStateType, action: PayloadAction<boolean>) {
+      state.isAutoSave = action.payload;
+    },
   },
 });
 
@@ -184,6 +190,7 @@ export const {
   selectNextComponent,
   setQuestionTitle,
   sortComponent,
+  updateAutoSaveStatus,
 } = componentsSlice.actions;
 
 export default componentsSlice.reducer;

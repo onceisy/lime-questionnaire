@@ -11,5 +11,6 @@ interface Question {
   updatedAt?: number;
   createUser?: string;
   componentList?: ComponentInfoType[];
+  isAutoSave?: boolean;
 }
 export default Question;

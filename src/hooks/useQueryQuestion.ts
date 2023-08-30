@@ -18,6 +18,7 @@ function useQueryQuestion() {
           selectedId: '',
           copiedComponent: undefined,
           title: res.data.title,
+          isAutoSave: res.data.isAutoSave,
         })
       );
     },

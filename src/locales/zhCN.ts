@@ -35,6 +35,8 @@ export default {
     optionIndex: '选项{{i}}',
     select: '选择',
     row: '{{i}}列',
+    on: '开启',
+    off: '关闭',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -78,6 +80,10 @@ export default {
     atLeastOneComponent: '请至少保留一个组件！',
     cursorMoveDown: '光标向下移动',
     cursorMoveUp: '光标向上移动',
+    isAutoSaveSuccess: '自动保存设置成功！',
+    isAutoSaveEnable: '项目将自动保存',
+    isAutoSaveDisabled: '自动保存已关闭',
+    inSaving: '保存中...',
   },
   user: {
     usernameSpace: '用 户 名',
@@ -137,6 +143,7 @@ export default {
     isUseDic: '是否使用字典',
     selectDic: '选择字典',
     defaultSelect: '默认选中',
+    autoSave: '自动保存',
   },
   config: {
     options: '字典设置',

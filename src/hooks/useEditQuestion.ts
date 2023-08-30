@@ -15,6 +15,7 @@ function useEditQuestion(refresh?: () => void) {
 
   const { loading, run, runAsync } = useRequest(editQuestion, {
     manual: true,
+    loadingDelay: 300,
     onSuccess: (result, params) => {
       const data = params[1];
       const keys = Object.keys(data);
@@ -28,7 +29,10 @@ function useEditQuestion(refresh?: () => void) {
           type = keys[0];
         }
       }
-      message.success(t(`manage.${type}Success`));
+      // 自动保存不提示消息
+      if (!data.saveType || data.saveType !== 'autoSave') {
+        message.success(t(`manage.${type}Success`));
+      }
       refresh && refresh();
     },
   });
