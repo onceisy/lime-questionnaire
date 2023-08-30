@@ -12,10 +12,10 @@ import { Options } from 'ahooks/lib/useKeyPress';
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-function isInvalidElement() {
+function isValidElement() {
   return (
     document.activeElement !== document.body &&
-    document.activeElement?.matches('aria-roledescription[sortable]')
+    document.activeElement?.matches('div[aria-roledescription=sortable]')
   );
 }
 
@@ -39,7 +39,7 @@ export function useBindComponentListEvents() {
   useKeyPress(
     ['ctrl.c', 'meta.c'],
     () => {
-      if (isInvalidElement()) {
+      if (!isValidElement()) {
         return;
       }
       dispatch(copyComponentById(selectedId));
@@ -51,7 +51,7 @@ export function useBindComponentListEvents() {
   useKeyPress(
     ['ctrl.v', 'meta.v'],
     () => {
-      if (isInvalidElement()) {
+      if (!isValidElement()) {
         return;
       }
       const index = componentList.findIndex(c => c._id === selectedId);
@@ -65,7 +65,7 @@ export function useBindComponentListEvents() {
     'uparrow',
     (e: KeyboardEvent) => {
       e.preventDefault();
-      if (isInvalidElement()) {
+      if (!isValidElement()) {
         return;
       }
       dispatch(selectPreviousComponent());
@@ -78,7 +78,7 @@ export function useBindComponentListEvents() {
     ['downarrow'],
     (e: KeyboardEvent) => {
       e.preventDefault();
-      if (isInvalidElement()) {
+      if (!isValidElement()) {
         return;
       }
       dispatch(selectNextComponent());
@@ -89,7 +89,7 @@ export function useBindComponentListEvents() {
   // 删除组件
   let isDeleting = false;
   useKeyPress(['backspace', 'delete'], () => {
-    if (isInvalidElement() || !selectedId || isDeleting) {
+    if (!isValidElement() || !selectedId || isDeleting) {
       return;
     }
     if (componentList.length === 1) {
