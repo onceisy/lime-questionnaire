@@ -62,11 +62,18 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
    * @description: 发布问卷
    * @return {*}
    */
-  const { run: publishQuestion } = useEditQuestion(refresh);
+  const { runAsync: publishQuestion } = useEditQuestion(refresh);
   function handlePublishQuestion() {
     modal.confirm({
       title: t('manage.publishConfirm'),
-      onOk: () => publishQuestion(_id, { isPublished: true }),
+      onOk: async () => {
+        try {
+          await publishQuestion(_id, { isPublished: true });
+          handleShareQuestion();
+        } catch (error) {
+          console.error(error);
+        }
+      },
     });
   }
 
