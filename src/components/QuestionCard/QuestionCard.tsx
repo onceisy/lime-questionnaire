@@ -109,7 +109,13 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
                   >
                     {t('manage.shareQuestionnaire')}
                   </Button>
-                  <Button type="primary" shape="round" icon={<LineChartOutlined />} size="middle">
+                  <Button
+                    type="primary"
+                    ghost
+                    shape="round"
+                    icon={<LineChartOutlined />}
+                    size="middle"
+                  >
                     {t('manage.questionnaireStatistics')}
                   </Button>
                 </>
