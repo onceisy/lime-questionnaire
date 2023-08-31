@@ -10,6 +10,7 @@ import {
   LineChartOutlined,
   CopyOutlined,
   StarOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import styles from './QuestionCard.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ import { useRequest } from 'ahooks';
 import { copyQuestion } from '@/service/question';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_QUESTION_EDIT } from '@/router/path';
+import ShareQuestion from '../ShareQuestion/ShareQuestion';
 
 const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
   const { t } = useTranslation();
@@ -55,6 +57,34 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
       onOk: () => setDelete(_id, { isDeleted: true }),
     });
   }
+
+  /**
+   * @description: 发布问卷
+   * @return {*}
+   */
+  const { run: publishQuestion } = useEditQuestion(refresh);
+  function handlePublishQuestion() {
+    modal.confirm({
+      title: t('manage.publishConfirm'),
+      onOk: () => publishQuestion(_id, { isPublished: true }),
+    });
+  }
+
+  /**
+   * @description: 分享问卷
+   * @return {*}
+   */
+  function handleShareQuestion() {
+    modal.confirm({
+      title: t('manage.shareQuestionnaire'),
+      footer: null,
+      icon: null,
+      closeIcon: <CloseOutlined />,
+      content: <ShareQuestion {...props} />,
+      maskClosable: true,
+      width: 600,
+    });
+  }
   return (
     <div className={`${styles['question-card']} px-3`}>
       <Card type="inner" hoverable title={title} extra={<CardTitleRight {...props} />}>
@@ -63,7 +93,13 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
             <Space>
               {isPublished && (
                 <>
-                  <Button type="primary" shape="round" icon={<ShareAltOutlined />} size="middle">
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<ShareAltOutlined />}
+                    size="middle"
+                    onClick={handleShareQuestion}
+                  >
                     {t('manage.shareQuestionnaire')}
                   </Button>
                   <Button type="primary" shape="round" icon={<LineChartOutlined />} size="middle">
@@ -82,7 +118,13 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
                   >
                     {t('public.edit')}
                   </Button>
-                  <Button type="primary" shape="round" icon={<SendOutlined />} size="middle">
+                  <Button
+                    type="primary"
+                    shape="round"
+                    icon={<SendOutlined />}
+                    size="middle"
+                    onClick={handlePublishQuestion}
+                  >
                     {t('manage.publish')}
                   </Button>
                 </>

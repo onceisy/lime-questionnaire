@@ -11,3 +11,6 @@ export const DEFAULT_LIST_SEARCH_KEY = 'name';
 // 问卷标题最长字符
 export const QUESTION_TITLE_MAX_LENGTH = 25;
 export const DEFAULT_INPUT_MAX_LENGTH = 25;
+
+// 客户端问卷url前缀
+export const CLIENT_URL_PREFIX = 'https://www.wenjuan.com/s/';
