@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import localeReducer from './localeSlice';
 import themeReducer from './themeSlice';
 import userSlice from './userSlice';
-import componentsReducer from './components';
+import componentsReducer from './questionInfoSlice';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';

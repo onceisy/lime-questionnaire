@@ -5,7 +5,7 @@ import {
   setSelectedId,
   sortComponent,
   updateComponentPropsById,
-} from '@/store/components';
+} from '@/store/questionInfoSlice';
 import { Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import ListSortable from '@/components/ListSortable/ListSortable';

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Empty, Form } from 'antd';
 import { useDispatch } from 'react-redux';
 import { COMPONENT_COMMON_CLASS } from '@/constant/TailwindClassNames';
-import { ComponentInfoType, setSelectedId, sortComponent } from '@/store/components';
+import { ComponentInfoType, setSelectedId, sortComponent } from '@/store/questionInfoSlice';
 import { getComponentConfByType } from './Components';
 import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 import ComponentRightEdit from './Components/ComponentRightEdit';

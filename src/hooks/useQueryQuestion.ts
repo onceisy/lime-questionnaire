@@ -1,5 +1,5 @@
 import { queryQuestion } from '@/service/question';
-import { resetComponents } from '@/store/components';
+import { resetComponents } from '@/store/questionInfoSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { useRequest } from 'ahooks';
 import { useParams } from 'react-router-dom';

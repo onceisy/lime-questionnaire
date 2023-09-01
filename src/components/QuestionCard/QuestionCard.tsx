@@ -18,7 +18,7 @@ import useEditQuestion from '@/hooks/useEditQuestion';
 import { useRequest } from 'ahooks';
 import { copyQuestion } from '@/service/question';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE_QUESTION_EDIT } from '@/router/path';
+import { ROUTE_QUESTION_EDIT, ROUTE_STATISTIC } from '@/router/path';
 import ShareQuestion from '../ShareQuestion/ShareQuestion';
 
 const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
@@ -115,6 +115,7 @@ const QuestionCard: FC<QuestionProps> = (props: QuestionProps) => {
                     shape="round"
                     icon={<LineChartOutlined />}
                     size="middle"
+                    onClick={() => nav(`${ROUTE_STATISTIC}/${_id}`)}
                   >
                     {t('manage.questionnaireStatistics')}
                   </Button>

@@ -1,4 +1,4 @@
-import { selectComponent } from '@/store/components';
+import { selectComponent } from '@/store/questionInfoSlice';
 import { useAppSelector } from '@/store/hooks';
 
 export function useGetComponentsState() {

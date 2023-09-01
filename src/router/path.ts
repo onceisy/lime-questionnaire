@@ -5,6 +5,7 @@ export const ROUTE_MANAGE_LIST = '/manage/list';
 export const ROUTE_MANAGE_STAR = '/manage/star';
 export const ROUTE_MANAGE_TRASH = '/manage/trash';
 export const ROUTE_QUESTION_EDIT = '/question/edit';
+export const ROUTE_STATISTIC = '/question/statistic';
 
 export const ROUTE_CONFIG = '/config';
 export const ROUTE_CONFIG_OPTIONS = '/config/options';

@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 import { ComponentConfType, componentConfGroupList, getComponentConfByType } from '../Components';
 import { Form, Popover, Space } from 'antd';
 import { Icon } from '@iconify/react';
-import { ComponentInfoType, ComponentTypesType, addComponentToList } from '@/store/components';
+import {
+  ComponentInfoType,
+  ComponentTypesType,
+  addComponentToList,
+} from '@/store/questionInfoSlice';
 import { nanoid } from 'nanoid';
 import { useAppDispatch } from '@/store/hooks';
 

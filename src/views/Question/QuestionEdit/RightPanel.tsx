@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 import { ComponentPropsType, getComponentConfByType } from './Components';
 import { useDispatch } from 'react-redux';
-import { updateComponentPropsById } from '@/store/components';
+import { updateComponentPropsById } from '@/store/questionInfoSlice';
 
 const RightPanel: FC = () => {
   const { t } = useTranslation();

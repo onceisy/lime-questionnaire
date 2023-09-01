@@ -7,7 +7,7 @@ import {
   pasteComponentByIndex,
   selectNextComponent,
   selectPreviousComponent,
-} from '@/store/components';
+} from '@/store/questionInfoSlice';
 import { Options } from 'ahooks/lib/useKeyPress';
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';

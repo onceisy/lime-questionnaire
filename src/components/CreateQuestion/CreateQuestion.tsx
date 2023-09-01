@@ -8,7 +8,7 @@ import { ROUTE_QUESTION_EDIT } from '@/router/path';
 import { useRequest } from 'ahooks';
 import { nanoid } from 'nanoid';
 import QuestionTitlePropsType from '@/views/Question/QuestionEdit/Components/QuestionTitle/interface';
-import { ComponentInfoType } from '@/store/components';
+import { ComponentInfoType } from '@/store/questionInfoSlice';
 import { QUESTION_TITLE_MAX_LENGTH } from '@/constant';
 
 const CreateQuestion: FC = () => {

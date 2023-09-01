@@ -1,4 +1,4 @@
-import { ComponentInfoType } from '@/store/components';
+import { ComponentInfoType } from '@/store/questionInfoSlice';
 
 interface Question {
   _id: string;

@@ -9,7 +9,7 @@ import MyQuestionList from '@/views/Manage/MyQuestionList/MyQuestionList';
 import StarList from '@/views/Manage/StarList/StarList';
 import TrashList from '@/views/Manage/TrashList/TrashList';
 import QuestionEdit from '@/views/Question/QuestionEdit';
-import QuestionStatistics from '@/views/Question/QuestionStatistics';
+import QuestionStatistic from '@/views/Question/QuestionStatistic';
 import QuestionLayout from '@/Layout/QuestionLayout';
 import ManageLayout from '@/Layout/ManageLayout';
 import ConfigIndex from '@/views/Config';
@@ -82,8 +82,8 @@ const router = createBrowserRouter([
         element: <QuestionEdit />,
       },
       {
-        path: 'statistics/:id',
-        element: <QuestionStatistics />,
+        path: 'statistic/:id',
+        element: <QuestionStatistic />,
       },
     ],
   },

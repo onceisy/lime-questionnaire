@@ -3,7 +3,11 @@ import React, { FC, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { copyComponentById, deleteComponentById, pasteComponentByIndex } from '@/store/components';
+import {
+  copyComponentById,
+  deleteComponentById,
+  pasteComponentByIndex,
+} from '@/store/questionInfoSlice';
 import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 
 interface ComponentRightEditPropsType {

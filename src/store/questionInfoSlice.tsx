@@ -1,6 +1,6 @@
 import { ComponentPropsType } from '@/views/Question/QuestionEdit/Components';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '..';
+import { RootState } from '.';
 import { nanoid } from 'nanoid';
 import { cloneDeep } from 'lodash';
 import { arrayMove } from '@dnd-kit/sortable';

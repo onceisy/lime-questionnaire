@@ -10,7 +10,7 @@ import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 import { QUESTION_TITLE_MAX_LENGTH } from '@/constant';
 import useEditQuestion from '@/hooks/useEditQuestion';
 import { useDispatch } from 'react-redux';
-import { setQuestionTitle, updateAutoSaveStatus } from '@/store/components';
+import { setQuestionTitle, updateAutoSaveStatus } from '@/store/questionInfoSlice';
 import { useDebounceEffect, useDebounceFn, useKeyPress } from 'ahooks';
 
 const EditHeader: FC = () => {
