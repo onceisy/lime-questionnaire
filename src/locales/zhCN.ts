@@ -10,6 +10,7 @@ export default {
     paste: '粘贴',
     edit: '编辑',
     delete: '删除',
+    deleted: '已删除',
     restore: '恢复',
     deleteCompletely: '彻底删除',
     createdTime: '创建时间',
@@ -41,6 +42,8 @@ export default {
     copyUrl: '复制链接',
     qrCode: '二维码',
     downloadSuccess: '下载成功！',
+    name: '姓名',
+    total: '总数',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -152,6 +155,10 @@ export default {
     selectDic: '选择字典',
     defaultSelect: '默认选中',
     autoSave: '自动保存',
+  },
+  statistic: {
+    basicData: '原始数据',
+    questionReport: '题目报表',
   },
   config: {
     options: '字典设置',

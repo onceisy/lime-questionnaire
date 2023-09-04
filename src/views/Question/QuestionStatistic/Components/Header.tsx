@@ -1,20 +1,36 @@
 import React, { FC } from 'react';
 import { Icon } from '@iconify/react';
+import { FundProjectionScreenOutlined, BarChartOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_MANAGE_LIST } from '@/router/path';
-import { App, Typography } from 'antd';
+import { Segmented, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useGetComponentsState } from '@/hooks/useGetComponentsState';
-import { useDispatch } from 'react-redux';
+import type { SegmentedValue } from 'antd/es/segmented';
 
-const StatisticHeader: FC = () => {
-  const { message } = App.useApp();
+interface StatisticHeaderPropsType {
+  value: string;
+  onChange: (tab: SegmentedValue) => void;
+}
+
+const StatisticHeader: FC<StatisticHeaderPropsType> = (props: StatisticHeaderPropsType) => {
   const nav = useNavigate();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const { _id, title, componentList } = useGetComponentsState();
-
+  const { value, onChange } = props;
+  const { title } = useGetComponentsState();
+  const options = [
+    {
+      label: t('statistic.basicData'),
+      value: 'basicData',
+      icon: <BarChartOutlined />,
+    },
+    {
+      label: t('statistic.questionReport'),
+      value: 'questionReport',
+      icon: <FundProjectionScreenOutlined />,
+    },
+  ];
   return (
     <div className="h-14 flex px-6">
       {/* 顶部左侧 */}
@@ -34,7 +50,7 @@ const StatisticHeader: FC = () => {
       </div>
       {/* 顶部中间 */}
       <div className="flex-1 flex items-center justify-center">
-        <div>middle</div>
+        <Segmented options={options} value={value} onChange={onChange} />
       </div>
       {/* 顶部右侧 */}
       <div className="flex-1 flex items-center justify-end"></div>

@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import localeReducer from './localeSlice';
 import themeReducer from './themeSlice';
 import userSlice from './userSlice';
-import componentsReducer from './questionInfoSlice';
+import questionInfoReducer from './questionInfoSlice';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
@@ -18,7 +18,7 @@ const reducer = persistCombineReducers(persistConfig, {
   locale: localeReducer,
   theme: themeReducer,
   user: userSlice,
-  components: componentsReducer,
+  components: questionInfoReducer,
   options: optionSlice,
 });
 

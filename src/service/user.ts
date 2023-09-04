@@ -2,7 +2,7 @@ import { AccountProp } from '@/views/SignIn/SignIn';
 import ajax, { ResponseType } from './ajax';
 
 /**
- * @description: 登录
+ * @description: 注册
  * @param {AccountProp} params
  * @return {*}
  */

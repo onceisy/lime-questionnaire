@@ -1,13 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import StatisticHeader from './Components/Header';
-import useQueryQuestion from '@/hooks/useQueryQuestion';
+import BasicData from './Components/BasicData';
+import QuestionReport from './Components/QuestionReport';
 
 const QuestionStatistic: FC = () => {
-  const { loading } = useQueryQuestion();
+  const [tab, setTab] = useState<string>('basicData');
+
   return (
-    <div>
-      <StatisticHeader />
-    </div>
+    <>
+      <StatisticHeader value={tab} onChange={val => setTab(val as string)} />
+      <div className="px-5">
+        {tab === 'basicData' && <BasicData />}
+        {tab === 'questionReport' && <QuestionReport />}
+      </div>
+    </>
   );
 };
 

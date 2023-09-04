@@ -25,7 +25,6 @@ const ShareQuestion: FC<Question> = (props: Question) => {
 
   const QRCodeRef = useRef<HTMLDivElement>(null);
   function downloadQRCode() {
-    console.log(QRCodeRef.current);
     const canvas = QRCodeRef.current?.querySelector('canvas');
     if (canvas) {
       const url = canvas.toDataURL();

@@ -6,7 +6,22 @@ import { cloneDeep } from 'lodash';
 import { arrayMove } from '@dnd-kit/sortable';
 
 // 组件的类型
-export type ComponentTypesType = 'QuestionTitle' | 'QuestionInput';
+export type ComponentTypesType =
+  | 'QuestionTitle'
+  | 'QuestionParagraph'
+  | 'QuestionInput'
+  | 'QuestionCheckbox'
+  | 'QuestionRadio'
+  | 'QuestionTextArea';
+
+// 问卷详情的类型（服务端真实储存的数据）
+export interface QuestionInfoType {
+  _id: string;
+  cover?: string;
+  componentList: ComponentInfoType[];
+  title: string;
+  isAutoSave: boolean;
+}
 
 // 单个组件的类型信息
 export interface ComponentInfoType {
@@ -17,15 +32,10 @@ export interface ComponentInfoType {
   props?: ComponentPropsType;
 }
 
-// 整个问卷详情的数据结构
-export interface ComponentsStateType {
-  _id: string;
-  cover?: string;
-  componentList: ComponentInfoType[];
+// store中储存的问卷详情的数据结构，包含前端操作需要的一些临时字段
+export interface ComponentsStateType extends QuestionInfoType {
   selectedId: string;
   copiedComponent: ComponentInfoType | undefined;
-  title: string;
-  isAutoSave: boolean;
 }
 
 const initialState: ComponentsStateType = {
