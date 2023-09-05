@@ -44,7 +44,7 @@ const MiddleView: FC = () => {
   const sortableList = componentList.map(item => {
     return {
       ...item,
-      id: item._id,
+      id: item.componentId,
     };
   });
   function onSortableEnd(oldIndex: number, newIndex: number) {
@@ -58,14 +58,14 @@ const MiddleView: FC = () => {
             <SortableItem key={item.id} id={item.id}>
               <div
                 className={`${COMPONENT_COMMON_CLASS} my-5 relative group ${
-                  selectedId === item._id ? 'border-teal-400' : 'border-transparent'
+                  selectedId === item.componentId ? 'border-teal-400' : 'border-transparent'
                 }`}
-                key={item._id}
-                onClick={() => handleSetSelectedId(item._id)}
+                key={item.componentId}
+                onClick={() => handleSetSelectedId(item.componentId)}
               >
                 <ComponentRightEdit
                   className="hidden group-hover:block"
-                  _id={item._id}
+                  componentId={item.componentId}
                 ></ComponentRightEdit>
                 {genComponent(item)}
               </div>

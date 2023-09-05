@@ -26,7 +26,7 @@ const ComponentList: FC = () => {
     //   message.error(t('question.noEmptyContent'));
     //   return;
     // }
-    const { _id = '', props: componentProps = { label: '', text: '' } } = item;
+    const { componentId = '', props: componentProps = { label: '', text: '' } } = item;
     const data: { label?: string; text?: string } = {};
     if (Object.prototype.hasOwnProperty.call(componentProps, 'label')) {
       data.label = str;
@@ -34,7 +34,7 @@ const ComponentList: FC = () => {
     if (Object.prototype.hasOwnProperty.call(componentProps, 'text')) {
       data.text = str;
     }
-    dispatch(updateComponentPropsById({ id: _id, props: data }));
+    dispatch(updateComponentPropsById({ id: componentId, props: data }));
   }
 
   // const [sortableList, setSortableList] = useState<SortableListType[]>([]);
@@ -51,7 +51,7 @@ const ComponentList: FC = () => {
   const sortableList = componentList.map(item => {
     return {
       ...item,
-      id: item._id,
+      id: item.componentId,
     };
   });
   function onSortableEnd(oldIndex: number, newIndex: number) {
@@ -61,15 +61,15 @@ const ComponentList: FC = () => {
     <ListSortable items={sortableList} onSortableEnd={onSortableEnd}>
       {sortableList.map(item => {
         return (
-          <SortableItem key={item._id} id={item._id}>
+          <SortableItem key={item.componentId} id={item.componentId}>
             <div
               className={`w-full px-2 py-2 my-1 rounded-md cursor-pointer flex items-center ${
-                selectedId === item._id ? 'bg-slate-100 dark:bg-slate-900' : ''
+                selectedId === item.componentId ? 'bg-slate-100 dark:bg-slate-900' : ''
               }`}
-              onClick={() => dispatch(setSelectedId(item._id))}
+              onClick={() => dispatch(setSelectedId(item.componentId))}
             >
               <Typography.Text
-                className={item._id}
+                className={item.componentId}
                 editable={{
                   icon: <EditOutlined className="text-slate-600 dark:text-gray-200" />,
                   onChange: text => onTitleChange(item, text),

@@ -21,7 +21,7 @@ export type ComponentPropsType = QuestionTitlePropsType &
 
 // 统一组件的配置 type
 export type ComponentConfType = {
-  _id?: string;
+  componentId?: string;
   name: string;
   type: string;
   icon: string;

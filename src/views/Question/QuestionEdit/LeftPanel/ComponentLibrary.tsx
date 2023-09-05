@@ -24,7 +24,7 @@ const ComponentLibrary: FC = () => {
 
   function handleAddComponent(params: ComponentConfType) {
     const newComp: ComponentInfoType = {
-      _id: nanoid(),
+      componentId: nanoid(),
       type: params.type as ComponentTypesType,
       name: '',
       props: params.defaultProps,

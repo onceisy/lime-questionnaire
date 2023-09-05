@@ -6,7 +6,7 @@ import { QuestionRadioDefaultProps } from './interface';
 import QuestionRadioPropsConfig from './QuestionRadioPropsConfig';
 
 const QuestionRadioConf: ComponentConfType = {
-  _id: nanoid(),
+  componentId: nanoid(),
   name: i18n.t('question.componentType.radio'),
   type: 'QuestionRadio',
   // 组件库渲染时前面的图标

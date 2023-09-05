@@ -12,7 +12,7 @@ import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 
 interface ComponentRightEditPropsType {
   className?: string;
-  _id: string;
+  componentId: string;
 }
 
 const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
@@ -20,7 +20,7 @@ const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
 ) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { className = '', _id } = props;
+  const { className = '', componentId } = props;
   const { modal, message } = App.useApp();
   const { componentList } = useGetComponentsState();
 
@@ -39,7 +39,7 @@ const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
           message.error(t('manage.atLeastOneComponent'));
           return;
         }
-        dispatch(deleteComponentById(_id));
+        dispatch(deleteComponentById(componentId));
       },
     });
   }
@@ -54,8 +54,8 @@ const ComponentRightEdit: FC<ComponentRightEditPropsType> = (
     modal.confirm({
       title: t('manage.copyConfirm'),
       onOk: () => {
-        dispatch(copyComponentById(_id));
-        const index = componentList.findIndex(c => c._id === _id);
+        dispatch(copyComponentById(componentId));
+        const index = componentList.findIndex(c => c.componentId === componentId);
         if (index >= 0) {
           dispatch(pasteComponentByIndex(index + 1));
         }

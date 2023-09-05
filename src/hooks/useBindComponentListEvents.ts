@@ -54,7 +54,7 @@ export function useBindComponentListEvents() {
       if (!isValidElement()) {
         return;
       }
-      const index = componentList.findIndex(c => c._id === selectedId);
+      const index = componentList.findIndex(c => c.componentId === selectedId);
       dispatch(pasteComponentByIndex(index >= 0 ? index + 1 : componentList.length - 1));
     },
     option

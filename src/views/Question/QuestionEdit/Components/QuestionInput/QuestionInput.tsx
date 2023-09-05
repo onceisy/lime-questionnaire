@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 const QuestionInput: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
   const { t } = useTranslation();
   const {
-    _id,
     label = t('question.placeholder.input'),
     required = false,
     placeholder = t('question.placeholder.input'),
@@ -16,7 +15,6 @@ const QuestionInput: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
       <div className="pointer-events-none">
         <Form.Item
           label={label}
-          name={_id}
           rules={[{ required: required, message: placeholder }]}
           required={required}
         >

@@ -38,7 +38,7 @@ const CreateQuestion: FC = () => {
         };
         const componentList: ComponentInfoType[] = [
           {
-            _id: nanoid(),
+            componentId: nanoid(),
             type: 'QuestionTitle',
             props: initialQuestionTitle,
           },

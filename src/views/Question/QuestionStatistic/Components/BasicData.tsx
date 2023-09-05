@@ -60,7 +60,7 @@ const BasicData: FC = () => {
         if (!NoInputRequired.includes(item.type)) {
           arr.push({
             title: item.name || item.props?.label || '',
-            dataIndex: item._id,
+            dataIndex: item.componentId,
           });
         }
       });

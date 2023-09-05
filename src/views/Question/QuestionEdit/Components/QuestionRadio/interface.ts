@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import i18n from '@/locales';
 
 export interface QuestionRadioPropsType {
-  _id?: string;
   label?: string;
   required?: boolean;
   // 自定义的选项内容
@@ -23,7 +22,6 @@ export interface QuestionRadioPropsType {
 }
 
 export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
-  _id: nanoid(),
   label: i18n.t('question.componentType.radio'),
   required: false,
   options: [

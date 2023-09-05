@@ -20,7 +20,7 @@ export async function formatReportDataSource(
   } = {};
   for (const item of data) {
     const { componentId, value, text } = item;
-    const componentInfo = componentList.find(c => c._id === componentId);
+    const componentInfo = componentList.find(c => c.componentId === componentId);
     if (!componentInfo) {
       debugger;
       return {};

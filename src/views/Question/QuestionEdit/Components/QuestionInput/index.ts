@@ -9,7 +9,7 @@ export * from './interface';
 
 const QuestionInputConf: ComponentConfType = {
   // 仅作为渲染页面给dom绑定的key使用
-  _id: nanoid(),
+  componentId: nanoid(),
   name: i18n.t('question.componentType.input'),
   type: 'QuestionInput',
   // 组件库渲染时前面的图标

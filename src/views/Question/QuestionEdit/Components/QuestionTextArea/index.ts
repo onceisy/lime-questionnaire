@@ -6,7 +6,7 @@ import { QuestionTextDefaultProps } from './interface';
 import TextAreaPropsConfig from './TextAreaPropsConfig';
 
 const QuestionTextAreaConf: ComponentConfType = {
-  _id: nanoid(),
+  componentId: nanoid(),
   name: i18n.t('question.componentType.textarea'),
   type: 'QuestionTextArea',
   // 组件库渲染时前面的图标

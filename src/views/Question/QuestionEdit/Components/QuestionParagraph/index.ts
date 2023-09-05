@@ -6,7 +6,7 @@ import { QuestionParagraphDefaultProps } from './interface';
 import { ComponentConfType } from '..';
 
 const QuestionParagraphConf: ComponentConfType = {
-  _id: nanoid(),
+  componentId: nanoid(),
   name: i18n.t('question.componentGroup.paragraph'),
   type: 'QuestionParagraph',
   // 组件库渲染时前面的图标

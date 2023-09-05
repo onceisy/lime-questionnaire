@@ -1,8 +1,6 @@
-import { nanoid } from 'nanoid';
 import i18n from '@/locales';
 
 export interface QuestionTextAreaPropsType {
-  _id?: string;
   label?: string;
   required?: boolean;
   placeholder?: string;
@@ -14,7 +12,6 @@ export interface QuestionTextAreaPropsType {
 }
 
 export const QuestionTextDefaultProps: QuestionTextAreaPropsType = {
-  _id: nanoid(),
   label: i18n.t('question.componentType.textarea'),
   required: false,
   placeholder: i18n.t('question.placeholder.input'),

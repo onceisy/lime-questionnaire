@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import i18n from '@/locales';
 
 export interface QuestionCheckboxPropsType {
-  _id?: string;
   label?: string;
   required?: boolean;
   // 自定义的选项内容
@@ -23,7 +22,6 @@ export interface QuestionCheckboxPropsType {
 }
 
 export const QuestionCheckboxDefaultProps: QuestionCheckboxPropsType = {
-  _id: nanoid(),
   label: i18n.t('question.componentType.checkbox'),
   required: false,
   options: [

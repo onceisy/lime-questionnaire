@@ -25,7 +25,7 @@ export interface QuestionInfoType {
 
 // 单个组件的类型信息
 export interface ComponentInfoType {
-  _id: string;
+  componentId: string;
   type: ComponentTypesType;
   name?: string;
   // 组件的props信息
@@ -66,7 +66,7 @@ const componentsSlice = createSlice({
       if (!state.selectedId) {
         state.componentList.push(action.payload);
       } else {
-        const index = state.componentList.findIndex(i => i._id === state.selectedId);
+        const index = state.componentList.findIndex(i => i.componentId === state.selectedId);
         state.componentList.splice(index + 1, 0, action.payload);
       }
     },
@@ -78,7 +78,7 @@ const componentsSlice = createSlice({
     ) {
       const { id, props } = action.payload;
       if (id) {
-        const component = state.componentList.find(i => i._id === id);
+        const component = state.componentList.find(i => i.componentId === id);
         if (component) {
           component.props = {
             ...component.props,
@@ -91,17 +91,17 @@ const componentsSlice = createSlice({
     /**
      * @description: 删除组件
      * @param {ComponentsStateType} state
-     * @param {PayloadAction} action 组件_id
+     * @param {PayloadAction} action 组件componentId
      * @return {*}
      */
     deleteComponentById(state: ComponentsStateType, action: PayloadAction<string>) {
-      const index = state.componentList.findIndex(c => c._id === action.payload);
+      const index = state.componentList.findIndex(c => c.componentId === action.payload);
 
       // 判断是不是最后一个
       const nextId =
         index + 1 === state.componentList.length
-          ? state.componentList[index - 1]?._id || ''
-          : state.componentList[index + 1]._id;
+          ? state.componentList[index - 1]?.componentId || ''
+          : state.componentList[index + 1].componentId;
       // 删除
       if (index >= 0) {
         state.componentList.splice(index, 1);
@@ -112,11 +112,11 @@ const componentsSlice = createSlice({
     /**
      * @description:
      * @param {ComponentsStateType} state
-     * @param {PayloadAction} action 被复制组件的_id
+     * @param {PayloadAction} action 被复制组件的componentId
      * @return {*}
      */
     copyComponentById(state: ComponentsStateType, action: PayloadAction<string>) {
-      const item = state.componentList.find(c => c._id === action.payload);
+      const item = state.componentList.find(c => c.componentId === action.payload);
       if (item) {
         const copyComponent = cloneDeep(item);
         state.copiedComponent = copyComponent;
@@ -135,9 +135,9 @@ const componentsSlice = createSlice({
       }
       const index = action.payload;
       const copiedComponent = cloneDeep(state.copiedComponent);
-      copiedComponent._id = nanoid();
+      copiedComponent.componentId = nanoid();
       state.componentList.splice(index, 0, copiedComponent);
-      state.selectedId = copiedComponent._id;
+      state.selectedId = copiedComponent.componentId;
     },
 
     // 选中上一个组件
@@ -146,9 +146,9 @@ const componentsSlice = createSlice({
       if (!selectedId || componentList.length <= 1) {
         return;
       }
-      const index = componentList.findIndex(c => c._id === selectedId);
+      const index = componentList.findIndex(c => c.componentId === selectedId);
       if (index > 0) {
-        state.selectedId = componentList[index - 1]._id;
+        state.selectedId = componentList[index - 1].componentId;
       }
     },
 
@@ -158,9 +158,9 @@ const componentsSlice = createSlice({
       if (!selectedId || componentList.length <= 1) {
         return;
       }
-      const index = componentList.findIndex(c => c._id === selectedId);
+      const index = componentList.findIndex(c => c.componentId === selectedId);
       if (index >= 0 && index !== componentList.length - 1) {
-        state.selectedId = componentList[index + 1]._id;
+        state.selectedId = componentList[index + 1].componentId;
       }
     },
 
