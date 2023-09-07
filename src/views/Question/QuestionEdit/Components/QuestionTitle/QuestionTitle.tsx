@@ -33,7 +33,7 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
           {text}
         </Title>
       )}
-      {description && <Text className="whitespace-pre">{description}</Text>}
+      {description && <Text className="whitespace-pre-line">{description}</Text>}
     </div>
   );
 };
