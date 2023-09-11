@@ -1,6 +1,7 @@
-import { queryOptionsById, queryOptionsList } from '@/service/config';
+import { queryOptionsById, queryOptionsByIds, queryOptionsList } from '@/service/config';
 import { useAppSelector } from '@/store/hooks';
 import { resetOption, selectOptions, updateDicOptions } from '@/store/optionSlice';
+import { OptionDicType } from '@/views/Config/OptionsConfig/OptionEdit';
 import { useRequest } from 'ahooks';
 import { useDispatch } from 'react-redux';
 
@@ -21,7 +22,7 @@ export function useGetOptions() {
   });
 
   /**
-   * @description: 根据_id，查询字典的options信息，并更新到state
+   * @description: 根据_id，查询单个字典的options信息，并更新到state
    * @param: _id 字典的_id
    * @return {*}
    */
@@ -30,6 +31,23 @@ export function useGetOptions() {
     onSuccess: async res => {
       if (res.code === 200) {
         await dispatch(updateDicOptions(res.data));
+      }
+    },
+  });
+
+  /**
+   * @description: 根据_id数组，批量查询字典的options信息，并更新到state
+   * @param: _id 字典的_id
+   * @return {*}
+   */
+  const { runAsync: updateDicOptionsByIds } = useRequest(queryOptionsByIds, {
+    manual: true,
+    onSuccess: res => {
+      const { code, data = [] } = res;
+      if (code === 200) {
+        data.forEach((o: OptionDicType) => {
+          dispatch(updateDicOptions(o));
+        });
       }
     },
   });
@@ -55,11 +73,21 @@ export function useGetOptions() {
       return dic.options;
     }
   }
+  /**
+   * @description: 获取批量配置
+   * @param {string} id
+   * @return {*}
+   */
+  async function getDicOptionsByIds(ids: string[]) {
+    // 走批量查询接口
+    return await updateDicOptionsByIds(ids);
+  }
 
   return {
     updateDicFromService,
     updateDicOptionsById,
     options,
     getDicOptionsById,
+    getDicOptionsByIds,
   };
 }

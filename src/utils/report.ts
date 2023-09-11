@@ -1,53 +1,62 @@
+import { store } from '@/store';
 import { ComponentInfoType } from '@/store/questionInfoSlice';
-import { OptionType } from '@/views/Config/OptionsConfig/OptionEdit';
 import i18next from 'i18next';
-import { isArray } from 'lodash';
 
 interface ReportBasicDataType {
   // 组件id
   componentId: string;
   value: string | Array<string>;
-  text: string;
+  label: string;
 }
 
+/**
+ * @description: 格式化报表数据，主要是把多选、单选的key转化为label显示
+ * @return {*}
+ */
 export async function formatReportDataSource(
   data: ReportBasicDataType[],
-  componentList: ComponentInfoType[],
-  getDicOptionsById: (id: string) => Promise<OptionType[]>
+  componentList: ComponentInfoType[]
 ) {
   const obj: {
     [key: string]: string;
   } = {};
+  // 储存在store中的字典
+  const { options: storeOptions = [] } = store.getState();
+
   for (const item of data) {
-    const { componentId, value, text } = item;
+    const { componentId = '', value = '', label = '' } = item;
     const componentInfo = componentList.find(c => c.componentId === componentId);
-    if (!componentInfo) {
-      debugger;
-      return {};
+    const { props } = componentInfo || {};
+    const { isUseDic, dicId, options } = props || {};
+
+    let componentOptions = options;
+    if (isUseDic) {
+      componentOptions = storeOptions.find(o => o._id === dicId)?.options;
     }
-    const { type, props } = componentInfo;
-    switch (type) {
-      case 'QuestionCheckbox':
-        if (props) {
-          const { isUseDic, options, dicId = '' } = props;
-          const ops = isUseDic ? await getDicOptionsById(dicId) : options;
-          let str = '';
-          if (isArray(value)) {
-            value.forEach(v => {
-              const option = ops?.find((i: OptionType) => i.key === v);
-              if (option) {
-                str += option.label;
+    if (componentOptions) {
+      if (Array.isArray(value)) {
+        // 多选
+        const textArr: string[] = [];
+        value.map(v => {
+          const text = componentOptions?.find(o => o.key === v)?.label;
+          text && textArr.push(text);
+          if (Array.isArray(label)) {
+            const newLabel = label.map(l => {
+              if (!textArr.includes(l)) {
+                return `${l}(${i18next.t('public.deleted')})`;
               }
+              return l;
             });
+            obj[componentId] = newLabel.join('，');
           }
-          obj[componentId] = str === text ? text : `${text}(${i18next.t('public.deleted')})`;
-        }
-        break;
-      case 'QuestionRadio':
-        break;
-      default:
-        obj[componentId] = text;
-        break;
+        });
+      } else {
+        // 单选
+        const text = componentOptions?.find(o => o.key === value)?.label;
+        obj[componentId] = text === label ? label : `${label}(${i18next.t('public.deleted')})`;
+      }
+    } else {
+      obj[componentId] = value as string;
     }
   }
   return obj;

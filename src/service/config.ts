@@ -29,12 +29,21 @@ export function queryOptionsList(
 }
 
 /**
- * @description: 获取字典详情
+ * @description: 根据字典id获取单个字典详情
  * @param {string} id
  * @return {*}
  */
 export function queryOptionsById(id: string): Promise<ResponseType> {
   return ajax.get(`/config/options/${id}`) as Promise<ResponseType>;
+}
+
+/**
+ * @description: 根据字典id批量获取字典详情
+ * @param {string} id
+ * @return {*}
+ */
+export function queryOptionsByIds(optionIds: string[]): Promise<ResponseType> {
+  return ajax.post('/config/options/query', { optionIds }) as Promise<ResponseType>;
 }
 
 /**

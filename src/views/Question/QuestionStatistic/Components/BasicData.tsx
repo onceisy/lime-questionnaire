@@ -6,13 +6,13 @@ import { queryBasicDataReport } from '@/service/report';
 import { ComponentInfoType } from '@/store/questionInfoSlice';
 import { formatReportDataSource } from '@/utils/report';
 import { useRequest } from 'ahooks';
-import { Table } from 'antd';
+import { Table, TableColumnsType, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 const BasicData: FC = () => {
   const { id } = useParams();
-  const { getDicOptionsById } = useGetOptions();
+  const { getDicOptionsByIds } = useGetOptions();
   const { t } = useTranslation();
   const [page, setPage] = useState({
     [SEARCH_PAGE]: 1,
@@ -37,23 +37,38 @@ const BasicData: FC = () => {
   const [dataSource, setDataSource] = useState<object[]>([]);
 
   const NoInputRequired = ['QuestionTitle', 'QuestionParagraph'];
+
+  function columnRender(text: string) {
+    return (
+      <Tooltip placement="topLeft" title={text}>
+        {text}
+      </Tooltip>
+    );
+  }
+
   useEffect(() => {
     const { list = [], question = {}, total: count } = data || {};
     // 设置表头
     const { componentList = [] } = question;
     if (componentList.length) {
-      const arr = [
+      const arr: TableColumnsType = [
         {
           title: t('public.name'),
           dataIndex: 'creator',
+          ellipsis: true,
+          render: columnRender,
         },
         {
           title: 'ip',
           dataIndex: 'ip',
+          ellipsis: true,
+          render: columnRender,
         },
         {
           title: 'os',
           dataIndex: 'os',
+          ellipsis: true,
+          render: columnRender,
         },
       ];
       componentList.forEach((item: ComponentInfoType) => {
@@ -61,6 +76,8 @@ const BasicData: FC = () => {
           arr.push({
             title: item.name || item.props?.label || '',
             dataIndex: item.componentId,
+            ellipsis: true,
+            render: columnRender,
           });
         }
       });
@@ -68,15 +85,30 @@ const BasicData: FC = () => {
     }
     // 数据
     const dealData = async () => {
+      if (componentList.length) {
+        // 更新所有组件字典信息到store
+        const dicIds: string[] = [];
+        componentList.forEach((c: ComponentInfoType) => {
+          const { props } = c;
+          const { isUseDic = false, dicId = '' } = props || {};
+          if (isUseDic) {
+            dicIds.push(dicId);
+          }
+        });
+        if (dicIds.length) {
+          try {
+            await getDicOptionsByIds(dicIds);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+
       if (list.length) {
         const sourceData = [];
         for (const item of list) {
           const { _id, creator = '', data = [], ip, os } = item;
-          const formatted = await formatReportDataSource(
-            data,
-            question.componentList,
-            getDicOptionsById
-          );
+          const formatted = await formatReportDataSource(data, question.componentList);
           sourceData.push({
             _id,
             creator,
