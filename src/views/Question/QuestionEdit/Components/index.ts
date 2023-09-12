@@ -12,6 +12,7 @@ import { QuestionRadioPropsType } from './QuestionRadio/interface';
 import QuestionRadioConf from './QuestionRadio';
 import { QuestionCheckboxPropsType } from './QuestionCheckbox/interface';
 import QuestionCheckboxConf from './QuestionCheckbox';
+import { ReportDataType } from '../../QuestionStatistic/Components/QuestionReport';
 
 export type ComponentPropsType = QuestionTitlePropsType &
   QuestionInputPropsType &
@@ -28,6 +29,7 @@ export type ComponentConfType = {
   Component: FC<ComponentPropsType>;
   PropsConfComponent: FC<ComponentPropsType>;
   defaultProps: ComponentPropsType;
+  ReportComponent?: FC<ReportDataType>;
 };
 
 // 全部的组件配置的列表

@@ -38,7 +38,7 @@ export interface ComponentsStateType extends QuestionInfoType {
   copiedComponent: ComponentInfoType | undefined;
 }
 
-const initialState: ComponentsStateType = {
+export const initialState: ComponentsStateType = {
   _id: '',
   componentList: [],
   selectedId: '',

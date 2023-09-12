@@ -4,6 +4,7 @@ import i18n from '@/locales';
 import QuestionCheckbox from './QuestionCheckbox';
 import { QuestionCheckboxDefaultProps } from './interface';
 import QuestionCheckboxPropsConfig from './QuestionCheckboxPropsConfig';
+import QuestionCheckboxReport from './QuestionCheckboxReport';
 
 const QuestionCheckboxConf: ComponentConfType = {
   componentId: nanoid(),
@@ -16,6 +17,7 @@ const QuestionCheckboxConf: ComponentConfType = {
   // 组件配置组件
   PropsConfComponent: QuestionCheckboxPropsConfig,
   defaultProps: QuestionCheckboxDefaultProps,
+  ReportComponent: QuestionCheckboxReport,
 };
 
 export default QuestionCheckboxConf;

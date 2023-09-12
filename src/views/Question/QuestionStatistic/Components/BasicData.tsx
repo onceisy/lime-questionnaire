@@ -1,16 +1,21 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import Loading from '@/components/Loading/Loading';
 import { DEFAULT_PAGE_SIZE10, SEARCH_PAGE, SEARCH_PAGE_SIZE } from '@/constant';
 import { useGetOptions } from '@/hooks/useGetOptions';
 import { queryBasicDataReport } from '@/service/report';
-import { ComponentInfoType } from '@/store/questionInfoSlice';
+import type { ComponentInfoType, QuestionInfoType } from '@/store/questionInfoSlice';
 import { formatReportDataSource } from '@/utils/report';
 import { useRequest } from 'ahooks';
 import { Table, TableColumnsType, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-const BasicData: FC = () => {
+interface BasicDataPropsType {
+  setQuestionInfo: Dispatch<SetStateAction<QuestionInfoType>>;
+}
+
+const BasicData: FC<BasicDataPropsType> = (props: BasicDataPropsType) => {
+  const { setQuestionInfo } = props;
   const { id } = useParams();
   const { getDicOptionsByIds } = useGetOptions();
   const { t } = useTranslation();
@@ -26,10 +31,16 @@ const BasicData: FC = () => {
 
   const { loading, data } = useRequest(
     async () => {
-      const res = await queryBasicDataReport(id || '', page);
-      return res.data;
+      try {
+        const res = await queryBasicDataReport(id || '', page);
+        setQuestionInfo(res.data.question);
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
     {
+      loadingDelay: 300,
       refreshDeps: [page],
     }
   );

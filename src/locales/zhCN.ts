@@ -44,6 +44,8 @@ export default {
     downloadSuccess: '下载成功！',
     name: '姓名',
     total: '总数',
+    all: '全部',
+    index: '序号',
   },
   home: {
     titlePre: '生成一个精致的调查问卷或在线表格仅需花费',
@@ -159,6 +161,11 @@ export default {
   statistic: {
     basicData: '原始数据',
     questionReport: '题目报表',
+    contentDetail: '详细填写内容',
+    fillingTimes: '填写次数',
+    selectTimes: '选择次数',
+    answerCount: '回答人数',
+    noStatistic: '该问题类型无法统计',
   },
   config: {
     options: '字典设置',

@@ -4,6 +4,7 @@ import i18n from '@/locales';
 import QuestionTextArea from './QuestionTextArea';
 import { QuestionTextDefaultProps } from './interface';
 import TextAreaPropsConfig from './TextAreaPropsConfig';
+import QuestionTextAreaReport from './QuestionTextAreaReport';
 
 const QuestionTextAreaConf: ComponentConfType = {
   componentId: nanoid(),
@@ -16,6 +17,7 @@ const QuestionTextAreaConf: ComponentConfType = {
   // 组件配置组件
   PropsConfComponent: TextAreaPropsConfig,
   defaultProps: QuestionTextDefaultProps,
+  ReportComponent: QuestionTextAreaReport,
 };
 
 export default QuestionTextAreaConf;

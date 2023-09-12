@@ -4,6 +4,7 @@ import i18n from '@/locales';
 import QuestionRadio from './QuestionRadio';
 import { QuestionRadioDefaultProps } from './interface';
 import QuestionRadioPropsConfig from './QuestionRadioPropsConfig';
+import QuestionRadioReport from './QuestionRadioReport';
 
 const QuestionRadioConf: ComponentConfType = {
   componentId: nanoid(),
@@ -16,6 +17,7 @@ const QuestionRadioConf: ComponentConfType = {
   // 组件配置组件
   PropsConfComponent: QuestionRadioPropsConfig,
   defaultProps: QuestionRadioDefaultProps,
+  ReportComponent: QuestionRadioReport,
 };
 
 export default QuestionRadioConf;

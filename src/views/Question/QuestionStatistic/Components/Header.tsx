@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_MANAGE_LIST } from '@/router/path';
 import { Segmented, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useGetComponentsState } from '@/hooks/useGetComponentsState';
 import type { SegmentedValue } from 'antd/es/segmented';
 
 interface StatisticHeaderPropsType {
   value: string;
+  title: string;
   onChange: (tab: SegmentedValue) => void;
 }
 
@@ -17,8 +17,7 @@ const StatisticHeader: FC<StatisticHeaderPropsType> = (props: StatisticHeaderPro
   const nav = useNavigate();
   const { t } = useTranslation();
 
-  const { value, onChange } = props;
-  const { title } = useGetComponentsState();
+  const { value, onChange, title } = props;
   const options = [
     {
       label: t('statistic.basicData'),

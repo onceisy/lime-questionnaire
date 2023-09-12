@@ -4,6 +4,7 @@ import { QuestionInputDefaultProps } from './interface';
 import i18n from '@/locales';
 import InputPropsConfig from './InputPropsConfig';
 import { ComponentConfType } from '..';
+import QuestionInputReport from './QuestionInputReport';
 
 export * from './interface';
 
@@ -17,6 +18,7 @@ const QuestionInputConf: ComponentConfType = {
   Component: QuestionInput,
   PropsConfComponent: InputPropsConfig,
   defaultProps: QuestionInputDefaultProps,
+  ReportComponent: QuestionInputReport,
 };
 
 export default QuestionInputConf;
