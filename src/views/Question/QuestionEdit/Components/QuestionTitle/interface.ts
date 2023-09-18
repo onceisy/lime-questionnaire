@@ -1,4 +1,4 @@
-import i18n from '@/locales';
+import type { TFunction } from 'i18next';
 
 interface QuestionTitlePropsType {
   text?: string;
@@ -10,9 +10,11 @@ interface QuestionTitlePropsType {
 }
 export default QuestionTitlePropsType;
 
-export const QuestionTitleDefaultProps: QuestionTitlePropsType = {
-  text: i18n.t('manage.questionTitle'),
-  level: 3,
-  isCenter: false,
-  description: i18n.t('question.defaultDescription'),
+export const getQuestionTitleDefaultProps = (t: TFunction): QuestionTitlePropsType => {
+  return {
+    text: t('manage.questionTitle'),
+    level: 3,
+    isCenter: false,
+    description: t('question.defaultDescription'),
+  };
 };

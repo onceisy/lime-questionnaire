@@ -13,7 +13,7 @@ const LeftPanel: FC = () => {
       children: <ComponentLibrary></ComponentLibrary>,
     },
     {
-      label: '大纲',
+      label: t('question.outline'),
       key: 'componentList',
       children: <ComponentList></ComponentList>,
     },

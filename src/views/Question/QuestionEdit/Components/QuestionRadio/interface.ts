@@ -1,6 +1,6 @@
 import { OptionType } from '@/views/Config/OptionsConfig/OptionEdit';
 import { nanoid } from 'nanoid';
-import i18n from '@/locales';
+import type { TFunction } from 'i18next';
 
 export interface QuestionRadioPropsType {
   label?: string;
@@ -21,17 +21,19 @@ export interface QuestionRadioPropsType {
   onChange?: (params: QuestionRadioPropsType) => void;
 }
 
-export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
-  label: i18n.t('question.componentType.radio'),
-  required: false,
-  options: [
-    { label: i18n.t('public.optionIndex', { i: 1 }), key: nanoid() },
-    { label: i18n.t('public.optionIndex', { i: 2 }), key: nanoid() },
-    { label: i18n.t('public.optionIndex', { i: 3 }), key: nanoid() },
-  ],
-  isUseDic: false,
-  dicId: '',
-  default: '',
-  rowCount: 1,
-  defaultValue: '',
+export const getQuestionRadioDefaultProps = (t: TFunction): QuestionRadioPropsType => {
+  return {
+    label: t('question.componentType.radio'),
+    required: false,
+    options: [
+      { label: t('public.optionIndex', { i: 1 }), key: nanoid() },
+      { label: t('public.optionIndex', { i: 2 }), key: nanoid() },
+      { label: t('public.optionIndex', { i: 3 }), key: nanoid() },
+    ],
+    isUseDic: false,
+    dicId: '',
+    default: '',
+    rowCount: 1,
+    defaultValue: '',
+  };
 };

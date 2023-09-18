@@ -1,4 +1,4 @@
-import i18n from '@/locales';
+import type { TFunction } from 'i18next';
 
 export interface QuestionTextAreaPropsType {
   label?: string;
@@ -11,11 +11,13 @@ export interface QuestionTextAreaPropsType {
   onChange?: (params: QuestionTextAreaPropsType) => void;
 }
 
-export const QuestionTextDefaultProps: QuestionTextAreaPropsType = {
-  label: i18n.t('question.componentType.textarea'),
-  required: false,
-  placeholder: i18n.t('question.placeholder.input'),
-  maxLength: 120,
-  showCount: true,
-  rows: 4,
+export const getQuestionTextDefaultProps = (t: TFunction): QuestionTextAreaPropsType => {
+  return {
+    label: t('question.componentType.textarea'),
+    required: false,
+    placeholder: t('question.placeholder.input'),
+    maxLength: 120,
+    showCount: true,
+    rows: 4,
+  };
 };

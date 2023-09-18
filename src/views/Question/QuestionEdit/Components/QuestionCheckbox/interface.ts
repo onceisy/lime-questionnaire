@@ -1,6 +1,6 @@
 import { OptionType } from '@/views/Config/OptionsConfig/OptionEdit';
 import { nanoid } from 'nanoid';
-import i18n from '@/locales';
+import type { TFunction } from 'i18next';
 
 export interface QuestionCheckboxPropsType {
   label?: string;
@@ -21,17 +21,19 @@ export interface QuestionCheckboxPropsType {
   onChange?: (params: QuestionCheckboxPropsType) => void;
 }
 
-export const QuestionCheckboxDefaultProps: QuestionCheckboxPropsType = {
-  label: i18n.t('question.componentType.checkbox'),
-  required: false,
-  options: [
-    { label: i18n.t('public.optionIndex', { i: 1 }), key: nanoid() },
-    { label: i18n.t('public.optionIndex', { i: 2 }), key: nanoid() },
-    { label: i18n.t('public.optionIndex', { i: 3 }), key: nanoid() },
-  ],
-  isUseDic: false,
-  dicId: '',
-  default: '',
-  rowCount: 1,
-  defaultValue: [],
+export const getQuestionCheckboxDefaultProps = (t: TFunction): QuestionCheckboxPropsType => {
+  return {
+    label: t('question.componentType.checkbox'),
+    required: false,
+    options: [
+      { label: t('public.optionIndex', { i: 1 }), key: nanoid() },
+      { label: t('public.optionIndex', { i: 2 }), key: nanoid() },
+      { label: t('public.optionIndex', { i: 3 }), key: nanoid() },
+    ],
+    isUseDic: false,
+    dicId: '',
+    default: '',
+    rowCount: 1,
+    defaultValue: [],
+  };
 };

@@ -157,6 +157,8 @@ export default {
     selectDic: '选择字典',
     defaultSelect: '默认选中',
     autoSave: '自动保存',
+    pageSetting: '页面设置',
+    outline: '大纲',
   },
   statistic: {
     basicData: '原始数据',

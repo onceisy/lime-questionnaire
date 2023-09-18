@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import type { TFunction } from 'i18next';
 
 interface QuestionInputPropsType {
   label?: string;
@@ -10,8 +10,10 @@ interface QuestionInputPropsType {
 
 export default QuestionInputPropsType;
 
-export const QuestionInputDefaultProps: QuestionInputPropsType = {
-  label: t('question.componentType.input'),
-  required: false,
-  placeholder: t('question.placeholder.input'),
+export const getQuestionInputDefaultProps = (t: TFunction): QuestionInputPropsType => {
+  return {
+    label: t('question.componentType.input'),
+    required: false,
+    placeholder: t('question.placeholder.input'),
+  };
 };

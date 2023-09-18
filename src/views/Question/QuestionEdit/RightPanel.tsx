@@ -49,7 +49,7 @@ const RightPanel: FC = () => {
       children: getPropsConfComponent(),
     },
     {
-      label: '页面设置',
+      label: t('question.pageSetting'),
       key: 'pageSetting',
       children: '2222',
     },

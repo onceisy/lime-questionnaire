@@ -1,4 +1,4 @@
-import i18n from '@/locales';
+import type { TFunction } from 'i18next';
 
 export default interface QuestionParagraphPropsType {
   text?: string;
@@ -14,12 +14,14 @@ export default interface QuestionParagraphPropsType {
   onChange?: (params: QuestionParagraphPropsType) => void;
 }
 
-export const QuestionParagraphDefaultProps: QuestionParagraphPropsType = {
-  text: i18n.t('question.questionParagraph'),
-  isCenter: false,
-  isStrong: false,
-  isItalic: false,
-  isCode: false,
-  fontSize: 14,
-  textColor: 'rgba(0, 0, 0, 0.88)',
+export const getQuestionParagraphDefaultProps = (t: TFunction): QuestionParagraphPropsType => {
+  return {
+    text: t('question.questionParagraph'),
+    isCenter: false,
+    isStrong: false,
+    isItalic: false,
+    isCode: false,
+    fontSize: 14,
+    textColor: 'rgba(0, 0, 0, 0.88)',
+  };
 };

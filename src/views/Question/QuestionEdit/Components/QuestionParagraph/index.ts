@@ -1,13 +1,12 @@
 import { nanoid } from 'nanoid';
-import i18n from '@/locales';
 import QuestionParagraph from './QuestionParagraph';
 import ParagraphPropsConfig from './ParagraphPropsConfig';
-import { QuestionParagraphDefaultProps } from './interface';
+import { getQuestionParagraphDefaultProps } from './interface';
 import { ComponentConfType } from '..';
 
 const QuestionParagraphConf: ComponentConfType = {
   componentId: nanoid(),
-  name: i18n.t('question.componentGroup.paragraph'),
+  name: 'question.componentGroup.paragraph',
   type: 'QuestionParagraph',
   // 组件库渲染时前面的图标
   icon: 'radix-icons:file-text',
@@ -15,7 +14,7 @@ const QuestionParagraphConf: ComponentConfType = {
   Component: QuestionParagraph,
   // 组件配置组件
   PropsConfComponent: ParagraphPropsConfig,
-  defaultProps: QuestionParagraphDefaultProps,
+  defaultProps: getQuestionParagraphDefaultProps,
 };
 
 export default QuestionParagraphConf;

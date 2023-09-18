@@ -9,8 +9,9 @@ import {
 } from '@/store/questionInfoSlice';
 import { nanoid } from 'nanoid';
 import { useAppDispatch } from '@/store/hooks';
-
+import { useTranslation } from 'react-i18next';
 const ComponentLibrary: FC = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   function genComponent(componentInfo: ComponentInfoType) {
     const { type } = componentInfo; // 每个组件的信息，是从 redux store 获取的（服务端获取）
@@ -19,7 +20,7 @@ const ComponentLibrary: FC = () => {
     if (componentConf == null) return null;
 
     const { Component, defaultProps } = componentConf;
-    return <Component {...defaultProps} />;
+    return <Component {...defaultProps(t)} />;
   }
 
   function handleAddComponent(params: ComponentConfType) {
@@ -27,7 +28,7 @@ const ComponentLibrary: FC = () => {
       componentId: nanoid(),
       type: params.type as ComponentTypesType,
       name: '',
-      props: params.defaultProps,
+      props: params.defaultProps(t),
     };
     dispatch(addComponentToList(newComp));
   }
@@ -37,14 +38,14 @@ const ComponentLibrary: FC = () => {
         const { _id, label, components } = component;
         return (
           <div key={_id} className="mt-4 first:mt-0">
-            <h4 className="mt-0">{label}</h4>
+            <h4 className="mt-0">{t(label)}</h4>
             <Space>
               {components.map(item => {
                 return (
                   <Popover
                     key={item.type}
                     placement="rightTop"
-                    title={item.name}
+                    title={t(item.name)}
                     content={
                       <Form layout="vertical" className="pointer-events-none">
                         {genComponent(item as ComponentInfoType)}
@@ -58,7 +59,7 @@ const ComponentLibrary: FC = () => {
                       <div className="flex justify-center items-center mr-1">
                         <Icon icon={item.icon} />
                       </div>
-                      <span>{item.name}</span>
+                      <span>{t(item.name)}</span>
                     </div>
                   </Popover>
                 );
