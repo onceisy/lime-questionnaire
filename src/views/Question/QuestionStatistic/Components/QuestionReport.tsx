@@ -78,7 +78,7 @@ const QuestionReport: FC<QuestionReportPropsType> = ({ setQuestionInfo }) => {
           {name}
         </Typography.Title>
         <div className="mt-2 text-xs">
-          {getComponentConfByType(componentType)?.name} / {t('statistic.answerCount')}: -
+          {t(getComponentConfByType(componentType)?.name || '')} / {t('statistic.answerCount')}: -
         </div>
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('statistic.noStatistic')} />
       </div>
@@ -109,10 +109,10 @@ const QuestionReport: FC<QuestionReportPropsType> = ({ setQuestionInfo }) => {
       {loading ? (
         <Loading top={60}></Loading>
       ) : (
-        <div className="flex border-t border-solid border-gray-100 border-x-0 border-b-0">
-          <div className="w-72 px-3 border-0 border-r border-gray-100 border-solid">
+        <div className="flex border-t border-solid border-gray-100 dark:border-gray-800 border-x-0 border-b-0">
+          <div className="w-72 px-3 border-0 border-r border-gray-100 dark:border-gray-800 border-solid">
             <Typography.Title level={4} className="py-4" style={{ margin: 0 }}>
-              报表目录
+              {t('statistic.reportCatalog')}
             </Typography.Title>
             <Divider className="py-0 my-0" />
             <div
@@ -153,7 +153,7 @@ const QuestionReport: FC<QuestionReportPropsType> = ({ setQuestionInfo }) => {
               return (
                 <div
                   key={i as string}
-                  className="border border-gray-100 border-solid rounded-lg m-4 p-3"
+                  className="border border-gray-100 dark:border-gray-800 border-solid rounded-lg m-4 p-3"
                 >
                   {genReportComponent(i as string)}
                 </div>

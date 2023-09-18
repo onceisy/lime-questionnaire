@@ -168,6 +168,7 @@ export default {
     selectTimes: '选择次数',
     answerCount: '回答人数',
     noStatistic: '该问题类型无法统计',
+    reportCatalog: '报表目录',
   },
   config: {
     options: '字典设置',

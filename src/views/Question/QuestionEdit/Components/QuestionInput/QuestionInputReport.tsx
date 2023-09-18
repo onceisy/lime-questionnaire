@@ -69,7 +69,8 @@ const QuestionInputReport: FC<ReportDataType> = (props: ReportDataType) => {
         {name}
       </Typography.Title>
       <div className="mt-2 text-xs">
-        {getComponentConfByType(componentType)?.name} / 回答人数: {count}
+        {t(getComponentConfByType(componentType)?.name || '')} / {t('statistic.answerCount')}:{' '}
+        {count}
       </div>
       <div>
         <Table

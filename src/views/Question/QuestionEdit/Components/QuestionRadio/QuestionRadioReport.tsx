@@ -72,7 +72,8 @@ const QuestionRadioReport: FC<ReportDataType> = (props: ReportDataType) => {
         {name}
       </Typography.Title>
       <div className="mt-2 text-xs">
-        {getComponentConfByType(componentType)?.name} / {t('statistic.answerCount')}: {count}
+        {t(getComponentConfByType(componentType)?.name || '')} / {t('statistic.answerCount')}:{' '}
+        {count}
       </div>
       <div className="flex">
         <div className="flex-1" style={{ height: data.length ? REPORT_COMPONENT_HEIGHT : 'auto' }}>
