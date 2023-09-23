@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/Layout/MainLayout';
 import Page404 from '@/views/ErrorPage/Page404';
@@ -8,13 +8,18 @@ import SignUp from '@/views/SignUp/SignUp';
 import MyQuestionList from '@/views/Manage/MyQuestionList/MyQuestionList';
 import StarList from '@/views/Manage/StarList/StarList';
 import TrashList from '@/views/Manage/TrashList/TrashList';
-import QuestionEdit from '@/views/Question/QuestionEdit';
-import QuestionStatistic from '@/views/Question/QuestionStatistic';
 import QuestionLayout from '@/Layout/QuestionLayout';
 import ManageLayout from '@/Layout/ManageLayout';
 import ConfigIndex from '@/views/Config';
 import OptionsConfig from '@/views/Config/OptionsConfig';
 import UserConfig from '@/views/Config/UserConfig/UserConfig';
+
+const QuestionStatistic = lazy(
+  () => import(/* webpackChunkName: "statisticPage" */ '@/views/Question/QuestionStatistic')
+);
+const QuestionEdit = lazy(
+  () => import(/* webpackChunkName: "editPage" */ '@/views/Question/QuestionEdit')
+);
 
 const router = createBrowserRouter([
   {

@@ -28,6 +28,7 @@
     "recharts": "^2.8.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
+    "source-map-explorer": "^2.5.3",
     "typescript": "*",
     "web-vitals": "^2.1.0"
   },
@@ -38,7 +39,8 @@
     "eject": "craco eject",
     "lint": "eslint 'src/**/*.+(js|ts|jsx|tsx)'",
     "prettier": "prettier --write 'src/**/*.+(js|ts|jsx|tsx)'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
