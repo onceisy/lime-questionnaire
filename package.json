@@ -36,6 +36,7 @@
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "test:no-watch": "craco test --watchAll=false",
     "eject": "craco eject",
     "lint": "eslint 'src/**/*.+(js|ts|jsx|tsx)'",
     "prettier": "prettier --write 'src/**/*.+(js|ts|jsx|tsx)'",

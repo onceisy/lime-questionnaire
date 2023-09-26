@@ -3,5 +3,6 @@
 
 yarn lint
 yarn prettier
+yarn test:no-watch
 
 git add .
